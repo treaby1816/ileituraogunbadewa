@@ -39,7 +39,7 @@ function BookingForm() {
 
   const update = (field: string, value: string | number) => setForm((prev) => ({ ...prev, [field]: value }));
 
-  const inputClass = "w-full bg-white/5 border border-gold-primary/20 rounded-xl px-4 py-3 text-cream text-[13px] outline-none focus:border-gold-primary/60 transition-colors placeholder:text-cream-faint";
+  const inputClass = "w-full bg-white/8 border border-gold-primary/20 rounded-xl px-4 py-3 text-cream text-[13px] outline-none focus:border-gold-primary/60 transition-colors placeholder:text-cream-faint";
 
   const handleSubmit = async () => {
     setStatus("loading");
@@ -107,7 +107,7 @@ function BookingForm() {
         ))}
       </div>
 
-      <div className="p-8 rounded-2xl border border-gold-primary/15 bg-linear-to-br from-forest/60 to-forest-dark">
+      <div className="p-5 sm:p-8 rounded-2xl border border-gold-primary/15 bg-linear-to-br from-forest/60 to-forest-dark shadow-xl">
         <AnimatePresence mode="wait">
           {step === 1 && (
             <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
@@ -128,7 +128,7 @@ function BookingForm() {
                   </button>
                 ))}
               </div>
-              <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label className="block font-cinzel text-[9px] tracking-widest text-gold-primary/60 uppercase mb-2">Check-in</label>
                   <input type="date" className={inputClass} value={form.check_in} min={today} onChange={(e) => update("check_in", e.target.value)} required />
@@ -140,18 +140,36 @@ function BookingForm() {
               </div>
               <div className="mb-6">
                 <label className="block font-cinzel text-[9px] tracking-widest text-gold-primary/60 uppercase mb-2">Guests</label>
-                <select className={inputClass} value={form.num_guests} onChange={(e) => update("num_guests", parseInt(e.target.value))}>
-                  {[1, 2, 3].filter((n) => n <= selectedRoom.maxGuests).map((n) => (
-                    <option key={n} value={n} style={{ background: "#0D1A0D" }}>{n} Guest{n > 1 ? "s" : ""}</option>
-                  ))}
-                </select>
+                {selectedRoom.isHall ? (
+                  <input 
+                    type="number" 
+                    min="1" 
+                    max={selectedRoom.maxGuests}
+                    className={inputClass}
+                    value={form.num_guests}
+                    onChange={(e) => update("num_guests", parseInt(e.target.value) || 1)}
+                    placeholder={`Max ${selectedRoom.maxGuests} guests`}
+                  />
+                ) : (
+                  <select className={inputClass} value={form.num_guests} onChange={(e) => update("num_guests", parseInt(e.target.value))}>
+                    {[1, 2, 3].filter((n) => n <= selectedRoom.maxGuests).map((n) => (
+                      <option key={n} value={n} style={{ background: "#0D1A0D" }}>{n} Guest{n > 1 ? "s" : ""}</option>
+                    ))}
+                  </select>
+                )}
               </div>
               {nights > 0 && (
                 <div className="bg-white/3 border border-gold-primary/10 rounded-xl p-4 mb-6 text-[13px]">
                   <div className="flex justify-between text-cream-muted"><span>{formatNaira(selectedRoom.price)} × {nights} night{nights !== 1 ? "s" : ""}</span><span className="text-gold-primary font-semibold">{formatNaira(total)}</span></div>
                 </div>
               )}
-              <Button variant="primary" className="w-full justify-center" onClick={() => { if (form.check_in && form.check_out) setStep(2); }}>
+              <Button variant="primary" className="w-full justify-center" onClick={() => { 
+                if (!form.check_in || !form.check_out) {
+                  toast.error("Please select check-in and check-out dates");
+                  return;
+                }
+                setStep(2); 
+              }}>
                 Next: Guest Details →
               </Button>
             </motion.div>
@@ -168,7 +186,13 @@ function BookingForm() {
               </div>
               <div className="flex gap-3">
                 <Button variant="ghost" className="flex-1 justify-center" onClick={() => setStep(1)}>← Back</Button>
-                <Button variant="primary" className="flex-1 justify-center" onClick={() => { if (form.guest_name && form.guest_phone) setStep(3); }}>
+                <Button variant="primary" className="flex-1 justify-center" onClick={() => { 
+                  if (!form.guest_name || !form.guest_phone) {
+                    toast.error("Name and Phone Number are required");
+                    return;
+                  }
+                  setStep(3); 
+                }}>
                   Next: Review →
                 </Button>
               </div>
