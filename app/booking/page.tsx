@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { formatNaira, calcNights, buildWABookingLink } from "@/lib/utils";
+import { toast } from "sonner";
 
 const ROOMS = [
   { type: "standard", name: "Classic Standard Room", price: 15000, maxGuests: 2 },
@@ -51,11 +52,14 @@ function BookingForm() {
       if (res.ok && data.booking_ref) {
         setBookingRef(data.booking_ref);
         setStatus("success");
+        toast.success("Room booked successfully!");
       } else {
         setStatus("error");
+        toast.error("Failed to book room. Please try again.");
       }
     } catch {
       setStatus("error");
+      toast.error("Network error. Please try again later.");
     }
   };
 
@@ -196,7 +200,6 @@ function BookingForm() {
               <div className="bg-gold-primary/8 border border-gold-primary/15 rounded-xl p-4 text-center mb-6">
                 <p className="text-gold-primary text-[12px]">💳 Pay on Arrival — No deposit required</p>
               </div>
-              {status === "error" && <p className="text-red-400 text-[12px] mb-4 text-center">Something went wrong. Please try again.</p>}
               <div className="flex gap-3">
                 <Button variant="ghost" className="flex-1 justify-center" onClick={() => setStep(2)}>← Back</Button>
                 <Button variant="primary" className="flex-1 justify-center" onClick={handleSubmit} disabled={status === "loading"}>

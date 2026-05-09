@@ -87,6 +87,8 @@ const hotelJsonLd = {
 };
 
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { Toaster } from "sonner";
+import DynamicChatbot from "@/components/ui/DynamicChatbot";
 
 export default function RootLayout({
   children,
@@ -107,8 +109,9 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
-          <Chatbot />
+          <DynamicChatbot />
           <WhatsAppButton />
+          <Toaster position="bottom-center" toastOptions={{ style: { background: "#0D1A0D", color: "#F8F4E8", border: "1px solid rgba(201,168,76,0.2)" } }} />
         </ThemeProvider>
       </body>
     </html>

@@ -37,22 +37,29 @@ export function Testimonials() {
           <h2 className="font-playfair text-4xl md:text-5xl text-cream mt-3">What Our Guests Say</h2>
         </motion.div>
 
-        <div ref={scrollRef} className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
-          {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
-            <div key={i} className="flex-shrink-0 w-[300px] md:w-[340px] snap-start p-7 rounded-2xl border border-gold-primary/15 bg-linear-to-br from-forest/70 to-forest-dark hover:border-gold-primary/35 transition-all duration-300">
-              <StarRating count={t.stars} />
-              <p className="text-cream/65 leading-relaxed mb-6 font-cormorant italic text-[15px]">&ldquo;{t.text}&rdquo;</p>
-              <div className="flex items-center gap-3 pt-4 border-t border-gold-primary/10">
-                <div className="w-9 h-9 rounded-full bg-gold-primary/20 border border-gold-primary/30 flex items-center justify-center text-gold-primary font-playfair font-bold text-[14px]">
-                  {t.name[0]}
-                </div>
-                <div>
-                  <p className="text-cream text-[13px] font-semibold">{t.name}</p>
-                  <p className="text-gold-primary/50 text-[11px]">{t.date}</p>
+        <div className="relative w-full overflow-hidden flex group">
+          {/* Fading Edges */}
+          <div className="absolute inset-y-0 left-0 w-20 md:w-32 bg-linear-to-r from-forest-dark to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-20 md:w-32 bg-linear-to-l from-forest-dark to-transparent z-10 pointer-events-none" />
+
+          {/* Scrolling Track */}
+          <div className="flex gap-5 w-max animate-[scrollX_35s_linear_infinite] group-hover:[animation-play-state:paused] pb-4">
+            {[...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
+              <div key={i} className="flex-shrink-0 w-[300px] md:w-[340px] p-7 rounded-2xl border border-gold-primary/15 bg-linear-to-br from-forest/70 to-forest-dark hover:border-gold-primary/35 transition-all duration-300">
+                <StarRating count={t.stars} />
+                <p className="text-cream/65 leading-relaxed mb-6 font-cormorant italic text-[15px]">&ldquo;{t.text}&rdquo;</p>
+                <div className="flex items-center gap-3 pt-4 border-t border-gold-primary/10">
+                  <div className="w-9 h-9 rounded-full bg-gold-primary/20 border border-gold-primary/30 flex items-center justify-center text-gold-primary font-playfair font-bold text-[14px]">
+                    {t.name[0]}
+                  </div>
+                  <div>
+                    <p className="text-cream text-[13px] font-semibold">{t.name}</p>
+                    <p className="text-gold-primary/50 text-[11px]">{t.date}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -3,15 +3,15 @@
 /* ─── Brand Design Tokens (Tailwind v4 @theme) ─────────────────────────────── */
 @theme inline {
   /* Colors */
-  --color-gold-primary: #C9A84C;
-  --color-gold-deep: #A07830;
-  --color-gold-light: #E8D08A;
-  --color-forest: #1A2B1A;
-  --color-forest-dark: #0D1A0D;
-  --color-forest-black: #070E07;
-  --color-cream: #F8F4E8;
-  --color-cream-light: #FFFDF5;
-  --color-charcoal: #2C2C2C;
+  --color-gold-primary: var(--theme-gold-primary);
+  --color-gold-deep: var(--theme-gold-deep);
+  --color-gold-light: var(--theme-gold-light);
+  --color-forest: var(--theme-forest);
+  --color-forest-dark: var(--theme-forest-dark);
+  --color-forest-black: var(--theme-forest-black);
+  --color-cream: var(--theme-cream);
+  --color-cream-light: var(--theme-cream-light);
+  --color-charcoal: var(--theme-charcoal);
 
   /* Fonts */
   --font-playfair: var(--font-playfair-display), serif;
@@ -28,29 +28,23 @@
 
 /* ─── CSS Custom Properties ─────────────────────────────────────────────────── */
 :root {
-  --gold-primary: #C9A84C;
-  --gold-deep: #A07830;
-  --gold-light: #E8D08A;
-  --dark-forest: #1A2B1A;
-  --accent-dark: #0D1A0D;
-  --near-black: #070E07;
-  --cream: #F8F4E8;
-  --off-white: #FFFDF5;
-  --charcoal: #2C2C2C;
+  --theme-gold-primary: #C9A84C;
+  --theme-gold-deep: #A07830;
+  --theme-gold-light: #E8D08A;
+  --theme-forest: #1A2B1A;
+  --theme-forest-dark: #0D1A0D;
+  --theme-forest-black: #070E07;
+  --theme-cream: #F8F4E8;
+  --theme-cream-light: #FFFDF5;
+  --theme-charcoal: #2C2C2C;
 }
 
 [data-theme="light"] {
-  --color-forest: #EAF4EA;
-  --color-forest-dark: #F3F8F3;
-  --color-forest-black: #FFFFFF;
-  --color-cream: #1A2B1A;
-  --color-cream-light: #0D1A0D;
-  
-  --dark-forest: #EAF4EA;
-  --accent-dark: #F3F8F3;
-  --near-black: #FFFFFF;
-  --cream: #1A2B1A;
-  --off-white: #0D1A0D;
+  --theme-forest: #EAF4EA;
+  --theme-forest-dark: #F3F8F3;
+  --theme-forest-black: #FFFFFF;
+  --theme-cream: #1A2B1A;
+  --theme-cream-light: #0D1A0D;
 }
 
 /* ─── Base Styles ───────────────────────────────────────────────────────────── */
@@ -114,6 +108,11 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 @keyframes dotBounce {
   0%, 60%, 100% { transform: translateY(0); opacity: 0.7; }
   30% { transform: translateY(-7px); opacity: 1; }
+}
+
+@keyframes scrollX {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 10px)); }
 }
 
 /* ─── Utility Classes ───────────────────────────────────────────────────────── */

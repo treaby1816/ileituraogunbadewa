@@ -3,17 +3,20 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { toast } from "sonner";
 
 const INQUIRY_TYPES = ["General Inquiry", "Room Booking", "Event Hall Hire", "Complaint", "Partnership", "Other"];
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", inquiry_type: "", message: "" });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.inquiry_type || !form.message) return;
-    setStatus("loading");
+    
+    setIsLoading(true);
     try {
       const res = await fetch("/api/inquiries", {
         method: "POST",
@@ -21,13 +24,16 @@ export default function ContactPage() {
         body: JSON.stringify(form),
       });
       if (res.ok) {
-        setStatus("success");
+        setIsSuccess(true);
+        toast.success("Message sent successfully! We will get back to you shortly.");
         setForm({ name: "", phone: "", email: "", inquiry_type: "", message: "" });
       } else {
-        setStatus("error");
+        toast.error("Failed to send message. Please try again.");
       }
     } catch {
-      setStatus("error");
+      toast.error("Network error. Please check your connection and try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -72,12 +78,12 @@ export default function ContactPage() {
             <div className="p-7 rounded-2xl border border-gold-primary/15 bg-linear-to-br from-forest/60 to-forest-dark">
               <h3 className="font-playfair text-xl text-cream mb-6">Send a Message</h3>
 
-              {status === "success" ? (
+              {isSuccess ? (
                 <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-10">
                   <div className="text-4xl mb-4">✅</div>
                   <h4 className="font-playfair text-xl text-cream mb-2">Message Sent!</h4>
                   <p className="text-cream/50 text-[13px] mb-6">We&apos;ll get back to you shortly.</p>
-                  <Button variant="ghost" size="sm" onClick={() => setStatus("idle")}>Send Another</Button>
+                  <Button variant="ghost" size="sm" onClick={() => setIsSuccess(false)}>Send Another</Button>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -92,10 +98,8 @@ export default function ContactPage() {
                   </select>
                   <textarea className={`${inputClass} min-h-[120px] resize-none`} placeholder="Your Message *" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required />
 
-                  {status === "error" && <p className="text-red-400 text-[12px]">Something went wrong. Please try again or call us directly.</p>}
-
-                  <Button type="submit" variant="primary" className="w-full justify-center" disabled={status === "loading"}>
-                    {status === "loading" ? "Sending…" : "Send Message"}
+                  <Button type="submit" variant="primary" className="w-full justify-center" disabled={isLoading}>
+                    {isLoading ? "Sending…" : "Send Message"}
                   </Button>
                 </form>
               )}

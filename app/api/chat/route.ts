@@ -10,11 +10,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid messages format" }, { status: 400 });
     }
 
-    // Convert standard chat messages to Gemini's format
-    const history = messages.slice(0, -1).map((m: any) => ({
-      role: m.role === "user" ? "user" : "model",
-      parts: [{ text: m.content }],
-    }));
+    // Filter out the initial welcome message from history to prevent duplicate "model" roles
+    const history = messages
+      .slice(0, -1)
+      .filter((m: any) => m.id !== "welcome")
+      .map((m: any) => ({
+        role: m.role === "user" ? "user" : "model",
+        parts: [{ text: m.content }],
+      }));
 
     const lastMessage = messages[messages.length - 1].content;
 

@@ -22,6 +22,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Failed to submit inquiry. Please try again." }, { status: 500 });
     }
 
+    // Send email notification asynchronously
+    const { sendInquiryNotification } = await import("@/lib/email-service");
+    sendInquiryNotification({ name, phone, email, inquiry_type, message }).catch(console.error);
+
     return NextResponse.json({ success: true, id: data.id });
   } catch {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });

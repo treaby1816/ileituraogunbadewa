@@ -39,6 +39,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Failed to create booking. Please try again." }, { status: 500 });
     }
 
+    // Send email notification asynchronously
+    const { sendBookingConfirmation } = await import("@/lib/email-service");
+    sendBookingConfirmation({
+      booking_ref: data.booking_ref,
+      room_type,
+      guest_name,
+      guest_phone,
+      guest_email,
+      check_in,
+      check_out,
+      special_requests
+    }).catch(console.error);
+
     return NextResponse.json({ success: true, booking_ref: data.booking_ref, id: data.id });
   } catch {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });

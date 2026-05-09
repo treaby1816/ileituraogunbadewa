@@ -21,8 +21,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand col */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-12 h-12 rounded-full overflow-hidden shadow-[0_0_16px_rgba(201,168,76,0.35)]">
+            <Link href="/" className="flex items-center gap-3 mb-5 group cursor-pointer block w-max">
+              <div className="w-12 h-12 rounded-full overflow-hidden shadow-[0_0_16px_rgba(201,168,76,0.35)] group-hover:shadow-[0_0_24px_rgba(201,168,76,0.6)] transition-shadow">
                 <Image
                   src="/images/logo.png"
                   alt="Ilé Ìtura Ògúnbádéwà Logo"
@@ -39,7 +39,7 @@ export function Footer() {
                   Ògúnbádéwà
                 </p>
               </div>
-            </div>
+            </Link>
             <p className="font-cormorant italic text-cream/50 text-[15px] leading-relaxed mb-6">
               &ldquo;…Embrace Comfort,
               <br />
