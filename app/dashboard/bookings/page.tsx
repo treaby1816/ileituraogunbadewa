@@ -3,11 +3,17 @@ import { createServiceClient } from "@/lib/supabase-server";
 export const dynamic = "force-dynamic";
 
 export default async function BookingsPage() {
-  const supabase = await createServiceClient();
-  const { data: bookings } = await supabase
-    .from("bookings")
-    .select("*")
-    .order("created_at", { ascending: false });
+  let bookings: any[] = [];
+  try {
+    const supabase = await createServiceClient();
+    const { data } = await supabase
+      .from("bookings")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (data) bookings = data;
+  } catch (error) {
+    console.error("Bookings fetch error:", error);
+  }
 
   return (
     <div className="space-y-6">
