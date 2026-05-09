@@ -1,13 +1,13 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-if (!process.env.GEMINI_API_KEY) {
-  throw new Error("Missing GEMINI_API_KEY environment variable");
-}
-
-export const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-export const getChatModel = () =>
-  genAI.getGenerativeModel({
+export const getChatModel = () => {
+  if (!process.env.GEMINI_API_KEY) {
+    throw new Error("Missing GEMINI_API_KEY environment variable");
+  }
+  
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  
+  return genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     generationConfig: {
       maxOutputTokens: 600,
@@ -15,3 +15,5 @@ export const getChatModel = () =>
       topP: 0.9,
     },
   });
+};
+
