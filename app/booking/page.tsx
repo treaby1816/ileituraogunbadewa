@@ -131,7 +131,11 @@ function BookingForm() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label className="block font-cinzel text-[9px] tracking-widest text-gold-primary/60 uppercase mb-2">Check-in</label>
-                  <input type="date" className={inputClass} value={form.check_in} min={today} onChange={(e) => update("check_in", e.target.value)} required />
+                  <input type="date" className={inputClass} value={form.check_in} min={today} onChange={(e) => {
+                    const val = e.target.value;
+                    update("check_in", val);
+                    if (selectedRoom.isHall && !form.check_out) update("check_out", val);
+                  }} required />
                 </div>
                 <div>
                   <label className="block font-cinzel text-[9px] tracking-widest text-gold-primary/60 uppercase mb-2">Check-out</label>
@@ -168,6 +172,7 @@ function BookingForm() {
                   toast.error("Please select check-in and check-out dates");
                   return;
                 }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 setStep(2); 
               }}>
                 Next: Guest Details →
@@ -191,6 +196,7 @@ function BookingForm() {
                     toast.error("Name and Phone Number are required");
                     return;
                   }
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                   setStep(3); 
                 }}>
                   Next: Review →
