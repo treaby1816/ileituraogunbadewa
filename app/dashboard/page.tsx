@@ -39,6 +39,8 @@ async function getDashboardData() {
   }
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function DashboardOverview() {
   const { bookings, inquiries, totalBookings, totalInquiries, totalRevenue } = await getDashboardData();
 

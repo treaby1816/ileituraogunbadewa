@@ -48,8 +48,8 @@ export function HeroSection() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-linear-to-b from-forest-black/80 via-forest-dark/70 to-forest-black/90" />
+      {/* Dark overlay - always dark to ensure text contrast over photos */}
+      <div className="absolute inset-0 bg-linear-to-b from-[#070E07]/80 via-[#0D1A0D]/70 to-[#070E07]/90" />
       {/* Gold vignette */}
       <div
         className="absolute inset-0"
@@ -71,7 +71,7 @@ export function HeroSection() {
         </motion.p>
 
         {/* Main title — staggered word reveal */}
-        <h1 className="font-playfair text-5xl sm:text-6xl md:text-7xl text-cream leading-tight mb-6">
+        <h1 className="font-playfair text-5xl sm:text-6xl md:text-7xl text-[#F8F4E8] leading-tight mb-6">
           {["Ilé", "Ìtura", "Ògúnbádéwà"].map((word, i) => (
             <motion.span
               key={word}
@@ -94,7 +94,7 @@ export function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="font-cormorant italic text-xl md:text-2xl text-cream/70 mb-10"
+          className="font-cormorant italic text-xl md:text-2xl text-[#F8F4E8]/70 mb-10"
         >
           …Embrace Comfort, Enjoy Luxury
         </motion.p>

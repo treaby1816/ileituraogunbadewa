@@ -1,18 +1,40 @@
 @import "tailwindcss";
 
+/* ─── Dynamic CSS Variables ────────────────────────────────────────────────── */
+:root {
+  /* Dark mode defaults */
+  --theme-forest: #1A2B1A;
+  --theme-forest-dark: #0D1A0D;
+  --theme-forest-black: #070E07;
+  --theme-cream: #F8F4E8;
+  --theme-cream-light: #FFFDF5;
+  --theme-charcoal: #A0A0A0;
+}
+
+[data-theme="light"] {
+  /* Light mode overrides */
+  --theme-forest: #EAF4EA;
+  --theme-forest-dark: #F3F8F3;
+  --theme-forest-black: #FFFFFF;
+  --theme-cream: #1A2B1A;
+  --theme-cream-light: #0D1A0D;
+  --theme-charcoal: #4A4A4A;
+}
+
 /* ─── Brand Design Tokens (Tailwind v4 @theme) ─────────────────────────────── */
-/* Hardcoded defaults (dark mode). Overridden by [data-theme="light"] below.   */
 @theme inline {
-  /* Colors — dark mode defaults */
+  /* Static Colors */
   --color-gold-primary: #C9A84C;
   --color-gold-deep: #A07830;
   --color-gold-light: #E8D08A;
-  --color-forest: #1A2B1A;
-  --color-forest-dark: #0D1A0D;
-  --color-forest-black: #070E07;
-  --color-cream: #F8F4E8;
-  --color-cream-light: #FFFDF5;
-  --color-charcoal: #A0A0A0;
+
+  /* Dynamic Theme Colors */
+  --color-forest: var(--theme-forest);
+  --color-forest-dark: var(--theme-forest-dark);
+  --color-forest-black: var(--theme-forest-black);
+  --color-cream: var(--theme-cream);
+  --color-cream-light: var(--theme-cream-light);
+  --color-charcoal: var(--theme-charcoal);
 
   /* Fonts */
   --font-playfair: var(--font-playfair-display), serif;
@@ -25,17 +47,6 @@
   --animate-pulse-gold: pulseGold 2.4s ease-in-out infinite;
   --animate-fade-in: fadeIn 0.4s ease-out;
   --animate-slide-up: slideUp 0.4s ease-out;
-}
-
-/* ─── Light Theme Overrides ─────────────────────────────────────────────────── */
-/* Directly override --color-* so Tailwind utility classes swap correctly.      */
-[data-theme="light"] {
-  --color-forest: #EAF4EA;
-  --color-forest-dark: #F3F8F3;
-  --color-forest-black: #FFFFFF;
-  --color-cream: #1A2B1A;
-  --color-cream-light: #0D1A0D;
-  --color-charcoal: #4A4A4A;
 }
 
 /* ─── Base Styles ───────────────────────────────────────────────────────────── */
