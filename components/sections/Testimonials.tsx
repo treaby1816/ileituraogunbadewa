@@ -43,7 +43,7 @@ export function Testimonials() {
           <div className="absolute inset-y-0 right-0 w-20 md:w-32 bg-linear-to-l from-forest-dark to-transparent z-10 pointer-events-none" />
 
           {/* Scrolling Track */}
-          <div className="flex gap-5 w-max animate-[scrollX_35s_linear_infinite] group-hover:[animation-play-state:paused] pb-4">
+          <div className="flex gap-5 w-max animate-[scrollX_35s_linear_infinite] pause-on-hover pb-4">
             {[...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
               <div key={i} className="flex-shrink-0 w-[300px] md:w-[340px] p-7 rounded-2xl border border-gold-primary/15 bg-linear-to-br from-forest/70 to-forest-dark hover:border-gold-primary/35 transition-all duration-300">
                 <StarRating count={t.stars} />

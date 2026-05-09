@@ -27,7 +27,7 @@ export function BookingStrip() {
           <h2 className="font-playfair text-4xl md:text-5xl text-forest-black mt-3 mb-6 font-semibold">
             Book Your Stay Today!
           </h2>
-          <p className="text-charcoal/70 text-[16px] leading-relaxed mb-8 max-w-md">
+          <p className="opacity-75 text-[16px] leading-relaxed mb-8 max-w-md">
             Experience the pinnacle of hospitality. Whether for business or leisure, our gates are open to provide you with an unforgettable experience.
           </p>
           

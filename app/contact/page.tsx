@@ -64,10 +64,10 @@ export default function ContactPage() {
                 { icon: "📞", label: "Phone", value: "08129041015 / 08060721283" },
                 { icon: "💬", label: "WhatsApp", value: "+234 812 904 1015" },
               ].map((c) => (
-                <div key={c.label} className="p-5 rounded-xl border border-gold-primary/12 bg-forest/40">
+                <div key={c.label} className="p-5 rounded-xl border border-gold-primary/20 bg-forest/40 backdrop-blur-sm">
                   <div className="text-xl mb-2">{c.icon}</div>
-                  <p className="font-cinzel text-[9px] tracking-widest text-gold-primary/60 uppercase mb-1">{c.label}</p>
-                  <p className="text-cream/60 text-[12px] leading-relaxed">{c.value}</p>
+                  <p className="font-cinzel text-[9px] tracking-widest text-gold-primary font-bold uppercase mb-1">{c.label}</p>
+                  <p className="text-cream text-[12px] leading-relaxed opacity-75">{c.value}</p>
                 </div>
               ))}
             </div>

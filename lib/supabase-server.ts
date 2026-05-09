@@ -31,18 +31,23 @@ export async function createServerClient() {
 }
 
 export async function createServiceClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!url || !key) {
+    console.error("Missing Supabase Service Role credentials");
+    // Return a dummy client or throw a more descriptive error
+    throw new Error("Supabase credentials not configured in environment variables.");
+  }
+
   const cookieStore = await cookies();
-  return createSupabaseServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
-        set() {},
-        remove() {},
+  return createSupabaseServerClient(url, key, {
+    cookies: {
+      get(name: string) {
+        return cookieStore.get(name)?.value;
       },
-    }
-  );
+      set() {},
+      remove() {},
+    },
+  });
 }

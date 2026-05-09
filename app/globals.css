@@ -36,7 +36,7 @@
   --theme-forest-black: #070E07;
   --theme-cream: #F8F4E8;
   --theme-cream-light: #FFFDF5;
-  --theme-charcoal: #2C2C2C;
+  --theme-charcoal: #A0A0A0; /* Light gray for secondary text in dark mode */
 }
 
 [data-theme="light"] {
@@ -45,6 +45,7 @@
   --theme-forest-black: #FFFFFF;
   --theme-cream: #1A2B1A;
   --theme-cream-light: #0D1A0D;
+  --theme-charcoal: #4A4A4A; /* Dark gray for secondary text in light mode */
 }
 
 /* ─── Base Styles ───────────────────────────────────────────────────────────── */
@@ -144,4 +145,8 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 
 @utility animate-pulse-gold {
   animation: pulseGold 2.4s ease-in-out infinite;
+}
+
+.pause-on-hover:hover {
+  animation-play-state: paused !important;
 }

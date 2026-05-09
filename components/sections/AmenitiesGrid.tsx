@@ -25,7 +25,7 @@ export function AmenitiesGrid() {
           <h2 className="font-playfair text-4xl md:text-5xl text-forest-black mt-3 mb-4 font-semibold">
             Curated Amenities
           </h2>
-          <p className="text-charcoal/70 max-w-xl mx-auto text-[15px]">
+          <p className="opacity-75 max-w-xl mx-auto text-[15px]">
             Indulge in a suite of services designed to provide the ultimate relaxation and convenience during your stay at our private estate.
           </p>
         </motion.div>
@@ -39,7 +39,7 @@ export function AmenitiesGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="group relative h-[300px] rounded-sm overflow-hidden flex flex-col justify-end p-6 md:p-8 cursor-default border border-gold-primary/20 hover:border-gold-primary/50 transition-all duration-300"
+              className="group relative h-[300px] rounded-sm overflow-hidden flex flex-col justify-end p-6 md:p-8 cursor-default border border-gold-primary/20 hover:border-gold-primary/50 transition-all duration-300 shadow-xl"
             >
               <Image 
                 src={item.image} 
@@ -48,12 +48,12 @@ export function AmenitiesGrid() {
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-linear-to-t from-forest-black/90 via-forest-black/40 to-transparent z-0" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent z-0" />
               
               <div className="relative z-10">
                 <div className="text-3xl mb-2 text-gold-primary">{item.icon}</div>
                 <h3 className="font-playfair text-2xl text-white mb-2">{item.title}</h3>
-                <p className="text-cream/80 text-[13px] leading-relaxed max-w-[80%]">{item.desc}</p>
+                <p className="text-gray-200 text-[13px] leading-relaxed max-w-[80%]">{item.desc}</p>
               </div>
             </motion.div>
           ))}
