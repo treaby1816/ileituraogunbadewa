@@ -53,7 +53,8 @@ export async function POST(request: Request) {
     }).catch(console.error);
 
     return NextResponse.json({ success: true, booking_ref: data.booking_ref, id: data.id });
-  } catch {
-    return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+  } catch (err: any) {
+    console.error("Booking API catch error:", err);
+    return NextResponse.json({ error: `Invalid request: ${err.message || "Unknown error"}` }, { status: 400 });
   }
 }
