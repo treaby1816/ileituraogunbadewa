@@ -22,10 +22,10 @@ export function AmenitiesGrid() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-playfair text-4xl md:text-5xl text-forest-black mt-3 mb-4 font-semibold">
+          <h2 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4 font-semibold">
             Curated Amenities
           </h2>
-          <p className="text-charcoal max-w-xl mx-auto text-[15px]">
+          <p className="text-cream-muted max-w-xl mx-auto text-[15px]">
             Indulge in a suite of services designed to provide the ultimate relaxation and convenience during your stay at our private estate.
           </p>
         </motion.div>

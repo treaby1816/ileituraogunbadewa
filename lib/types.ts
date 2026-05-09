@@ -1,4 +1,4 @@
-export type RoomType = "standard" | "deluxe" | "suite";
+export type RoomType = "standard" | "deluxe" | "suite" | "hall";
 export type BookingStatus = "pending" | "confirmed" | "cancelled";
 export type GalleryCategory = "rooms" | "bar" | "recreation" | "exterior" | "events";
 

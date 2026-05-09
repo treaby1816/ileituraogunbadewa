@@ -8,9 +8,10 @@ import { formatNaira, calcNights, buildWABookingLink } from "@/lib/utils";
 import { toast } from "sonner";
 
 const ROOMS = [
-  { type: "standard", name: "Classic Standard Room", price: 15000, maxGuests: 2 },
-  { type: "deluxe", name: "Deluxe Comfort Room", price: 22000, maxGuests: 2 },
-  { type: "suite", name: "Executive Suite", price: 35000, maxGuests: 3 },
+  { type: "standard", name: "Classic Standard Room", price: 15000, maxGuests: 2, isHall: false },
+  { type: "deluxe", name: "Deluxe Comfort Room", price: 22000, maxGuests: 2, isHall: false },
+  { type: "suite", name: "Executive Suite", price: 35000, maxGuests: 3, isHall: false },
+  { type: "hall", name: "Spacious Event Hall", price: 150000, maxGuests: 150, isHall: true },
 ];
 
 function BookingForm() {
@@ -52,10 +53,10 @@ function BookingForm() {
       if (res.ok && data.booking_ref) {
         setBookingRef(data.booking_ref);
         setStatus("success");
-        toast.success("Room booked successfully!");
+        toast.success(selectedRoom.isHall ? "Hall booked successfully!" : "Room booked successfully!");
       } else {
         setStatus("error");
-        toast.error("Failed to book room. Please try again.");
+        toast.error("Failed to book. Please try again.");
       }
     } catch {
       setStatus("error");
@@ -110,7 +111,7 @@ function BookingForm() {
         <AnimatePresence mode="wait">
           {step === 1 && (
             <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-              <h3 className="font-playfair text-xl text-cream mb-6">1. Select Your Room</h3>
+              <h3 className="font-playfair text-xl text-cream mb-6">1. Select Your Space</h3>
               <div className="space-y-3 mb-6">
                 {ROOMS.map((room) => (
                   <button key={room.type} onClick={() => update("room_type", room.type)}
@@ -219,8 +220,8 @@ export default function BookingPage() {
     <main className="pt-24">
       <section className="py-16 px-4 md:px-8 text-center bg-linear-to-b from-forest-dark to-forest-black">
         <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Reservation</span>
-        <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Book Your Stay</h1>
-        <p className="text-cream-muted max-w-xl mx-auto">Reserve your room in 3 simple steps. Pay on arrival.</p>
+        <h1 className="font-playfair text-4xl md:text-5xl text-gold-primary mt-3 mb-4">Book Your Stay or Event</h1>
+        <p className="text-cream-muted max-w-xl mx-auto">Reserve your room or event hall in 3 simple steps. Pay on arrival.</p>
       </section>
       <section className="py-16 px-4 md:px-8 pb-24 bg-forest-black">
         <Suspense fallback={<div className="text-center text-cream-faint py-20">Loading...</div>}>

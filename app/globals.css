@@ -7,6 +7,7 @@
   --theme-forest-dark: #0D1A0D;
   --theme-forest-black: #070E07;
   --theme-cream: #F8F4E8;
+  --theme-cream-light: #FFFDF5;
   --theme-cream-muted: #F8F4E899; /* 60% opacity */
   --theme-cream-faint: #F8F4E84D; /* 30% opacity */
   --theme-charcoal: #A0A0A0;
@@ -18,6 +19,7 @@
   --theme-forest-dark: #F3F8F3;
   --theme-forest-black: #FFFFFF;
   --theme-cream: #1A2B1A;
+  --theme-cream-light: #0D1A0D;
   --theme-cream-muted: #1A2B1A99; /* 60% opacity */
   --theme-cream-faint: #1A2B1A66; /* 40% opacity */
   --theme-charcoal: #4A4A4A;
@@ -35,6 +37,7 @@
   --color-forest-dark: var(--theme-forest-dark);
   --color-forest-black: var(--theme-forest-black);
   --color-cream: var(--theme-cream);
+  --color-cream-light: var(--theme-cream-light);
   --color-cream-muted: var(--theme-cream-muted);
   --color-cream-faint: var(--theme-cream-faint);
   --color-charcoal: var(--theme-charcoal);
