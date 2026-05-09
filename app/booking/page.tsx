@@ -55,8 +55,9 @@ function BookingForm() {
         setStatus("success");
         toast.success(selectedRoom.isHall ? "Hall booked successfully!" : "Room booked successfully!");
       } else {
+        console.error("Booking failed:", data.error);
         setStatus("error");
-        toast.error("Failed to book. Please try again.");
+        toast.error(data.error || "Failed to book. Please try again.");
       }
     } catch {
       setStatus("error");
@@ -123,7 +124,10 @@ function BookingForm() {
                         <p className="text-cream font-semibold text-[14px]">{room.name}</p>
                         <p className="text-cream-faint text-[11px]">Max {room.maxGuests} guests</p>
                       </div>
-                      <p className="font-playfair text-gold-primary text-lg">{formatNaira(room.price)}<span className="text-cream-faint text-[11px]">/night</span></p>
+                      <p className="font-playfair text-gold-primary text-lg">
+                        {formatNaira(room.price)}
+                        {!room.isHall && <span className="text-cream-faint text-[11px]">/night</span>}
+                      </p>
                     </div>
                   </button>
                 ))}
@@ -164,7 +168,15 @@ function BookingForm() {
               </div>
               {nights > 0 && (
                 <div className="bg-white/3 border border-gold-primary/10 rounded-xl p-4 mb-6 text-[13px]">
-                  <div className="flex justify-between text-cream-muted"><span>{formatNaira(selectedRoom.price)} × {nights} night{nights !== 1 ? "s" : ""}</span><span className="text-gold-primary font-semibold">{formatNaira(total)}</span></div>
+                  <div className="flex justify-between text-cream-muted">
+                    <span>
+                      {selectedRoom.isHall 
+                        ? `${selectedRoom.name} Booking` 
+                        : `${formatNaira(selectedRoom.price)} × ${nights} night${nights !== 1 ? "s" : ""}`
+                      }
+                    </span>
+                    <span className="text-gold-primary font-semibold">{formatNaira(total)}</span>
+                  </div>
                 </div>
               )}
               <Button variant="primary" className="w-full justify-center" onClick={() => { 

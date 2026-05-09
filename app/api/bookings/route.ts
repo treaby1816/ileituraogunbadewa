@@ -36,7 +36,7 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error("Booking insert error:", error);
-      return NextResponse.json({ error: "Failed to create booking. Please try again." }, { status: 500 });
+      return NextResponse.json({ error: error.message || "Failed to create booking. Please try again." }, { status: 500 });
     }
 
     // Send email notification asynchronously
