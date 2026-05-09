@@ -162,7 +162,10 @@ export function Footer() {
       <div className="border-t border-gold-primary/8 px-4 md:px-8 py-5">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-cream/30">
           <p>© {new Date().getFullYear()} Ilé Ìtura Ògúnbádéwà. All rights reserved.</p>
-          <p>Developed by Treabyn Inc.</p>
+          <div className="flex gap-4">
+            <p>Developed by Treabyn Inc.</p>
+            <Link href="/dashboard" className="hover:text-gold-primary transition-colors">Admin Dashboard</Link>
+          </div>
         </div>
       </div>
     </footer>

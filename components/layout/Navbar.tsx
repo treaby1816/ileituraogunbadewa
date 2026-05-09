@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { Button } from "@/components/ui/Button";
 import { useTheme } from "@/components/ThemeProvider";
+import { Sun, Moon } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -86,14 +87,18 @@ export function Navbar() {
             {mounted && (
               <button
                 onClick={toggleTheme}
-                className="w-10 h-10 rounded-full flex items-center justify-center text-cream/70 hover:text-gold-primary hover:bg-white/5 transition-all cursor-pointer border border-gold-primary/10"
+                className="w-10 h-10 rounded-full flex items-center justify-center text-cream/70 hover:text-gold-primary hover:bg-gold-primary/10 transition-all cursor-pointer border border-gold-primary/20 shadow-[0_0_10px_rgba(201,168,76,0.1)] hover:shadow-[0_0_15px_rgba(201,168,76,0.3)] group"
                 aria-label="Toggle Theme"
               >
-                {theme === "dark" ? "☀️" : "🌙"}
+                {theme === "dark" ? (
+                  <Sun size={18} className="transition-transform group-hover:rotate-45" />
+                ) : (
+                  <Moon size={18} className="transition-transform group-hover:-rotate-12" />
+                )}
               </button>
             )}
             <Button href="/booking" variant="primary" size="sm" className="hidden md:flex">
-              Book Now
+              Book Your Stay
             </Button>
             {/* Hamburger */}
             <button
