@@ -82,7 +82,7 @@ function BookingForm() {
           <p className="font-playfair text-3xl text-gold-primary font-bold">{bookingRef}</p>
         </div>
         <div className="text-cream-muted text-[13px] space-y-1 mb-8">
-          <p>{selectedRoom.name} · {nights} night{nights !== 1 ? "s" : ""}</p>
+          <p>{selectedRoom.name}{!selectedRoom.isHall && ` · ${nights} night${nights !== 1 ? "s" : ""}`}</p>
           <p>{form.check_in} → {form.check_out}</p>
           <p className="text-gold-primary font-semibold text-lg mt-2">{formatNaira(total)}</p>
           <p className="text-cream-faint text-[11px] mt-1">💳 Pay on Arrival — No deposit required</p>
@@ -223,7 +223,7 @@ function BookingForm() {
               <div className="space-y-4 mb-6">
                 {[
                   { label: "Room", value: selectedRoom.name },
-                  { label: "Dates", value: `${form.check_in} → ${form.check_out} (${nights} night${nights !== 1 ? "s" : ""})` },
+                  { label: "Dates", value: selectedRoom.isHall ? `${form.check_in} → ${form.check_out}` : `${form.check_in} → ${form.check_out} (${nights} night${nights !== 1 ? "s" : ""})` },
                   { label: "Guests", value: `${form.num_guests}` },
                   { label: "Guest Name", value: form.guest_name },
                   { label: "Phone", value: form.guest_phone },
