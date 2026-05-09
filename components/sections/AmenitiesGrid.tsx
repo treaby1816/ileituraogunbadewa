@@ -25,7 +25,7 @@ export function AmenitiesGrid() {
           <h2 className="font-playfair text-4xl md:text-5xl text-forest-black mt-3 mb-4 font-semibold">
             Curated Amenities
           </h2>
-          <p className="opacity-75 max-w-xl mx-auto text-[15px]">
+          <p className="text-charcoal max-w-xl mx-auto text-[15px]">
             Indulge in a suite of services designed to provide the ultimate relaxation and convenience during your stay at our private estate.
           </p>
         </motion.div>

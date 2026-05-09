@@ -64,10 +64,10 @@ export default function ContactPage() {
                 { icon: "📞", label: "Phone", value: "08129041015 / 08060721283" },
                 { icon: "💬", label: "WhatsApp", value: "+234 812 904 1015" },
               ].map((c) => (
-                <div key={c.label} className="p-5 rounded-xl border border-gold-primary/20 bg-forest/40 backdrop-blur-sm">
+                <div key={c.label} className="p-5 rounded-xl border border-gold-primary/20 bg-forest/40 backdrop-blur-sm hover:-translate-y-1 hover:border-gold-primary/40 hover:shadow-[0_12px_30px_rgba(201,168,76,0.08)] transition-all duration-300">
                   <div className="text-xl mb-2">{c.icon}</div>
                   <p className="font-cinzel text-[9px] tracking-widest text-gold-primary font-bold uppercase mb-1">{c.label}</p>
-                  <p className="text-cream text-[12px] leading-relaxed opacity-75">{c.value}</p>
+                  <p className="text-cream/80 text-[12px] leading-relaxed">{c.value}</p>
                 </div>
               ))}
             </div>
@@ -75,7 +75,7 @@ export default function ContactPage() {
 
           {/* Form */}
           <div className="lg:col-span-2">
-            <div className="p-7 rounded-2xl border border-gold-primary/15 bg-linear-to-br from-forest/60 to-forest-dark">
+            <div className="p-7 rounded-2xl border border-gold-primary/15 bg-linear-to-br from-forest/60 to-forest-dark hover:border-gold-primary/25 transition-all duration-300">
               <h3 className="font-playfair text-xl text-cream mb-6">Send a Message</h3>
 
               {isSuccess ? (

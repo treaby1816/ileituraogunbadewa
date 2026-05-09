@@ -27,7 +27,7 @@ export function BookingStrip() {
           <h2 className="font-playfair text-4xl md:text-5xl text-forest-black mt-3 mb-6 font-semibold">
             Book Your Stay Today!
           </h2>
-          <p className="opacity-75 text-[16px] leading-relaxed mb-8 max-w-md">
+          <p className="text-charcoal text-[16px] leading-relaxed mb-8 max-w-md">
             Experience the pinnacle of hospitality. Whether for business or leisure, our gates are open to provide you with an unforgettable experience.
           </p>
           
@@ -38,7 +38,7 @@ export function BookingStrip() {
             <span>A Premium Destination</span>
           </div>
 
-          <Button variant="primary" size="lg" onClick={handleCheck} className="w-fit text-sm tracking-wider uppercase font-cinzel rounded-sm bg-forest-black hover:bg-forest text-gold-primary border-none px-8 py-4">
+          <Button variant="primary" size="lg" onClick={handleCheck} className="w-fit text-sm tracking-wider uppercase font-cinzel rounded-sm px-8 py-4">
             Reserve Now →
           </Button>
         </motion.div>

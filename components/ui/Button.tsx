@@ -18,7 +18,7 @@ interface ButtonProps {
 
 const VARIANTS: Record<string, string> = {
   primary:
-    "bg-linear-to-r from-gold-primary to-gold-deep text-forest-dark font-semibold hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(201,168,76,0.35)] active:translate-y-0",
+    "bg-linear-to-r from-gold-primary to-gold-deep text-[#0D1A0D] font-semibold hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(201,168,76,0.35)] active:translate-y-0",
   ghost:
     "border border-gold-primary/60 text-gold-primary hover:bg-gold-primary/10 hover:border-gold-primary",
   dark:

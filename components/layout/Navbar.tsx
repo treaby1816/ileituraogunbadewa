@@ -84,19 +84,20 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-4">
-            {mounted && (
-              <button
-                onClick={toggleTheme}
-                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-cream/70 hover:text-gold-primary hover:bg-gold-primary/10 transition-all cursor-pointer border border-gold-primary/20 shadow-[0_0_10px_rgba(201,168,76,0.1)] hover:shadow-[0_0_15px_rgba(201,168,76,0.3)] group"
-                aria-label="Toggle Theme"
-              >
-                {theme === "dark" ? (
-                  <Sun size={16} className="sm:size-[18px] transition-transform group-hover:rotate-45" />
-                ) : (
-                  <Moon size={16} className="sm:size-[18px] transition-transform group-hover:-rotate-12" />
-                )}
-              </button>
-            )}
+            {/* Theme toggle — always rendered, hidden until mounted to prevent layout shift */}
+            <button
+              onClick={toggleTheme}
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-cream/70 hover:text-gold-primary hover:bg-gold-primary/10 transition-all cursor-pointer border border-gold-primary/20 shadow-[0_0_10px_rgba(201,168,76,0.1)] hover:shadow-[0_0_15px_rgba(201,168,76,0.3)] group ${
+                mounted ? "opacity-100" : "opacity-0 pointer-events-none"
+              }`}
+              aria-label="Toggle Theme"
+            >
+              {theme === "dark" ? (
+                <Sun size={16} className="sm:size-[18px] transition-transform group-hover:rotate-45" />
+              ) : (
+                <Moon size={16} className="sm:size-[18px] transition-transform group-hover:-rotate-12" />
+              )}
+            </button>
             <Button href="/booking" variant="primary" size="sm" className="hidden md:flex">
               Book Your Stay
             </Button>

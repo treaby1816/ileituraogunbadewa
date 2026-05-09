@@ -26,7 +26,7 @@ export function LocationMap() {
 
           {/* Contact info */}
           <div className="lg:col-span-2 flex flex-col gap-6">
-            <div className="p-7 rounded-2xl border border-gold-primary/15 bg-linear-to-br from-forest/60 to-forest-dark">
+            <div className="p-7 rounded-2xl border border-gold-primary/15 bg-linear-to-br from-forest/60 to-forest-dark hover:-translate-y-1 hover:border-gold-primary/30 hover:shadow-[0_16px_40px_rgba(201,168,76,0.1)] transition-all duration-300">
               <h3 className="font-playfair text-xl text-cream mb-6">Contact & Directions</h3>
               <div className="space-y-5 text-[14px]">
                 <div className="flex gap-4">

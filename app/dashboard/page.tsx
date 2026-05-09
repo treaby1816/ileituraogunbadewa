@@ -4,34 +4,39 @@ import { formatNaira } from "@/lib/utils";
 import { CalendarCheck, DollarSign, MessageSquare } from "lucide-react";
 
 async function getDashboardData() {
-  const supabase = await createServiceClient();
+  try {
+    const supabase = await createServiceClient();
 
-  // Fetch bookings
-  const { data: bookings } = await supabase
-    .from("bookings")
-    .select("*")
-    .order("created_at", { ascending: false });
+    // Fetch bookings
+    const { data: bookings } = await supabase
+      .from("bookings")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-  // Fetch inquiries
-  const { data: inquiries } = await supabase
-    .from("inquiries")
-    .select("*")
-    .order("created_at", { ascending: false });
+    // Fetch inquiries
+    const { data: inquiries } = await supabase
+      .from("inquiries")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-  // Calculate totals
-  const totalBookings = bookings?.length || 0;
-  const totalInquiries = inquiries?.length || 0;
-  
-  // Calculate mock revenue based on room types (Standard: 15k, Deluxe: 22k, Suite: 35k)
-  let totalRevenue = 0;
-  const prices: Record<string, number> = { standard: 15000, deluxe: 22000, suite: 35000 };
-  
-  bookings?.forEach((b) => {
-    // Assuming 1 night for simplicity in this mock revenue calculation
-    totalRevenue += prices[b.room_type] || 0;
-  });
+    // Calculate totals
+    const totalBookings = bookings?.length || 0;
+    const totalInquiries = inquiries?.length || 0;
+    
+    // Calculate mock revenue based on room types (Standard: 15k, Deluxe: 22k, Suite: 35k)
+    let totalRevenue = 0;
+    const prices: Record<string, number> = { standard: 15000, deluxe: 22000, suite: 35000 };
+    
+    bookings?.forEach((b) => {
+      // Assuming 1 night for simplicity in this mock revenue calculation
+      totalRevenue += prices[b.room_type] || 0;
+    });
 
-  return { bookings: bookings || [], inquiries: inquiries || [], totalBookings, totalInquiries, totalRevenue };
+    return { bookings: bookings || [], inquiries: inquiries || [], totalBookings, totalInquiries, totalRevenue };
+  } catch (error) {
+    console.error("Dashboard data fetch error:", error);
+    return { bookings: [], inquiries: [], totalBookings: 0, totalInquiries: 0, totalRevenue: 0 };
+  }
 }
 
 export default async function DashboardOverview() {
@@ -55,8 +60,8 @@ export default async function DashboardOverview() {
         {STATS.map((s, i) => {
           const Icon = s.icon;
           return (
-            <div key={i} className="bg-forest-dark border border-gold-primary/10 rounded-2xl p-6 relative overflow-hidden">
-              <div className="absolute -top-4 -right-4 text-gold-primary/5">
+            <div key={i} className="bg-forest-dark border border-gold-primary/10 rounded-2xl p-6 relative overflow-hidden hover:-translate-y-1 hover:border-gold-primary/25 hover:shadow-[0_16px_40px_rgba(201,168,76,0.08)] transition-all duration-300 group">
+              <div className="absolute -top-4 -right-4 text-gold-primary/5 group-hover:text-gold-primary/10 transition-colors duration-300">
                 <Icon size={120} />
               </div>
               <div className="relative z-10">
@@ -70,13 +75,13 @@ export default async function DashboardOverview() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Revenue Chart */}
-        <div className="lg:col-span-2 bg-forest-dark border border-gold-primary/10 rounded-2xl p-6">
+        <div className="lg:col-span-2 bg-forest-dark border border-gold-primary/10 rounded-2xl p-6 hover:border-gold-primary/20 transition-all duration-300">
           <h2 className="font-playfair text-xl text-cream mb-6">Revenue & Bookings Trend</h2>
           <RevenueChart bookings={bookings} />
         </div>
 
         {/* Recent Activity */}
-        <div className="bg-forest-dark border border-gold-primary/10 rounded-2xl p-6">
+        <div className="bg-forest-dark border border-gold-primary/10 rounded-2xl p-6 hover:border-gold-primary/20 transition-all duration-300">
           <h2 className="font-playfair text-xl text-cream mb-6">Recent Inquiries</h2>
           <div className="space-y-4">
             {inquiries.slice(0, 5).map((inq) => (

@@ -35,7 +35,7 @@ export function WhyChooseUs() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="flex flex-col items-center text-center group"
+              className="flex flex-col items-center text-center group hover:-translate-y-1 transition-transform duration-300"
             >
               <div className="w-14 h-14 rounded-sm border border-gold-primary/20 bg-white/5 flex items-center justify-center text-2xl mb-4 group-hover:border-gold-primary/50 group-hover:bg-gold-primary/10 transition-all duration-300">
                 {feature.icon}

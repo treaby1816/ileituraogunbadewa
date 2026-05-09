@@ -56,14 +56,14 @@ export function Chatbot() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  // Hide on dashboard
-  if (pathname?.startsWith("/dashboard")) return null;
-
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isLoading]);
+
+  // Hide on dashboard — must be AFTER all hooks
+  if (pathname?.startsWith("/dashboard")) return null;
 
   const sendMessage = async (text: string) => {
     if (!text.trim()) return;
@@ -102,7 +102,7 @@ export function Chatbot() {
           <motion.button
             initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0, opacity: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 left-5 sm:bottom-8 sm:left-8 z-50 w-12 h-12 sm:w-14 sm:h-14 bg-forest-dark border-2 border-gold-primary text-xl sm:text-2xl flex items-center justify-center rounded-full shadow-[0_0_20px_rgba(201,168,76,0.3)] hover:shadow-[0_0_30px_rgba(201,168,76,0.5)] transition-all cursor-pointer"
+            className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom,1.5rem))] left-5 sm:bottom-8 sm:left-8 z-50 w-12 h-12 sm:w-14 sm:h-14 bg-forest-dark border-2 border-gold-primary text-xl sm:text-2xl flex items-center justify-center rounded-full shadow-[0_0_20px_rgba(201,168,76,0.3)] hover:shadow-[0_0_30px_rgba(201,168,76,0.5)] transition-all cursor-pointer"
             aria-label="Open Chat"
           >
             🛎️
@@ -115,7 +115,7 @@ export function Chatbot() {
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-6 left-4 right-4 sm:bottom-8 sm:left-8 sm:right-auto z-50 w-auto sm:w-[350px] h-[550px] max-h-[calc(100svh-48px)] bg-forest-black border border-gold-primary/30 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.6)] flex flex-col overflow-hidden"
+            className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom,1.5rem))] left-4 right-4 sm:bottom-8 sm:left-8 sm:right-auto z-50 w-auto sm:w-[350px] h-[520px] max-h-[calc(100svh-80px)] bg-forest-black border border-gold-primary/30 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.6)] flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="bg-linear-to-r from-forest-dark to-forest border-b border-gold-primary/20 p-4 flex items-center justify-between shrink-0">
@@ -138,7 +138,7 @@ export function Chatbot() {
                 const isBot = m.role === "assistant";
                 return (
                   <motion.div key={m.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex flex-col ${isBot ? "items-start" : "items-end"}`}>
-                    <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${isBot ? "bg-white/5 border border-gold-primary/15 rounded-tl-sm text-cream/90" : "bg-gold-primary text-forest-black rounded-tr-sm"}`}>
+                    <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${isBot ? "bg-white/5 border border-gold-primary/15 rounded-tl-sm text-cream/90" : "bg-gold-primary text-[#0D1A0D] rounded-tr-sm"}`}>
                       {isBot && i === messages.length - 1 ? <TypewriterEffect text={m.content} /> : <p className="text-[14px] leading-relaxed break-words">{isBot ? parseText(m.content) : m.content}</p>}
                     </div>
                     <span className="text-cream/30 text-[10px] mt-1 px-1">{m.timestamp}</span>
@@ -177,7 +177,7 @@ export function Chatbot() {
                   placeholder="Ask Àdùn anything..."
                   className="w-full bg-white/5 border border-gold-primary/20 focus:border-gold-primary/60 rounded-full pl-4 pr-12 py-3 text-[13px] text-cream outline-none transition-colors"
                 />
-                <button type="submit" disabled={!input.trim() || isLoading} className="absolute right-1.5 top-1.5 bottom-1.5 w-9 bg-gold-primary text-forest-black rounded-full flex items-center justify-center disabled:opacity-50 transition-opacity cursor-pointer">
+                <button type="submit" disabled={!input.trim() || isLoading} className="absolute right-1.5 top-1.5 bottom-1.5 w-9 bg-gold-primary text-[#0D1A0D] rounded-full flex items-center justify-center disabled:opacity-50 transition-opacity cursor-pointer">
                   ↑
                 </button>
               </div>

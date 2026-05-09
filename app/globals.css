@@ -1,17 +1,18 @@
 @import "tailwindcss";
 
 /* ─── Brand Design Tokens (Tailwind v4 @theme) ─────────────────────────────── */
+/* Hardcoded defaults (dark mode). Overridden by [data-theme="light"] below.   */
 @theme inline {
-  /* Colors */
-  --color-gold-primary: var(--theme-gold-primary);
-  --color-gold-deep: var(--theme-gold-deep);
-  --color-gold-light: var(--theme-gold-light);
-  --color-forest: var(--theme-forest);
-  --color-forest-dark: var(--theme-forest-dark);
-  --color-forest-black: var(--theme-forest-black);
-  --color-cream: var(--theme-cream);
-  --color-cream-light: var(--theme-cream-light);
-  --color-charcoal: var(--theme-charcoal);
+  /* Colors — dark mode defaults */
+  --color-gold-primary: #C9A84C;
+  --color-gold-deep: #A07830;
+  --color-gold-light: #E8D08A;
+  --color-forest: #1A2B1A;
+  --color-forest-dark: #0D1A0D;
+  --color-forest-black: #070E07;
+  --color-cream: #F8F4E8;
+  --color-cream-light: #FFFDF5;
+  --color-charcoal: #A0A0A0;
 
   /* Fonts */
   --font-playfair: var(--font-playfair-display), serif;
@@ -26,26 +27,15 @@
   --animate-slide-up: slideUp 0.4s ease-out;
 }
 
-/* ─── CSS Custom Properties ─────────────────────────────────────────────────── */
-:root {
-  --theme-gold-primary: #C9A84C;
-  --theme-gold-deep: #A07830;
-  --theme-gold-light: #E8D08A;
-  --theme-forest: #1A2B1A;
-  --theme-forest-dark: #0D1A0D;
-  --theme-forest-black: #070E07;
-  --theme-cream: #F8F4E8;
-  --theme-cream-light: #FFFDF5;
-  --theme-charcoal: #A0A0A0; /* Light gray for secondary text in dark mode */
-}
-
+/* ─── Light Theme Overrides ─────────────────────────────────────────────────── */
+/* Directly override --color-* so Tailwind utility classes swap correctly.      */
 [data-theme="light"] {
-  --theme-forest: #EAF4EA;
-  --theme-forest-dark: #F3F8F3;
-  --theme-forest-black: #FFFFFF;
-  --theme-cream: #1A2B1A;
-  --theme-cream-light: #0D1A0D;
-  --theme-charcoal: #4A4A4A; /* Dark gray for secondary text in light mode */
+  --color-forest: #EAF4EA;
+  --color-forest-dark: #F3F8F3;
+  --color-forest-black: #FFFFFF;
+  --color-cream: #1A2B1A;
+  --color-cream-light: #0D1A0D;
+  --color-charcoal: #4A4A4A;
 }
 
 /* ─── Base Styles ───────────────────────────────────────────────────────────── */
@@ -72,6 +62,8 @@ body {
 ::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.25); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,0.5); }
 
+[data-theme="light"] ::-webkit-scrollbar-track { background: #f0f0f0; }
+
 /* ─── Date Input Styling ────────────────────────────────────────────────────── */
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(80%) sepia(30%) saturate(500%) hue-rotate(5deg);
@@ -79,6 +71,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0.6;
 }
 input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
+
+[data-theme="light"] input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: none;
+}
 
 /* ─── Keyframes ─────────────────────────────────────────────────────────────── */
 @keyframes kenburns {

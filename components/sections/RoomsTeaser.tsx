@@ -63,7 +63,7 @@ export function RoomsTeaser() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.12 }}
-              className="group rounded-2xl overflow-hidden border border-gold-primary/12 bg-linear-to-br from-forest/50 to-forest-dark hover:border-gold-primary/30 transition-all duration-300"
+              className="group rounded-2xl overflow-hidden border border-gold-primary/12 bg-linear-to-br from-forest/50 to-forest-dark hover:border-gold-primary/40 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(201,168,76,0.15)] transition-all duration-300"
             >
               {/* Image */}
               <div className="relative h-56 overflow-hidden">

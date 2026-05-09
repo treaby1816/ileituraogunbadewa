@@ -40,7 +40,7 @@ export function Footer() {
                 </p>
               </div>
             </Link>
-            <p className="font-cormorant italic text-cream/50 text-[15px] leading-relaxed mb-6">
+            <p className="font-cormorant italic text-cream/60 text-[15px] leading-relaxed mb-6">
               &ldquo;…Embrace Comfort,
               <br />
               Enjoy Luxury&rdquo;
@@ -74,7 +74,7 @@ export function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-cream/55 text-[13px] hover:text-gold-primary transition-colors flex items-center gap-2 group"
+                    className="text-cream/70 text-[13px] hover:text-gold-primary transition-colors flex items-center gap-2 group"
                   >
                     <span className="w-3 h-[1px] bg-gold-primary/40 group-hover:w-4 group-hover:bg-gold-primary transition-all" />
                     {label}
@@ -92,7 +92,7 @@ export function Footer() {
             <ul className="space-y-4 text-[13px]">
               <li className="flex gap-3">
                 <span className="text-gold-primary mt-0.5 text-base">📍</span>
-                <span className="text-cream/60 leading-relaxed">
+                <span className="text-cream/70 leading-relaxed">
                   Saheed Anibaba Street,
                   <br />
                   Off Awolowo Way,
@@ -103,7 +103,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:08129041015"
-                  className="flex gap-3 text-cream/60 hover:text-gold-primary transition-colors"
+                  className="flex gap-3 text-cream/70 hover:text-gold-primary transition-colors"
                 >
                   <span className="text-gold-primary text-base">📞</span>
                   08129041015
@@ -112,7 +112,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:08060721283"
-                  className="flex gap-3 text-cream/60 hover:text-gold-primary transition-colors"
+                  className="flex gap-3 text-cream/70 hover:text-gold-primary transition-colors"
                 >
                   <span className="text-gold-primary text-base">📞</span>
                   08060721283
@@ -123,7 +123,7 @@ export function Footer() {
                   href="https://wa.me/2348129041015"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex gap-3 text-cream/60 hover:text-gold-primary transition-colors"
+                  className="flex gap-3 text-cream/70 hover:text-gold-primary transition-colors"
                 >
                   <span className="text-base">💬</span>
                   WhatsApp Us
@@ -137,7 +137,7 @@ export function Footer() {
             <h4 className="font-cinzel text-[10px] tracking-[0.18em] uppercase text-gold-primary mb-5">
               Hours & Policy
             </h4>
-            <ul className="space-y-3 text-[13px] text-cream/55">
+            <ul className="space-y-3 text-[13px] text-cream/70">
               <li className="flex gap-2">
                 <span className="text-gold-primary">⏰</span> Front Desk: 24/7
               </li>
@@ -160,7 +160,7 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-gold-primary/8 px-4 md:px-8 py-5">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-cream/30">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-cream/40">
           <p>© {new Date().getFullYear()} Ilé Ìtura Ògúnbádéwà. All rights reserved.</p>
           <div className="flex gap-4">
             <p>Developed by Treabyn Inc.</p>
