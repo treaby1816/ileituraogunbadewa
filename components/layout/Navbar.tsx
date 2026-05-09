@@ -43,7 +43,7 @@ export function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 md:h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-10 h-16 md:h-20 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-full overflow-hidden shadow-[0_0_16px_rgba(201,168,76,0.4)] group-hover:shadow-[0_0_24px_rgba(201,168,76,0.6)] transition-shadow bg-forest-black">
@@ -83,17 +83,17 @@ export function Navbar() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-4">
             {mounted && (
               <button
                 onClick={toggleTheme}
-                className="w-10 h-10 rounded-full flex items-center justify-center text-cream/70 hover:text-gold-primary hover:bg-gold-primary/10 transition-all cursor-pointer border border-gold-primary/20 shadow-[0_0_10px_rgba(201,168,76,0.1)] hover:shadow-[0_0_15px_rgba(201,168,76,0.3)] group"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-cream/70 hover:text-gold-primary hover:bg-gold-primary/10 transition-all cursor-pointer border border-gold-primary/20 shadow-[0_0_10px_rgba(201,168,76,0.1)] hover:shadow-[0_0_15px_rgba(201,168,76,0.3)] group"
                 aria-label="Toggle Theme"
               >
                 {theme === "dark" ? (
-                  <Sun size={18} className="transition-transform group-hover:rotate-45" />
+                  <Sun size={16} className="sm:size-[18px] transition-transform group-hover:rotate-45" />
                 ) : (
-                  <Moon size={18} className="transition-transform group-hover:-rotate-12" />
+                  <Moon size={16} className="sm:size-[18px] transition-transform group-hover:-rotate-12" />
                 )}
               </button>
             )}
@@ -103,22 +103,22 @@ export function Navbar() {
             {/* Hamburger */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
+              className="lg:hidden w-10 h-10 -mr-2 flex flex-col items-center justify-center gap-[5.5px] rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
               aria-label="Toggle menu"
             >
               <span
-                className={`block w-5 h-[1.5px] bg-gold-primary transition-all duration-300 ${
-                  menuOpen ? "rotate-45 translate-y-[6.5px]" : ""
+                className={`block w-6 h-[1.5px] bg-gold-primary transition-all duration-300 ${
+                  menuOpen ? "rotate-45 translate-y-[7px]" : ""
                 }`}
               />
               <span
-                className={`block w-5 h-[1.5px] bg-gold-primary transition-all duration-300 ${
+                className={`block w-6 h-[1.5px] bg-gold-primary transition-all duration-300 ${
                   menuOpen ? "opacity-0" : ""
                 }`}
               />
               <span
-                className={`block w-5 h-[1.5px] bg-gold-primary transition-all duration-300 ${
-                  menuOpen ? "-rotate-45 -translate-y-[6.5px]" : ""
+                className={`block w-6 h-[1.5px] bg-gold-primary transition-all duration-300 ${
+                  menuOpen ? "-rotate-45 -translate-y-[7px]" : ""
                 }`}
               />
             </button>

@@ -6,10 +6,10 @@ export function WhatsAppButton() {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-5 z-40 flex items-center gap-3">
+    <div className="fixed bottom-6 right-5 sm:bottom-8 sm:right-8 z-40 flex items-center gap-3">
       {/* Tooltip */}
       <div
-        className={`transition-all duration-300 ${
+        className={`hidden sm:block transition-all duration-300 ${
           hovered
             ? "opacity-100 translate-x-0"
             : "opacity-0 translate-x-2 pointer-events-none"
@@ -29,7 +29,7 @@ export function WhatsAppButton() {
         id="whatsapp-button"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="relative w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-transform duration-200 hover:scale-110 active:scale-95"
+        className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-200 hover:scale-110 active:scale-95"
         style={{ background: "linear-gradient(135deg, #25D366, #128C7E)" }}
       >
         {/* Pulse ring */}
