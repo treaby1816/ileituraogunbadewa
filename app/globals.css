@@ -13,17 +13,7 @@
   --theme-charcoal: #A0A0A0;
 }
 
-[data-theme="light"] {
-  /* Light mode overrides */
-  --theme-forest: #EAF4EA;
-  --theme-forest-dark: #F3F8F3;
-  --theme-forest-black: #FFFFFF;
-  --theme-cream: #1A2B1A;
-  --theme-cream-light: #0D1A0D;
-  --theme-cream-muted: #1A2B1A99; /* 60% opacity */
-  --theme-cream-faint: #1A2B1A66; /* 40% opacity */
-  --theme-charcoal: #4A4A4A;
-}
+
 
 /* ─── Brand Design Tokens (Tailwind v4 @theme) ─────────────────────────────── */
 @theme inline {
