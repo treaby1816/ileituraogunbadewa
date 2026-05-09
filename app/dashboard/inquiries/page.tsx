@@ -19,12 +19,12 @@ export default async function InquiriesPage() {
     <div className="space-y-6">
       <div>
         <h1 className="font-playfair text-3xl text-cream mb-1">Inquiries</h1>
-        <p className="text-cream/50 text-[14px]">Manage messages and customer requests.</p>
+        <p className="text-cream-muted text-[14px]">Manage messages and customer requests.</p>
       </div>
 
       <div className="bg-forest-dark border border-gold-primary/10 rounded-2xl overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-cream/70">
+          <table className="w-full text-left text-sm text-cream-muted">
             <thead className="bg-white/5 text-gold-primary font-cinzel text-[10px] tracking-widest uppercase">
               <tr>
                 <th className="px-6 py-4 font-medium">Date</th>
@@ -39,8 +39,8 @@ export default async function InquiriesPage() {
                   <td className="px-6 py-4 whitespace-nowrap text-[12px]">{new Date(inq.created_at).toLocaleDateString()}</td>
                   <td className="px-6 py-4">
                     <p className="text-cream">{inq.name}</p>
-                    <p className="text-[11px] text-cream/40">{inq.phone}</p>
-                    {inq.email && <p className="text-[11px] text-cream/40">{inq.email}</p>}
+                    <p className="text-[11px] text-cream-faint">{inq.phone}</p>
+                    {inq.email && <p className="text-[11px] text-cream-faint">{inq.email}</p>}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="bg-gold-primary/10 text-gold-primary border border-gold-primary/20 px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider">
@@ -54,7 +54,7 @@ export default async function InquiriesPage() {
               ))}
               {!inquiries?.length && (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center text-cream/40">
+                  <td colSpan={4} className="px-6 py-8 text-center text-cream-faint">
                     No inquiries found.
                   </td>
                 </tr>

@@ -39,7 +39,7 @@ export default function GalleryPage() {
       <section className="py-16 px-4 md:px-8 text-center bg-linear-to-b from-forest-dark to-forest-black">
         <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Photo Gallery</span>
         <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Gallery</h1>
-        <p className="text-cream/50 max-w-xl mx-auto">Explore our hotel through photos.</p>
+        <p className="text-cream-muted max-w-xl mx-auto">Explore our hotel through photos.</p>
       </section>
 
       {/* Filters */}
@@ -52,7 +52,7 @@ export default function GalleryPage() {
               className={`px-5 py-2 rounded-xl font-cinzel text-[11px] tracking-[0.08em] uppercase transition-all cursor-pointer ${
                 filter === f.value
                   ? "bg-gold-primary/15 text-gold-primary border border-gold-primary/30"
-                  : "text-cream/50 border border-transparent hover:text-cream hover:bg-white/5"
+                  : "text-cream-muted border border-transparent hover:text-cream hover:bg-white/5"
               }`}
             >
               {f.label}
@@ -75,7 +75,7 @@ export default function GalleryPage() {
               onClick={() => setLightbox(i)}
               className="relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer group"
             >
-              <Image src={img.src} alt={img.caption} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width:768px) 50vw, 25vw" />
+              <Image unoptimized={true} src={img.src} alt={img.caption} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width:768px) 50vw, 25vw" />
               <div className="absolute inset-0 bg-forest-black/0 group-hover:bg-forest-black/40 transition-colors flex items-center justify-center">
                 <span className="text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity">🔍</span>
               </div>
@@ -100,11 +100,11 @@ export default function GalleryPage() {
             tabIndex={0}
           >
             {/* Close */}
-            <button onClick={closeLightbox} className="absolute top-6 right-6 text-cream/60 hover:text-cream text-2xl cursor-pointer z-10">✕</button>
+            <button onClick={closeLightbox} className="absolute top-6 right-6 text-cream-muted hover:text-cream text-2xl cursor-pointer z-10">✕</button>
             {/* Counter */}
-            <div className="absolute top-6 left-6 text-cream/40 text-[13px] font-cinzel">{lightbox + 1} / {filtered.length}</div>
+            <div className="absolute top-6 left-6 text-cream-faint text-[13px] font-cinzel">{lightbox + 1} / {filtered.length}</div>
             {/* Prev */}
-            <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className="absolute left-4 top-1/2 -translate-y-1/2 text-cream/50 hover:text-gold-primary text-3xl cursor-pointer z-10">‹</button>
+            <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className="absolute left-4 top-1/2 -translate-y-1/2 text-cream-muted hover:text-gold-primary text-3xl cursor-pointer z-10">‹</button>
             {/* Image */}
             <motion.div
               key={lightbox}
@@ -113,12 +113,12 @@ export default function GalleryPage() {
               className="relative w-full max-w-4xl aspect-video rounded-xl overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <Image src={filtered[lightbox].src} alt={filtered[lightbox].caption} fill className="object-contain" sizes="100vw" />
+              <Image unoptimized={true} src={filtered[lightbox].src} alt={filtered[lightbox].caption} fill className="object-contain" sizes="100vw" />
             </motion.div>
             {/* Next */}
-            <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className="absolute right-4 top-1/2 -translate-y-1/2 text-cream/50 hover:text-gold-primary text-3xl cursor-pointer z-10">›</button>
+            <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className="absolute right-4 top-1/2 -translate-y-1/2 text-cream-muted hover:text-gold-primary text-3xl cursor-pointer z-10">›</button>
             {/* Caption */}
-            <p className="absolute bottom-8 text-cream/60 text-[14px] font-cormorant italic">{filtered[lightbox].caption}</p>
+            <p className="absolute bottom-8 text-cream-muted text-[14px] font-cormorant italic">{filtered[lightbox].caption}</p>
           </motion.div>
         )}
       </AnimatePresence>

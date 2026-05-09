@@ -56,7 +56,7 @@ export default function RoomsPage() {
       <section className="py-16 px-4 md:px-8 text-center bg-linear-to-b from-forest-dark to-forest-black">
         <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Accommodation</span>
         <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Our Rooms & Suites</h1>
-        <p className="text-cream/50 max-w-xl mx-auto">
+        <p className="text-cream-muted max-w-xl mx-auto">
           Every room at Ilé Ìtura Ògúnbádéwà is designed for maximum comfort and relaxation.
         </p>
       </section>
@@ -71,7 +71,7 @@ export default function RoomsPage() {
               className={`px-5 py-2 rounded-xl font-cinzel text-[11px] tracking-[0.08em] uppercase transition-all cursor-pointer ${
                 filter === f.value
                   ? "bg-gold-primary/15 text-gold-primary border border-gold-primary/30"
-                  : "text-cream/50 border border-transparent hover:text-cream hover:bg-white/5"
+                  : "text-cream-muted border border-transparent hover:text-cream hover:bg-white/5"
               }`}
             >
               {f.label}
@@ -99,7 +99,7 @@ export default function RoomsPage() {
                 <div className="absolute inset-0 bg-linear-to-t from-forest-dark/90 to-transparent" />
                 <div className="absolute top-4 right-4 bg-forest-dark/80 backdrop-blur-sm border border-gold-primary/25 rounded-xl px-3 py-1.5">
                   <span className="font-playfair text-gold-primary text-lg font-semibold">{formatNaira(room.price)}</span>
-                  <span className="text-cream/40 text-[11px]"> /night</span>
+                  <span className="text-cream-faint text-[11px]"> /night</span>
                 </div>
                 <div className="absolute top-4 left-4 bg-gold-primary/20 border border-gold-primary/30 rounded-lg px-2.5 py-1">
                   <span className="font-cinzel text-[9px] tracking-widest text-gold-primary uppercase">{room.type}</span>
@@ -107,14 +107,14 @@ export default function RoomsPage() {
               </div>
               <div className="p-6">
                 <h3 className="font-playfair text-xl text-cream mb-2">{room.name}</h3>
-                <p className="text-cream/50 text-[13px] mb-4 leading-relaxed">{room.desc}</p>
+                <p className="text-cream-muted text-[13px] mb-4 leading-relaxed">{room.desc}</p>
                 <div className="flex flex-wrap gap-2 mb-5">
                   {room.features.map((f) => (
                     <span key={f} className="text-[10px] px-2.5 py-1 rounded-full border border-gold-primary/20 text-gold-primary/70">{f}</span>
                   ))}
                 </div>
                 <div className="flex items-center justify-between pt-4 border-t border-gold-primary/10">
-                  <span className="text-cream/40 text-[12px]">Max {room.maxGuests} guests</span>
+                  <span className="text-cream-faint text-[12px]">Max {room.maxGuests} guests</span>
                   <Button href={`/booking?room=${room.type}`} variant="primary" size="sm">Book This Room</Button>
                 </div>
               </div>

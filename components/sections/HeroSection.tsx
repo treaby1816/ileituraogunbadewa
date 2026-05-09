@@ -37,7 +37,7 @@ export function HeroSection() {
           transition={{ duration: 1.2, ease: "easeInOut" }}
           className="absolute inset-0"
         >
-          <Image
+          <Image unoptimized={true}
             src={HERO_IMAGES[current].src}
             alt={HERO_IMAGES[current].alt}
             fill

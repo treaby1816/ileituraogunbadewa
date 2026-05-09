@@ -48,7 +48,7 @@ export default function AmenitiesPage() {
       <section className="py-16 px-4 md:px-8 text-center bg-linear-to-b from-forest-dark to-forest-black">
         <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">What We Offer</span>
         <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Our Amenities</h1>
-        <p className="text-cream/50 max-w-xl mx-auto">
+        <p className="text-cream-muted max-w-xl mx-auto">
           Everything you need for a comfortable, enjoyable, and unforgettable stay.
         </p>
       </section>
@@ -66,15 +66,15 @@ export default function AmenitiesPage() {
             >
               <div className={`${i % 2 === 1 ? "lg:order-2" : ""}`}>
                 <div className="relative h-[320px] rounded-2xl overflow-hidden border border-gold-primary/15 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
-                  <Image src={item.image} alt={item.title} fill className="object-cover" sizes="(max-width:1024px) 100vw, 50vw" />
+                  <Image unoptimized={true} src={item.image} alt={item.title} fill className="object-cover" sizes="(max-width:1024px) 100vw, 50vw" />
                 </div>
               </div>
               <div className={`${i % 2 === 1 ? "lg:order-1" : ""}`}>
                 <h2 className="font-playfair text-2xl md:text-3xl text-cream mb-4">{item.title}</h2>
-                <p className="text-cream/55 text-[14px] leading-relaxed mb-6">{item.desc}</p>
+                <p className="text-cream-muted text-[14px] leading-relaxed mb-6">{item.desc}</p>
                 <ul className="space-y-2">
                   {item.features.map((f) => (
-                    <li key={f} className="flex items-center gap-3 text-[13px] text-cream/70">
+                    <li key={f} className="flex items-center gap-3 text-[13px] text-cream-muted">
                       <span className="w-1.5 h-1.5 rounded-full bg-gold-primary shrink-0" />
                       {f}
                     </li>

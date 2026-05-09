@@ -23,7 +23,7 @@ export default function AboutPage() {
       <section className="py-16 px-4 md:px-8 text-center bg-linear-to-b from-forest-dark to-forest-black">
         <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Our Story</span>
         <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">About Us</h1>
-        <p className="text-cream/50 max-w-2xl mx-auto">
+        <p className="text-cream-muted max-w-2xl mx-auto">
           The story of Ilé Ìtura Ògúnbádéwà — a name rooted in Yoruba heritage, meaning &ldquo;a place of rest and comfort.&rdquo;
         </p>
       </section>
@@ -33,15 +33,15 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <div className="relative h-[380px] rounded-2xl overflow-hidden border border-gold-primary/15 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
-              <Image src="/images/hero-1.png" alt="Ilé Ìtura Ògúnbádéwà" fill className="object-cover" sizes="50vw" />
+              <Image unoptimized={true} src="/images/hero-1.png" alt="Ilé Ìtura Ògúnbádéwà" fill className="object-cover" sizes="50vw" />
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <h2 className="font-playfair text-3xl text-cream mb-6">Our Beginning</h2>
-            <p className="text-cream/60 text-[14px] leading-relaxed mb-4">
+            <p className="text-cream-muted text-[14px] leading-relaxed mb-4">
               <strong className="text-gold-primary">Ilé Ìtura Ògúnbádéwà</strong> — in Yoruba, this name embodies our mission: to create a sanctuary of rest and exceptional Nigerian hospitality. Founded in Ikorodu, Lagos State, we set out to prove that world-class comfort and warmth can thrive in every community.
             </p>
-            <p className="text-cream/60 text-[14px] leading-relaxed">
+            <p className="text-cream-muted text-[14px] leading-relaxed">
               Today, we proudly serve hundreds of guests each year with air-conditioned rooms, a vibrant bar & lounge, recreation spaces, and a spacious event hall — all delivered with the warmth and care that defines true Nigerian hospitality.
             </p>
           </motion.div>
@@ -59,7 +59,7 @@ export default function AboutPage() {
               className="p-8 rounded-2xl border border-gold-primary/15 bg-linear-to-br from-forest/50 to-forest-dark"
             >
               <span className="font-cinzel text-[10px] tracking-[0.15em] text-gold-primary uppercase">{item.label}</span>
-              <p className="text-cream/65 text-[14px] leading-relaxed mt-4 font-cormorant italic text-lg">&ldquo;{item.text}&rdquo;</p>
+              <p className="text-cream-muted text-[14px] leading-relaxed mt-4 font-cormorant italic text-lg">&ldquo;{item.text}&rdquo;</p>
             </motion.div>
           ))}
         </div>
@@ -79,7 +79,7 @@ export default function AboutPage() {
               >
                 <div className="text-3xl mb-3">{v.icon}</div>
                 <h3 className="font-playfair text-lg text-cream mb-2">{v.title}</h3>
-                <p className="text-cream/50 text-[13px]">{v.desc}</p>
+                <p className="text-cream-muted text-[13px]">{v.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -98,7 +98,7 @@ export default function AboutPage() {
               <motion.div key={t.year} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="relative">
                 <div className="absolute -left-[42px] top-1 w-4 h-4 rounded-full bg-gold-primary border-4 border-forest-dark" />
                 <span className="font-cinzel text-gold-primary text-[13px] tracking-widest">{t.year}</span>
-                <p className="text-cream/60 text-[14px] mt-1 leading-relaxed">{t.event}</p>
+                <p className="text-cream-muted text-[14px] mt-1 leading-relaxed">{t.event}</p>
               </motion.div>
             ))}
           </div>

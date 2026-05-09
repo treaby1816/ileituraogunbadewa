@@ -54,7 +54,7 @@ export default async function DashboardOverview() {
     <div className="space-y-6">
       <div>
         <h1 className="font-playfair text-3xl text-cream mb-1">Dashboard Overview</h1>
-        <p className="text-cream/50 text-[14px]">Welcome back. Here is what&apos;s happening with your hotel today.</p>
+        <p className="text-cream-muted text-[14px]">Welcome back. Here is what&apos;s happening with your hotel today.</p>
       </div>
 
       {/* Stat Cards */}
@@ -94,11 +94,11 @@ export default async function DashboardOverview() {
                     {inq.inquiry_type}
                   </span>
                 </div>
-                <p className="text-cream/50 text-[12px] line-clamp-2">{inq.message}</p>
+                <p className="text-cream-muted text-[12px] line-clamp-2">{inq.message}</p>
               </div>
             ))}
             {inquiries.length === 0 && (
-              <p className="text-cream/40 text-[13px] text-center py-4">No recent inquiries.</p>
+              <p className="text-cream-faint text-[13px] text-center py-4">No recent inquiries.</p>
             )}
           </div>
         </div>

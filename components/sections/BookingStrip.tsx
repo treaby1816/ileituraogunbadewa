@@ -53,7 +53,7 @@ export function BookingStrip() {
         >
           <div className="relative w-full aspect-square max-w-[500px] mx-auto bg-white p-4 shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100">
             <div className="relative w-full h-full border border-gold-primary/20">
-              <Image 
+              <Image unoptimized={true} 
                 src="/images/hero-1.png" 
                 alt="Hotel Reception" 
                 fill 

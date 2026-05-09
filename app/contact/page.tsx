@@ -37,14 +37,14 @@ export default function ContactPage() {
     }
   };
 
-  const inputClass = "w-full bg-white/5 border border-gold-primary/20 rounded-xl px-4 py-3 text-cream text-[13px] outline-none focus:border-gold-primary/60 transition-colors placeholder:text-cream/25";
+  const inputClass = "w-full bg-white/5 border border-gold-primary/20 rounded-xl px-4 py-3 text-cream text-[13px] outline-none focus:border-gold-primary/60 transition-colors placeholder:text-cream-faint";
 
   return (
     <main className="pt-24">
       <section className="py-16 px-4 md:px-8 text-center bg-linear-to-b from-forest-dark to-forest-black">
         <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Get In Touch</span>
         <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Contact Us</h1>
-        <p className="text-cream/50 max-w-xl mx-auto">We&apos;d love to hear from you. Reach out anytime.</p>
+        <p className="text-cream-muted max-w-xl mx-auto">We&apos;d love to hear from you. Reach out anytime.</p>
       </section>
 
       <section className="py-16 px-4 md:px-8 bg-forest-black">
@@ -67,7 +67,7 @@ export default function ContactPage() {
                 <div key={c.label} className="p-5 rounded-xl border border-gold-primary/20 bg-forest/40 backdrop-blur-sm hover:-translate-y-1 hover:border-gold-primary/40 hover:shadow-[0_12px_30px_rgba(201,168,76,0.08)] transition-all duration-300">
                   <div className="text-xl mb-2">{c.icon}</div>
                   <p className="font-cinzel text-[9px] tracking-widest text-gold-primary font-bold uppercase mb-1">{c.label}</p>
-                  <p className="text-cream/80 text-[12px] leading-relaxed">{c.value}</p>
+                  <p className="text-cream-muted text-[12px] leading-relaxed">{c.value}</p>
                 </div>
               ))}
             </div>
@@ -82,7 +82,7 @@ export default function ContactPage() {
                 <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-10">
                   <div className="text-4xl mb-4">✅</div>
                   <h4 className="font-playfair text-xl text-cream mb-2">Message Sent!</h4>
-                  <p className="text-cream/50 text-[13px] mb-6">We&apos;ll get back to you shortly.</p>
+                  <p className="text-cream-muted text-[13px] mb-6">We&apos;ll get back to you shortly.</p>
                   <Button variant="ghost" size="sm" onClick={() => setIsSuccess(false)}>Send Another</Button>
                 </motion.div>
               ) : (

@@ -40,7 +40,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <div className="p-6 mb-4">
         <Link href="/" className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full overflow-hidden shadow-[0_0_16px_rgba(201,168,76,0.35)]">
-            <Image src="/images/logo.png" alt="Logo" width={40} height={40} className="object-cover" />
+            <Image unoptimized={true} src="/images/logo.png" alt="Logo" width={40} height={40} className="object-cover" />
           </div>
           <div>
             <p className="font-playfair text-[15px] text-cream leading-tight">Admin Portal</p>
@@ -61,10 +61,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                 isActive 
                   ? "bg-gold-primary/10 text-gold-primary border border-gold-primary/20" 
-                  : "text-cream/50 hover:bg-white/5 hover:text-cream border border-transparent"
+                  : "text-cream-muted hover:bg-white/5 hover:text-cream border border-transparent"
               }`}
             >
-              <Icon size={18} className={isActive ? "text-gold-primary" : "text-cream/50"} />
+              <Icon size={18} className={isActive ? "text-gold-primary" : "text-cream-muted"} />
               <span className="font-dm-sans text-[14px] font-medium">{item.label}</span>
             </Link>
           );
@@ -74,7 +74,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <div className="p-4 mt-auto space-y-2">
         <Link 
           href="/"
-          className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-cream/70 hover:bg-white/5 hover:text-cream transition-colors border border-transparent"
+          className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-cream-muted hover:bg-white/5 hover:text-cream transition-colors border border-transparent"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
           <span className="font-dm-sans text-[14px] font-medium">Main Website</span>
@@ -113,7 +113,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <header className="lg:hidden flex items-center justify-between p-4 border-b border-gold-primary/10 bg-forest-dark/50 sticky top-0 z-30">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full overflow-hidden">
-              <Image src="/images/logo.png" alt="Logo" width={32} height={32} className="object-cover" />
+              <Image unoptimized={true} src="/images/logo.png" alt="Logo" width={32} height={32} className="object-cover" />
             </div>
             <span className="font-playfair text-cream text-[15px]">Admin Portal</span>
           </div>

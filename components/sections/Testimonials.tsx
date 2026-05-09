@@ -15,7 +15,7 @@ function StarRating({ count }: { count: number }) {
   return (
     <div className="flex gap-0.5 mb-3">
       {[1, 2, 3, 4, 5].map((i) => (
-        <span key={i} className={i <= count ? "text-gold-primary" : "text-cream/20"}>★</span>
+        <span key={i} className={i <= count ? "text-gold-primary" : "text-cream-faint"}>★</span>
       ))}
     </div>
   );
@@ -47,7 +47,7 @@ export function Testimonials() {
             {[...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
               <div key={i} className="flex-shrink-0 w-[300px] md:w-[340px] p-7 rounded-2xl border border-gold-primary/15 bg-linear-to-br from-forest/70 to-forest-dark hover:border-gold-primary/35 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(201,168,76,0.1)] transition-all duration-300">
                 <StarRating count={t.stars} />
-                <p className="text-cream/65 leading-relaxed mb-6 font-cormorant italic text-[15px]">&ldquo;{t.text}&rdquo;</p>
+                <p className="text-cream-muted leading-relaxed mb-6 font-cormorant italic text-[15px]">&ldquo;{t.text}&rdquo;</p>
                 <div className="flex items-center gap-3 pt-4 border-t border-gold-primary/10">
                   <div className="w-9 h-9 rounded-full bg-gold-primary/20 border border-gold-primary/30 flex items-center justify-center text-gold-primary font-playfair font-bold text-[14px]">
                     {t.name[0]}

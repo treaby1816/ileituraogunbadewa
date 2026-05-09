@@ -129,7 +129,7 @@ export function Chatbot() {
                   <p className="text-gold-primary/70 text-[11px] font-cinzel tracking-widest uppercase">Digital Concierge</p>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="text-cream/50 hover:text-gold-primary p-2 cursor-pointer transition-colors">✕</button>
+              <button onClick={() => setIsOpen(false)} className="text-cream-muted hover:text-gold-primary p-2 cursor-pointer transition-colors">✕</button>
             </div>
 
             {/* Messages */}
@@ -138,10 +138,10 @@ export function Chatbot() {
                 const isBot = m.role === "assistant";
                 return (
                   <motion.div key={m.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex flex-col ${isBot ? "items-start" : "items-end"}`}>
-                    <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${isBot ? "bg-white/5 border border-gold-primary/15 rounded-tl-sm text-cream/90" : "bg-gold-primary text-[#0D1A0D] rounded-tr-sm"}`}>
+                    <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${isBot ? "bg-white/5 border border-gold-primary/15 rounded-tl-sm text-cream-muted" : "bg-gold-primary text-[#0D1A0D] rounded-tr-sm"}`}>
                       {isBot && i === messages.length - 1 ? <TypewriterEffect text={m.content} /> : <p className="text-[14px] leading-relaxed break-words">{isBot ? parseText(m.content) : m.content}</p>}
                     </div>
-                    <span className="text-cream/30 text-[10px] mt-1 px-1">{m.timestamp}</span>
+                    <span className="text-cream-faint text-[10px] mt-1 px-1">{m.timestamp}</span>
                   </motion.div>
                 );
               })}

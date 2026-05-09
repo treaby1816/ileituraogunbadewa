@@ -19,12 +19,12 @@ export default async function BookingsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="font-playfair text-3xl text-cream mb-1">Bookings</h1>
-        <p className="text-cream/50 text-[14px]">Manage all room reservations.</p>
+        <p className="text-cream-muted text-[14px]">Manage all room reservations.</p>
       </div>
 
       <div className="bg-forest-dark border border-gold-primary/10 rounded-2xl overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-cream/70">
+          <table className="w-full text-left text-sm text-cream-muted">
             <thead className="bg-white/5 text-gold-primary font-cinzel text-[10px] tracking-widest uppercase">
               <tr>
                 <th className="px-6 py-4 font-medium">Ref</th>
@@ -41,7 +41,7 @@ export default async function BookingsPage() {
                   <td className="px-6 py-4 font-mono text-gold-primary/70">{b.booking_ref}</td>
                   <td className="px-6 py-4">
                     <p className="text-cream">{b.guest_name}</p>
-                    <p className="text-[11px] text-cream/40">{b.guest_phone}</p>
+                    <p className="text-[11px] text-cream-faint">{b.guest_phone}</p>
                   </td>
                   <td className="px-6 py-4 capitalize">{b.room_type}</td>
                   <td className="px-6 py-4">{new Date(b.check_in).toLocaleDateString()}</td>
@@ -59,7 +59,7 @@ export default async function BookingsPage() {
               ))}
               {!bookings?.length && (
                 <tr>
-                  <td colSpan={6} className="px-6 py-8 text-center text-cream/40">
+                  <td colSpan={6} className="px-6 py-8 text-center text-cream-faint">
                     No bookings found.
                   </td>
                 </tr>

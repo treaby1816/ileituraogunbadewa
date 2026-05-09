@@ -47,7 +47,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-full overflow-hidden shadow-[0_0_16px_rgba(201,168,76,0.4)] group-hover:shadow-[0_0_24px_rgba(201,168,76,0.6)] transition-shadow bg-forest-black">
-              <Image
+              <Image unoptimized={true}
                 src="/images/logo.png"
                 alt="Ilé Ìtura Ògúnbádéwà Logo"
                 width={40}
@@ -75,7 +75,7 @@ export function Navbar() {
                 className={`px-4 py-2 rounded-lg font-cinzel text-[11px] tracking-[0.08em] uppercase transition-all duration-200 ${
                   pathname === href
                     ? "text-gold-primary bg-gold-primary/10"
-                    : "text-cream/70 hover:text-cream hover:bg-white/5"
+                    : "text-cream-muted hover:text-cream hover:bg-white/5"
                 }`}
               >
                 {label}
@@ -87,7 +87,7 @@ export function Navbar() {
             {/* Theme toggle — always rendered, hidden until mounted to prevent layout shift */}
             <button
               onClick={toggleTheme}
-              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-cream/70 hover:text-gold-primary hover:bg-gold-primary/10 transition-all cursor-pointer border border-gold-primary/20 shadow-[0_0_10px_rgba(201,168,76,0.1)] hover:shadow-[0_0_15px_rgba(201,168,76,0.3)] group ${
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-cream-muted hover:text-gold-primary hover:bg-gold-primary/10 transition-all cursor-pointer border border-gold-primary/20 shadow-[0_0_10px_rgba(201,168,76,0.1)] hover:shadow-[0_0_15px_rgba(201,168,76,0.3)] group ${
                 mounted ? "opacity-100" : "opacity-0 pointer-events-none"
               }`}
               aria-label="Toggle Theme"
@@ -146,7 +146,7 @@ export function Navbar() {
                   className={`py-3 px-4 rounded-xl font-cinzel text-[12px] tracking-[0.1em] uppercase transition-all ${
                     pathname === href
                       ? "text-gold-primary bg-gold-primary/10 border border-gold-primary/20"
-                      : "text-cream/70 hover:text-cream hover:bg-white/5"
+                      : "text-cream-muted hover:text-cream hover:bg-white/5"
                   }`}
                 >
                   {label}

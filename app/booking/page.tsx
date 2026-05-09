@@ -38,7 +38,7 @@ function BookingForm() {
 
   const update = (field: string, value: string | number) => setForm((prev) => ({ ...prev, [field]: value }));
 
-  const inputClass = "w-full bg-white/5 border border-gold-primary/20 rounded-xl px-4 py-3 text-cream text-[13px] outline-none focus:border-gold-primary/60 transition-colors placeholder:text-cream/25";
+  const inputClass = "w-full bg-white/5 border border-gold-primary/20 rounded-xl px-4 py-3 text-cream text-[13px] outline-none focus:border-gold-primary/60 transition-colors placeholder:text-cream-faint";
 
   const handleSubmit = async () => {
     setStatus("loading");
@@ -79,11 +79,11 @@ function BookingForm() {
           <p className="font-cinzel text-[10px] tracking-widest text-gold-primary/60 uppercase mb-2">Booking Reference</p>
           <p className="font-playfair text-3xl text-gold-primary font-bold">{bookingRef}</p>
         </div>
-        <div className="text-cream/50 text-[13px] space-y-1 mb-8">
+        <div className="text-cream-muted text-[13px] space-y-1 mb-8">
           <p>{selectedRoom.name} · {nights} night{nights !== 1 ? "s" : ""}</p>
           <p>{form.check_in} → {form.check_out}</p>
           <p className="text-gold-primary font-semibold text-lg mt-2">{formatNaira(total)}</p>
-          <p className="text-cream/40 text-[11px] mt-1">💳 Pay on Arrival — No deposit required</p>
+          <p className="text-cream-faint text-[11px] mt-1">💳 Pay on Arrival — No deposit required</p>
         </div>
         <Button href={waLink} variant="primary" size="md" target="_blank" rel="noreferrer">
           Confirm via WhatsApp
@@ -99,7 +99,7 @@ function BookingForm() {
         {[1, 2, 3].map((s) => (
           <div key={s} className="flex items-center gap-2">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[12px] font-semibold transition-all ${
-              step >= s ? "bg-gold-primary text-forest-dark" : "bg-white/5 text-cream/30 border border-gold-primary/15"
+              step >= s ? "bg-gold-primary text-forest-dark" : "bg-white/5 text-cream-faint border border-gold-primary/15"
             }`}>{s}</div>
             {s < 3 && <div className={`w-10 h-[1px] ${step > s ? "bg-gold-primary" : "bg-gold-primary/15"}`} />}
           </div>
@@ -120,9 +120,9 @@ function BookingForm() {
                     <div className="flex justify-between items-center">
                       <div>
                         <p className="text-cream font-semibold text-[14px]">{room.name}</p>
-                        <p className="text-cream/40 text-[11px]">Max {room.maxGuests} guests</p>
+                        <p className="text-cream-faint text-[11px]">Max {room.maxGuests} guests</p>
                       </div>
-                      <p className="font-playfair text-gold-primary text-lg">{formatNaira(room.price)}<span className="text-cream/30 text-[11px]">/night</span></p>
+                      <p className="font-playfair text-gold-primary text-lg">{formatNaira(room.price)}<span className="text-cream-faint text-[11px]">/night</span></p>
                     </div>
                   </button>
                 ))}
@@ -147,7 +147,7 @@ function BookingForm() {
               </div>
               {nights > 0 && (
                 <div className="bg-white/3 border border-gold-primary/10 rounded-xl p-4 mb-6 text-[13px]">
-                  <div className="flex justify-between text-cream/50"><span>{formatNaira(selectedRoom.price)} × {nights} night{nights !== 1 ? "s" : ""}</span><span className="text-gold-primary font-semibold">{formatNaira(total)}</span></div>
+                  <div className="flex justify-between text-cream-muted"><span>{formatNaira(selectedRoom.price)} × {nights} night{nights !== 1 ? "s" : ""}</span><span className="text-gold-primary font-semibold">{formatNaira(total)}</span></div>
                 </div>
               )}
               <Button variant="primary" className="w-full justify-center" onClick={() => { if (form.check_in && form.check_out) setStep(2); }}>
@@ -188,12 +188,12 @@ function BookingForm() {
                   ...(form.special_requests ? [{ label: "Requests", value: form.special_requests }] : []),
                 ].map((item) => (
                   <div key={item.label} className="flex justify-between py-2 border-b border-gold-primary/8">
-                    <span className="text-cream/40 text-[12px]">{item.label}</span>
+                    <span className="text-cream-faint text-[12px]">{item.label}</span>
                     <span className="text-cream text-[13px] text-right max-w-[60%]">{item.value}</span>
                   </div>
                 ))}
                 <div className="flex justify-between pt-3">
-                  <span className="text-cream/60 font-semibold">Total</span>
+                  <span className="text-cream-muted font-semibold">Total</span>
                   <span className="font-playfair text-gold-primary text-2xl font-bold">{formatNaira(total)}</span>
                 </div>
               </div>
@@ -220,10 +220,10 @@ export default function BookingPage() {
       <section className="py-16 px-4 md:px-8 text-center bg-linear-to-b from-forest-dark to-forest-black">
         <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Reservation</span>
         <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Book Your Stay</h1>
-        <p className="text-cream/50 max-w-xl mx-auto">Reserve your room in 3 simple steps. Pay on arrival.</p>
+        <p className="text-cream-muted max-w-xl mx-auto">Reserve your room in 3 simple steps. Pay on arrival.</p>
       </section>
       <section className="py-16 px-4 md:px-8 pb-24 bg-forest-black">
-        <Suspense fallback={<div className="text-center text-cream/30 py-20">Loading...</div>}>
+        <Suspense fallback={<div className="text-center text-cream-faint py-20">Loading...</div>}>
           <BookingForm />
         </Suspense>
       </section>

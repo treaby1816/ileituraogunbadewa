@@ -64,7 +64,7 @@ export function WelcomeStrip() {
               className="flex flex-col items-center gap-2"
             >
               <Counter target={item.target} suffix={item.suffix} />
-              <p className="font-cinzel text-[10px] tracking-[0.15em] text-cream/50 uppercase mt-1">
+              <p className="font-cinzel text-[10px] tracking-[0.15em] text-cream-muted uppercase mt-1">
                 {item.label}
               </p>
             </motion.div>

@@ -50,7 +50,7 @@ export function RoomsTeaser() {
           <h2 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">
             Our Rooms & Suites
           </h2>
-          <p className="text-cream/50 max-w-xl mx-auto text-[15px]">
+          <p className="text-cream-muted max-w-xl mx-auto text-[15px]">
             Choose the perfect room for your stay — comfort awaits at every level.
           </p>
         </motion.div>
@@ -77,14 +77,14 @@ export function RoomsTeaser() {
                   <span className="font-playfair text-gold-primary text-lg font-semibold">
                     {formatNaira(room.price)}
                   </span>
-                  <span className="text-cream/40 text-[11px]"> /night</span>
+                  <span className="text-cream-faint text-[11px]"> /night</span>
                 </div>
               </div>
 
               {/* Content */}
               <div className="p-6">
                 <h3 className="font-playfair text-xl text-cream mb-2">{room.name}</h3>
-                <p className="text-cream/50 text-[13px] mb-4 leading-relaxed">{room.desc}</p>
+                <p className="text-cream-muted text-[13px] mb-4 leading-relaxed">{room.desc}</p>
 
                 {/* Feature pills */}
                 <div className="flex flex-wrap gap-2 mb-5">
@@ -99,7 +99,7 @@ export function RoomsTeaser() {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-cream/40 text-[12px]">
+                  <span className="text-cream-faint text-[12px]">
                     Max {room.maxGuests} guests
                   </span>
                   <Button
