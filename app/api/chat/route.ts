@@ -12,22 +12,24 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid messages format" }, { status: 400 });
     }
 
-    // Rate Limiting
-    const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
-    const { success, limit, remaining, reset } = await chatRateLimit.limit(ip);
+    // Rate Limiting (Bypass if Upstash is not configured)
+    if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
+      const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
+      const { success, limit, remaining, reset } = await chatRateLimit.limit(ip);
 
-    if (!success) {
-      return NextResponse.json(
-        { error: "Too many requests. Please wait a moment." },
-        {
-          status: 429,
-          headers: {
-            "X-RateLimit-Limit": limit.toString(),
-            "X-RateLimit-Remaining": remaining.toString(),
-            "X-RateLimit-Reset": reset.toString(),
-          },
-        }
-      );
+      if (!success) {
+        return NextResponse.json(
+          { error: "Too many requests. Please wait a moment." },
+          {
+            status: 429,
+            headers: {
+              "X-RateLimit-Limit": limit.toString(),
+              "X-RateLimit-Remaining": remaining.toString(),
+              "X-RateLimit-Reset": reset.toString(),
+            },
+          }
+        );
+      }
     }
 
     // Filter out the initial welcome message from history to prevent duplicate "model" roles
