@@ -8,13 +8,13 @@ const AMENITIES = [
     title: "Relaxation & Comfort",
     desc: "Our rooms are designed with your ultimate comfort in mind. Each room is fully air-conditioned, equipped with plush bedding, and maintained to the highest standards. Whether you're visiting for business or leisure, you'll find a peaceful retreat waiting for you.",
     features: ["Full air conditioning", "Premium mattresses & bedding", "Blackout curtains", "24/7 uninterrupted power supply"],
-    image: "/images/hero-3.png",
+    image: "/images/hero-3.jpg",
   },
   {
     title: "Bar & Lounge",
     desc: "Unwind after a long day at our inviting bar and lounge. Enjoy a curated selection of drinks and cocktails in a warm, ambient setting with great music and comfortable seating.",
     features: ["Wide beverage selection", "Ambient mood lighting", "Comfortable seating", "Open daily: 4 PM – 12 AM"],
-    image: "/images/hero-4.png",
+    image: "/images/hero-4.jpg",
   },
   {
     title: "Recreation Area",
@@ -26,19 +26,19 @@ const AMENITIES = [
     title: "Spacious Event Hall",
     desc: "Host your events in style at our elegant and spacious event hall. From birthday celebrations to corporate gatherings, our hall is fully equipped and can be configured to suit your occasion.",
     features: ["Flexible configurations", "Event lighting & sound", "Catering available", "Contact us for hire details"],
-    image: "/images/hero-5.png",
+    image: "/images/hero-5.jpg",
   },
   {
     title: "Secure Car Park",
     desc: "Drive in with peace of mind. Our car park is spacious, well-lit, and monitored around the clock. Parking is complimentary for all guests staying at the hotel.",
     features: ["24/7 CCTV monitoring", "Well-lit at night", "Ample capacity", "Free for hotel guests"],
-    image: "/images/hero-1.png",
+    image: "/images/hero-1.jpg",
   },
   {
     title: "24/7 Security",
     desc: "Your safety is our top priority. The entire property is under constant CCTV surveillance with trained security personnel on duty at all times, day and night.",
     features: ["CCTV coverage", "Trained security staff", "Controlled entry gate", "Emergency response ready"],
-    image: "/images/hero-1.png",
+    image: "/images/hero-1.jpg",
   },
 ];
 

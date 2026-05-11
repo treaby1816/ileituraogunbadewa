@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const AMENITIES = [
-  { icon: "🛏️", title: "Relaxation & Comfort", desc: "Our curated selection of rooms, featuring premium furnishings and amenities tailored for your ultimate rest.", image: "/images/hero-3.png" },
-  { icon: "🍹", title: "Bar & Lounge", desc: "A comprehensive selection of beverages in a refined, private setting.", image: "/images/hero-4.png" },
-  { icon: "🏛️", title: "Spacious Hall", desc: "The perfect venue for your exclusive events and celebrations.", image: "/images/hero-5.png" },
+  { icon: "🛏️", title: "Relaxation & Comfort", desc: "Our curated selection of rooms, featuring premium furnishings and amenities tailored for your ultimate rest.", image: "/images/hero-3.jpg" },
+  { icon: "🍹", title: "Bar & Lounge", desc: "A comprehensive selection of beverages in a refined, private setting.", image: "/images/hero-4.jpg" },
+  { icon: "🏛️", title: "Spacious Hall", desc: "The perfect venue for your exclusive events and celebrations.", image: "/images/hero-5.jpg" },
   { icon: "🅿️", title: "Spacious Car Park", desc: "Ample, secure parking facilities for you and your esteemed guests.", image: "/images/hero-2.png" },
 ];
 

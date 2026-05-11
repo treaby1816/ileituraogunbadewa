@@ -5,10 +5,10 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 
 const GALLERY_IMAGES = [
-  { src: "/images/hero-1.png", alt: "Hotel exterior", span: "col-span-2 row-span-2" },
-  { src: "/images/hero-3.png", alt: "Suite bedroom", span: "" },
-  { src: "/images/hero-4.png", alt: "Bar & Lounge", span: "" },
-  { src: "/images/hero-5.png", alt: "Event Hall", span: "col-span-2" },
+  { src: "/images/hero-1.jpg", alt: "Hotel front view", span: "col-span-2 row-span-2" },
+  { src: "/images/hero-3.jpg", alt: "Serene environment", span: "" },
+  { src: "/images/hero-4.jpg", alt: "Bar & Lounge", span: "" },
+  { src: "/images/hero-5.jpg", alt: "Spacious car park", span: "col-span-2" },
   { src: "/images/hero-2.png", alt: "Hotel lobby", span: "" },
 ];
 

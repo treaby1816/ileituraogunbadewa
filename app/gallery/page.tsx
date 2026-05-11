@@ -6,14 +6,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { GalleryCategory } from "@/lib/types";
 
 const IMAGES = [
-  { src: "/images/hero-3.png", category: "rooms" as GalleryCategory, caption: "Executive Suite" },
-  { src: "/images/hero-4.png", category: "bar" as GalleryCategory, caption: "Bar & Lounge" },
-  { src: "/images/hero-1.png", category: "exterior" as GalleryCategory, caption: "Hotel Exterior" },
-  { src: "/images/hero-2.png", category: "recreation" as GalleryCategory, caption: "Lobby Area" },
-  { src: "/images/hero-5.png", category: "events" as GalleryCategory, caption: "Event Hall" },
-  { src: "/images/hero-3.png", category: "rooms" as GalleryCategory, caption: "Standard Room" },
-  { src: "/images/hero-1.png", category: "exterior" as GalleryCategory, caption: "Parking Area" },
-  { src: "/images/hero-4.png", category: "bar" as GalleryCategory, caption: "Lounge Seating" },
+  { src: "/images/hero-3.jpg", category: "rooms" as GalleryCategory, caption: "Serene Environment" },
+  { src: "/images/hero-4.jpg", category: "bar" as GalleryCategory, caption: "Bar & Lounge" },
+  { src: "/images/hero-1.jpg", category: "exterior" as GalleryCategory, caption: "Hotel Front View" },
+  { src: "/images/hero-2.png", category: "recreation" as GalleryCategory, caption: "Reception & Lobby" },
+  { src: "/images/hero-5.jpg", category: "events" as GalleryCategory, caption: "Car Park" },
+  { src: "/images/hero-3.jpg", category: "rooms" as GalleryCategory, caption: "Aerial View" },
+  { src: "/images/hero-1.jpg", category: "exterior" as GalleryCategory, caption: "Night Exterior" },
+  { src: "/images/hero-4.jpg", category: "bar" as GalleryCategory, caption: "Lounge Seating" },
 ];
 
 const FILTERS: { label: string; value: GalleryCategory | "all" }[] = [

@@ -6,11 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 
 const HERO_IMAGES = [
-  { src: "/images/hero-1.png", alt: "Ilé Ìtura Ògúnbádéwà exterior view" },
+  { src: "/images/hero-1.jpg", alt: "Ilé Ìtura Ògúnbádéwà front view" },
   { src: "/images/hero-2.png", alt: "Hotel lobby and reception" },
-  { src: "/images/hero-3.png", alt: "Executive Suite bedroom" },
-  { src: "/images/hero-4.png", alt: "Bar and Lounge area" },
-  { src: "/images/hero-5.png", alt: "Event Hall" },
+  { src: "/images/hero-3.jpg", alt: "Serene environment aerial view" },
+  { src: "/images/hero-4.jpg", alt: "Bar and Lounge area" },
+  { src: "/images/hero-5.jpg", alt: "Spacious car park" },
 ];
 
 export function HeroSection() {
