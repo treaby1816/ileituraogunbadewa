@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { formatNaira } from "@/lib/utils";
 import type { RoomType } from "@/lib/types";
@@ -15,7 +16,8 @@ const ROOMS = [
     maxGuests: 2,
     features: ["Air Conditioning", "Flat-Screen TV", "Private Bathroom", "High-Speed WiFi", "Wardrobe", "24/7 Power"],
     desc: "A cozy, well-appointed room perfect for solo travelers or couples seeking a comfortable stay.",
-    images: ["/images/room-bedroom.jpg"],
+    image: "/images/room-bedroom.jpg",
+    gallery: ["/images/room-bedroom.jpg", "/images/room-entrance.jpg", "/images/room-bathroom.jpg"],
   },
   {
     id: "deluxe-1",
@@ -25,7 +27,8 @@ const ROOMS = [
     maxGuests: 2,
     features: ["King Bed", "Mini Fridge", "Smart TV", "High-Speed WiFi", "Work Desk", "En-suite Bathroom", "24/7 Power"],
     desc: "Elevated comfort with premium bedding, a spacious layout, and modern amenities for the discerning guest.",
-    images: ["/images/room-entrance.jpg"],
+    image: "/images/room-bedroom.jpg",
+    gallery: ["/images/room-bedroom.jpg", "/images/room-entrance.jpg", "/images/room-bathroom.jpg"],
   },
   {
     id: "suite-1",
@@ -35,7 +38,8 @@ const ROOMS = [
     maxGuests: 3,
     features: ["King Bed", "Sitting Area", "Mini Bar", "Smart TV", "High-Speed WiFi", "Premium Toiletries", "Bathrobes", "24/7 Power"],
     desc: "Our finest accommodation — spacious, luxurious, and designed for guests who appreciate the very best.",
-    images: ["/images/room-bathroom.jpg"],
+    image: "/images/room-bedroom.jpg",
+    gallery: ["/images/room-bedroom.jpg", "/images/room-entrance.jpg", "/images/room-bathroom.jpg"],
   },
 ];
 
@@ -46,9 +50,15 @@ const FILTERS: { label: string; value: RoomType | "all" }[] = [
   { label: "Suite", value: "suite" },
 ];
 
+const GALLERY_LABELS = ["Bedroom", "Room Entrance", "En-suite Bathroom"];
+
 export default function RoomsPage() {
   const [filter, setFilter] = useState<RoomType | "all">("all");
+  const [expandedRoom, setExpandedRoom] = useState<string | null>(null);
+  const [activeGalleryIndex, setActiveGalleryIndex] = useState<Record<string, number>>({});
   const filtered = filter === "all" ? ROOMS : ROOMS.filter((r) => r.type === filter);
+
+  const getGalleryIndex = (roomId: string) => activeGalleryIndex[roomId] ?? 0;
 
   return (
     <main className="pt-24">
@@ -83,43 +93,97 @@ export default function RoomsPage() {
       {/* Room cards */}
       <section className="py-12 px-4 md:px-8 bg-forest-black">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((room, i) => (
-            <motion.div
-              key={room.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="group rounded-2xl overflow-hidden border border-gold-primary/12 bg-linear-to-br from-forest/50 to-forest-dark hover:border-gold-primary/30 transition-all duration-300"
-            >
-              <div className="relative h-60 overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-                  style={{ backgroundImage: `url(${room.images[0]})` }}
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-forest-dark/90 to-transparent" />
-                <div className="absolute top-4 right-4 bg-forest-dark/80 backdrop-blur-sm border border-gold-primary/25 rounded-xl px-3 py-1.5">
-                  <span className="font-playfair text-gold-primary text-lg font-semibold">{formatNaira(room.price)}</span>
-                  <span className="text-cream-faint text-[11px]"> /night</span>
+          {filtered.map((room, i) => {
+            const isExpanded = expandedRoom === room.id;
+            const galleryIdx = getGalleryIndex(room.id);
+
+            return (
+              <motion.div
+                key={room.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="group rounded-2xl overflow-hidden border border-gold-primary/12 bg-linear-to-br from-forest/50 to-forest-dark hover:border-gold-primary/30 transition-all duration-300"
+              >
+                {/* Main image */}
+                <div className="relative h-60 overflow-hidden cursor-pointer" onClick={() => setExpandedRoom(isExpanded ? null : room.id)}>
+                  <div
+                    className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
+                    style={{ backgroundImage: `url(${room.image})` }}
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-forest-dark/90 to-transparent" />
+                  <div className="absolute top-4 right-4 bg-forest-dark/80 backdrop-blur-sm border border-gold-primary/25 rounded-xl px-3 py-1.5">
+                    <span className="font-playfair text-gold-primary text-lg font-semibold">{formatNaira(room.price)}</span>
+                    <span className="text-cream-faint text-[11px]"> /night</span>
+                  </div>
+                  <div className="absolute top-4 left-4 bg-gold-primary/20 border border-gold-primary/30 rounded-lg px-2.5 py-1">
+                    <span className="font-cinzel text-[9px] tracking-widest text-gold-primary uppercase">{room.type}</span>
+                  </div>
+                  {/* View more hint */}
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-forest-dark/70 backdrop-blur-sm border border-gold-primary/20 rounded-full px-4 py-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-gold-primary text-[11px] font-cinzel tracking-wider">{isExpanded ? "Hide Details" : "View Room Details"}</span>
+                  </div>
                 </div>
-                <div className="absolute top-4 left-4 bg-gold-primary/20 border border-gold-primary/30 rounded-lg px-2.5 py-1">
-                  <span className="font-cinzel text-[9px] tracking-widest text-gold-primary uppercase">{room.type}</span>
+
+                {/* Expanded gallery */}
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      {/* Image gallery */}
+                      <div className="px-4 pt-4">
+                        <div className="relative h-48 rounded-xl overflow-hidden">
+                          <Image
+                            src={room.gallery[galleryIdx]}
+                            alt={`${room.name} — ${GALLERY_LABELS[galleryIdx]}`}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
+                          <div className="absolute bottom-3 left-3 bg-forest-dark/80 backdrop-blur-sm rounded-lg px-3 py-1">
+                            <span className="text-gold-primary text-[11px] font-cinzel tracking-wider">{GALLERY_LABELS[galleryIdx]}</span>
+                          </div>
+                        </div>
+                        {/* Thumbnail navigation */}
+                        <div className="flex gap-2 mt-3">
+                          {room.gallery.map((img, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => setActiveGalleryIndex((prev) => ({ ...prev, [room.id]: idx }))}
+                              className={`relative h-14 flex-1 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
+                                galleryIdx === idx ? "border-gold-primary" : "border-transparent opacity-60 hover:opacity-100"
+                              }`}
+                            >
+                              <Image src={img} alt={GALLERY_LABELS[idx]} fill className="object-cover" sizes="100px" />
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <div className="p-6">
+                  <h3 className="font-playfair text-xl text-cream mb-2">{room.name}</h3>
+                  <p className="text-cream-muted text-[13px] mb-4 leading-relaxed">{room.desc}</p>
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {room.features.map((f) => (
+                      <span key={f} className="text-[10px] px-2.5 py-1 rounded-full border border-gold-primary/20 text-gold-primary/70">{f}</span>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between pt-4 border-t border-gold-primary/10">
+                    <span className="text-cream-faint text-[12px]">Max {room.maxGuests} guests</span>
+                    <Button href={`/booking?room=${room.type}`} variant="primary" size="sm">Book This Room</Button>
+                  </div>
                 </div>
-              </div>
-              <div className="p-6">
-                <h3 className="font-playfair text-xl text-cream mb-2">{room.name}</h3>
-                <p className="text-cream-muted text-[13px] mb-4 leading-relaxed">{room.desc}</p>
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {room.features.map((f) => (
-                    <span key={f} className="text-[10px] px-2.5 py-1 rounded-full border border-gold-primary/20 text-gold-primary/70">{f}</span>
-                  ))}
-                </div>
-                <div className="flex items-center justify-between pt-4 border-t border-gold-primary/10">
-                  <span className="text-cream-faint text-[12px]">Max {room.maxGuests} guests</span>
-                  <Button href={`/booking?room=${room.type}`} variant="primary" size="sm">Book This Room</Button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </section>
     </main>

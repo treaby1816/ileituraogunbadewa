@@ -44,7 +44,7 @@ export async function sendBookingConfirmation(booking: any) {
             </div>
             <p style="font-style: italic;">"Embrace Comfort, Enjoy Luxury"</p>
             <hr />
-            <p style="font-size: 12px; color: #666;">Address: Saheed Anibaba Street, Ikorodu, Lagos.</p>
+            <p style="font-size: 12px; color: #666;">Address: Saheed Anibaba Street, Off Obafemi Awolowo Way, Ikorodu, Lagos State, Nigeria.</p>
           </div>
         `,
       });

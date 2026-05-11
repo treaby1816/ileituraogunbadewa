@@ -21,7 +21,7 @@ const ROOMS = [
     maxGuests: 2,
     features: ["King Bed", "Mini Fridge", "Smart TV", "WiFi", "Work Desk"],
     desc: "Elevated comfort with premium bedding and a brighter layout.",
-    image: "/images/room-entrance.jpg",
+    image: "/images/room-bedroom.jpg",
   },
   {
     name: "Executive Suite",
@@ -30,7 +30,7 @@ const ROOMS = [
     maxGuests: 3,
     features: ["King Bed", "Sitting Area", "Mini Bar", "Smart TV", "Premium Toiletries"],
     desc: "Our finest accommodation — spacious, luxurious, and unforgettable.",
-    image: "/images/room-bathroom.jpg",
+    image: "/images/room-bedroom.jpg",
   },
 ];
 

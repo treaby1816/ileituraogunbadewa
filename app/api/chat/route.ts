@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
+import * as Sentry from "@sentry/nextjs";
 import { getChatModel } from "@/lib/gemini";
 import { ADUN_SYSTEM_PROMPT } from "@/lib/chatbot-prompt";
+import { chatRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
   try {
@@ -8,6 +10,24 @@ export async function POST(req: Request) {
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json({ error: "Invalid messages format" }, { status: 400 });
+    }
+
+    // Rate Limiting
+    const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
+    const { success, limit, remaining, reset } = await chatRateLimit.limit(ip);
+
+    if (!success) {
+      return NextResponse.json(
+        { error: "Too many requests. Please wait a moment." },
+        {
+          status: 429,
+          headers: {
+            "X-RateLimit-Limit": limit.toString(),
+            "X-RateLimit-Remaining": remaining.toString(),
+            "X-RateLimit-Reset": reset.toString(),
+          },
+        }
+      );
     }
 
     // Filter out the initial welcome message from history to prevent duplicate "model" roles
@@ -42,6 +62,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ response: responseText });
   } catch (error) {
     console.error("Chat API Error:", error);
+    Sentry.captureException(error);
     return NextResponse.json(
       { error: "Sorry, I am currently experiencing technical difficulties. Please contact us on WhatsApp." },
       { status: 500 }

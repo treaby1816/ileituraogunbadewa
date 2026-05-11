@@ -60,7 +60,7 @@ export default function ContactPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { icon: "📍", label: "Address", value: "Saheed Anibaba Street, Off Awolowo Way, Ikorodu, Lagos" },
+                { icon: "📍", label: "Address", value: "Saheed Anibaba Street, Off Obafemi Awolowo Way (Near Grammar School / Baba Ijebu), Ikorodu, Lagos State, Nigeria" },
                 { icon: "📞", label: "Phone", value: "08129041015 / 08060721283" },
                 { icon: "💬", label: "WhatsApp", value: "+234 812 904 1015" },
               ].map((c) => (

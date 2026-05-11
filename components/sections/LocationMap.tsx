@@ -35,8 +35,9 @@ export function LocationMap() {
                     <p className="font-cinzel text-[9px] tracking-[0.12em] text-gold-primary/60 uppercase mb-1">Address</p>
                     <p className="text-cream-muted leading-relaxed">
                       Saheed Anibaba Street,<br />
-                      Off Awolowo Way,<br />
-                      Ikorodu, Lagos State
+                      Off Obafemi Awolowo Way<br />
+                      (Near Grammar School / Baba Ijebu),<br />
+                      Ikorodu, Lagos State, Nigeria
                     </p>
                   </div>
                 </div>

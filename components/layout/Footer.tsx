@@ -121,9 +121,11 @@ export function Footer() {
                 <span className="text-cream-muted leading-relaxed">
                   Saheed Anibaba Street,
                   <br />
-                  Off Awolowo Way,
+                  Off Obafemi Awolowo Way
                   <br />
-                  Ikorodu, Lagos State
+                  (Near Grammar School / Baba Ijebu),
+                  <br />
+                  Ikorodu, Lagos State, Nigeria
                 </span>
               </li>
               <li>

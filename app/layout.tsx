@@ -72,7 +72,7 @@ const hotelJsonLd = {
   telephone: ["+2348129041015", "+2348060721283"],
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Saheed Anibaba Street, Off Awolowo Way",
+    streetAddress: "Saheed Anibaba Street, Off Obafemi Awolowo Way (Near Grammar School / Baba Ijebu)",
     addressLocality: "Ikorodu",
     addressRegion: "Lagos",
     addressCountry: "NG",
@@ -89,6 +89,9 @@ const hotelJsonLd = {
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "sonner";
 import DynamicChatbot from "@/components/ui/DynamicChatbot";
+import { PostHogProvider } from "@/components/PostHogProvider";
+import PostHogPageView from "@/components/PostHogPageView";
+import { Suspense } from "react";
 
 export default function RootLayout({
   children,
@@ -105,14 +108,19 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-forest-black text-cream font-dm-sans antialiased">
-        <ThemeProvider>
-          <Navbar />
-          {children}
-          <Footer />
-          <DynamicChatbot />
-          <WhatsAppButton />
-          <Toaster position="bottom-center" toastOptions={{ style: { background: "#0D1A0D", color: "#F8F4E8", border: "1px solid rgba(201,168,76,0.2)" } }} />
-        </ThemeProvider>
+        <PostHogProvider>
+          <ThemeProvider>
+            <Suspense fallback={null}>
+              <PostHogPageView />
+            </Suspense>
+            <Navbar />
+            {children}
+            <Footer />
+            <DynamicChatbot />
+            <WhatsAppButton />
+            <Toaster position="bottom-center" toastOptions={{ style: { background: "#0D1A0D", color: "#F8F4E8", border: "1px solid rgba(201,168,76,0.2)" } }} />
+          </ThemeProvider>
+        </PostHogProvider>
       </body>
     </html>
   );
