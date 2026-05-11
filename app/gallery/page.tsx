@@ -6,14 +6,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { GalleryCategory } from "@/lib/types";
 
 const IMAGES = [
-  { src: "/images/hero-3.jpg", category: "rooms" as GalleryCategory, caption: "Serene Environment" },
-  { src: "/images/hero-4.jpg", category: "bar" as GalleryCategory, caption: "Bar & Lounge" },
   { src: "/images/hero-1.jpg", category: "exterior" as GalleryCategory, caption: "Hotel Front View" },
-  { src: "/images/hero-2.png", category: "recreation" as GalleryCategory, caption: "Reception & Lobby" },
-  { src: "/images/hero-5.jpg", category: "events" as GalleryCategory, caption: "Car Park" },
-  { src: "/images/hero-3.jpg", category: "rooms" as GalleryCategory, caption: "Aerial View" },
-  { src: "/images/hero-1.jpg", category: "exterior" as GalleryCategory, caption: "Night Exterior" },
-  { src: "/images/hero-4.jpg", category: "bar" as GalleryCategory, caption: "Lounge Seating" },
+  { src: "/images/hero-2.png", category: "rooms" as GalleryCategory, caption: "Reception & Lobby" },
+  { src: "/images/hero-3.jpg", category: "exterior" as GalleryCategory, caption: "Aerial Sunset View" },
+  { src: "/images/hero-4.jpg", category: "bar" as GalleryCategory, caption: "Bar & Lounge" },
+  { src: "/images/hero-5.jpg", category: "exterior" as GalleryCategory, caption: "Car Park" },
+  { src: "/images/hall-1.jpg", category: "events" as GalleryCategory, caption: "Event Hall — Grand Setup" },
+  { src: "/images/hall-2.jpg", category: "events" as GalleryCategory, caption: "Event Hall — Chandelier View" },
+  { src: "/images/room-bedroom.jpg", category: "rooms" as GalleryCategory, caption: "Deluxe Room" },
+  { src: "/images/room-entrance.jpg", category: "rooms" as GalleryCategory, caption: "Room 202 Entrance" },
+  { src: "/images/room-bathroom.jpg", category: "rooms" as GalleryCategory, caption: "En-suite Bathroom" },
+  { src: "/images/recreation.jpg", category: "recreation" as GalleryCategory, caption: "Game & Gathering Yard" },
+  { src: "/images/compound.jpg", category: "exterior" as GalleryCategory, caption: "Compound & Bar Area" },
 ];
 
 const FILTERS: { label: string; value: GalleryCategory | "all" }[] = [

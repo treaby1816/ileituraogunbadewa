@@ -15,7 +15,7 @@ const ROOMS = [
     maxGuests: 2,
     features: ["Air Conditioning", "Flat-Screen TV", "Private Bathroom", "High-Speed WiFi", "Wardrobe", "24/7 Power"],
     desc: "A cozy, well-appointed room perfect for solo travelers or couples seeking a comfortable stay.",
-    images: ["/images/hero-3.jpg"],
+    images: ["/images/room-bedroom.jpg"],
   },
   {
     id: "deluxe-1",
@@ -25,7 +25,7 @@ const ROOMS = [
     maxGuests: 2,
     features: ["King Bed", "Mini Fridge", "Smart TV", "High-Speed WiFi", "Work Desk", "En-suite Bathroom", "24/7 Power"],
     desc: "Elevated comfort with premium bedding, a spacious layout, and modern amenities for the discerning guest.",
-    images: ["/images/hero-3.jpg"],
+    images: ["/images/room-entrance.jpg"],
   },
   {
     id: "suite-1",
@@ -35,7 +35,7 @@ const ROOMS = [
     maxGuests: 3,
     features: ["King Bed", "Sitting Area", "Mini Bar", "Smart TV", "High-Speed WiFi", "Premium Toiletries", "Bathrobes", "24/7 Power"],
     desc: "Our finest accommodation — spacious, luxurious, and designed for guests who appreciate the very best.",
-    images: ["/images/hero-3.jpg"],
+    images: ["/images/room-bathroom.jpg"],
   },
 ];
 

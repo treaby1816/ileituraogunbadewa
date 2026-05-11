@@ -8,7 +8,7 @@ const AMENITIES = [
     title: "Relaxation & Comfort",
     desc: "Our rooms are designed with your ultimate comfort in mind. Each room is fully air-conditioned, equipped with plush bedding, and maintained to the highest standards. Whether you're visiting for business or leisure, you'll find a peaceful retreat waiting for you.",
     features: ["Full air conditioning", "Premium mattresses & bedding", "Blackout curtains", "24/7 uninterrupted power supply"],
-    image: "/images/hero-3.jpg",
+    image: "/images/room-bedroom.jpg",
   },
   {
     title: "Bar & Lounge",
@@ -20,13 +20,13 @@ const AMENITIES = [
     title: "Recreation Area",
     desc: "Challenge your friends to a game of table tennis or simply enjoy the outdoor space. Our recreation area is perfect for families and groups looking to have a fun time.",
     features: ["Table tennis", "Outdoor relaxation space", "Family-friendly", "Free for all guests"],
-    image: "/images/hero-2.png",
+    image: "/images/recreation.jpg",
   },
   {
     title: "Spacious Event Hall",
     desc: "Host your events in style at our elegant and spacious event hall. From birthday celebrations to corporate gatherings, our hall is fully equipped and can be configured to suit your occasion.",
     features: ["Flexible configurations", "Event lighting & sound", "Catering available", "Contact us for hire details"],
-    image: "/images/hero-5.jpg",
+    image: "/images/hall-1.jpg",
   },
   {
     title: "Secure Car Park",

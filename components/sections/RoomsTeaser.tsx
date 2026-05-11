@@ -12,7 +12,7 @@ const ROOMS = [
     maxGuests: 2,
     features: ["Air Conditioning", "Flat-Screen TV", "Private Bathroom", "High-Speed WiFi"],
     desc: "A cozy, well-appointed room ideal for solo travelers or couples.",
-    image: "/images/hero-3.jpg",
+    image: "/images/room-bedroom.jpg",
   },
   {
     name: "Deluxe Comfort Room",
@@ -21,7 +21,7 @@ const ROOMS = [
     maxGuests: 2,
     features: ["King Bed", "Mini Fridge", "Smart TV", "WiFi", "Work Desk"],
     desc: "Elevated comfort with premium bedding and a brighter layout.",
-    image: "/images/hero-3.jpg",
+    image: "/images/room-entrance.jpg",
   },
   {
     name: "Executive Suite",
@@ -30,7 +30,7 @@ const ROOMS = [
     maxGuests: 3,
     features: ["King Bed", "Sitting Area", "Mini Bar", "Smart TV", "Premium Toiletries"],
     desc: "Our finest accommodation — spacious, luxurious, and unforgettable.",
-    image: "/images/hero-3.jpg",
+    image: "/images/room-bathroom.jpg",
   },
 ];
 

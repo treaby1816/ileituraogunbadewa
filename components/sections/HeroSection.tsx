@@ -11,6 +11,7 @@ const HERO_IMAGES = [
   { src: "/images/hero-3.jpg", alt: "Serene environment aerial view" },
   { src: "/images/hero-4.jpg", alt: "Bar and Lounge area" },
   { src: "/images/hero-5.jpg", alt: "Spacious car park" },
+  { src: "/images/hall-1.jpg", alt: "Elegant Event Hall" },
 ];
 
 export function HeroSection() {

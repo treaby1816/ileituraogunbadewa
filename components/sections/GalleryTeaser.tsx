@@ -5,11 +5,11 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 
 const GALLERY_IMAGES = [
-  { src: "/images/hero-1.jpg", alt: "Hotel front view", span: "col-span-2 row-span-2" },
-  { src: "/images/hero-3.jpg", alt: "Serene environment", span: "" },
+  { src: "/images/hall-1.jpg", alt: "Event Hall", span: "col-span-2 row-span-2" },
+  { src: "/images/room-bedroom.jpg", alt: "Deluxe Room", span: "" },
   { src: "/images/hero-4.jpg", alt: "Bar & Lounge", span: "" },
-  { src: "/images/hero-5.jpg", alt: "Spacious car park", span: "col-span-2" },
-  { src: "/images/hero-2.png", alt: "Hotel lobby", span: "" },
+  { src: "/images/compound.jpg", alt: "Compound & Bar Area", span: "col-span-2" },
+  { src: "/images/recreation.jpg", alt: "Game & Gathering Yard", span: "" },
 ];
 
 export function GalleryTeaser() {
