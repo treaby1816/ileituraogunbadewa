@@ -42,7 +42,7 @@ export function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-10 h-16 md:h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 md:px-10 h-[88px] md:h-24 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-full overflow-hidden shadow-[0_0_16px_rgba(201,168,76,0.4)] group-hover:shadow-[0_0_24px_rgba(201,168,76,0.6)] transition-shadow bg-forest-black">
@@ -121,7 +121,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-16 z-40 bg-forest-dark/98 backdrop-blur-xl border-b border-gold-primary/15 lg:hidden"
+            className="fixed inset-x-0 top-[88px] z-40 bg-forest-dark/98 backdrop-blur-xl border-b border-gold-primary/15 lg:hidden"
           >
             <nav className="flex flex-col p-6 gap-2">
               {NAV_LINKS.map(({ href, label }) => (

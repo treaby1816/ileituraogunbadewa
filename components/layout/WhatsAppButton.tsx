@@ -6,7 +6,7 @@ export function WhatsAppButton() {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-5 sm:bottom-8 sm:right-8 z-50 flex items-center gap-3">
+    <div className="fixed bottom-12 right-6 sm:bottom-12 sm:right-8 z-50 flex items-center gap-3">
       {/* Tooltip */}
       <div
         className={`hidden sm:block transition-all duration-300 ${

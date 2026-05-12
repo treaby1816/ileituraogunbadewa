@@ -49,8 +49,8 @@ export function HeroSection() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Dark overlay - always dark to ensure text contrast over photos */}
-      <div className="absolute inset-0 bg-linear-to-b from-[#070E07]/80 via-[#0D1A0D]/70 to-[#070E07]/90" />
+      {/* Dark overlay with blur for contrast */}
+      <div className="absolute inset-0 bg-linear-to-b from-[#070E07]/85 via-[#0D1A0D]/75 to-[#070E07]/95 backdrop-blur-[2px]" />
       {/* Gold vignette */}
       <div
         className="absolute inset-0"
@@ -95,7 +95,7 @@ export function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="font-cormorant italic text-xl md:text-2xl text-[#F8F4E8]/70 mb-10"
+          className="font-cormorant italic font-medium text-2xl md:text-3xl text-[#F8F4E8]/90 mb-10"
         >
           …Embrace Comfort, Enjoy Luxury
         </motion.p>
@@ -124,36 +124,34 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Slide indicators */}
-      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-10 flex gap-2">
-        {HERO_IMAGES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
-              i === current
-                ? "bg-gold-primary w-6"
-                : "bg-cream/30 hover:bg-cream/50"
-            }`}
-            aria-label={`Go to slide ${i + 1}`}
-          />
-        ))}
-      </div>
-
-      {/* Scroll indicator */}
+      {/* Consolidated UI: Pagination Dots & Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-6"
       >
-        <span className="font-cinzel text-[9px] tracking-[0.15em] text-gold-primary/50 uppercase">
-          Scroll
-        </span>
+        {/* Slide indicators */}
+        <div className="flex gap-2">
+          {HERO_IMAGES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                i === current
+                  ? "bg-gold-primary w-6"
+                  : "bg-cream/30 hover:bg-cream/50"
+              }`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Scroll line (text removed for cleaner UI) */}
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
-          className="w-[1px] h-8 bg-linear-to-b from-gold-primary/50 to-transparent"
+          className="w-[1px] h-8 bg-linear-to-b from-gold-primary/60 to-transparent"
         />
       </motion.div>
     </section>
