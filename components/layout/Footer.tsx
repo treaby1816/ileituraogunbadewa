@@ -23,12 +23,12 @@ export function Footer() {
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-5 group cursor-pointer block w-max">
               <div className="w-12 h-12 rounded-full overflow-hidden shadow-[0_0_16px_rgba(201,168,76,0.35)] group-hover:shadow-[0_0_24px_rgba(201,168,76,0.6)] transition-shadow">
-                <Image unoptimized={true}
+                <Image
                   src="/images/logo.png"
                   alt="Ilé Ìtura Ògúnbádéwà Logo"
-                  width={48}
-                  height={48}
-                  className="object-cover"
+                  width={60}
+                  height={60}
+                  className="object-contain brightness-0 invert"
                 />
               </div>
               <div>
@@ -198,8 +198,6 @@ export function Footer() {
           </div>
           <div className="flex gap-4">
             <p>Developed by Treabyn Inc.</p>
-            <div className="w-[1px] h-3 bg-gold-primary/30 self-center" />
-            <Link href="/dashboard" className="hover:text-gold-primary transition-colors">Admin Dashboard</Link>
           </div>
         </div>
       </div>

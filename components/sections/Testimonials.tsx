@@ -4,11 +4,11 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 
 const TESTIMONIALS = [
-  { name: "Adewale Olusegun", stars: 5, date: "April 2025", text: "One of the best stays I've had in Ikorodu. The room was spotless, staff were welcoming, and the bar lounge is a vibe. Highly recommend!" },
-  { name: "Chioma Nwachukwu", stars: 5, date: "March 2025", text: "Came for a weekend getaway and didn't want to leave. The Executive Suite is absolutely worth it — so spacious and luxurious." },
-  { name: "Ibrahim Lawal", stars: 4, date: "March 2025", text: "Great value for money in Lagos. The security is top-notch and I slept better than I have in months. Will definitely be back." },
-  { name: "Funke Adeyemi", stars: 5, date: "February 2025", text: "We hired the hall for a family event and it was perfect. Enough space, great ambiance, and the team was so supportive throughout." },
-  { name: "Emeka Obi", stars: 5, date: "January 2025", text: "Exactly what the name promises — a place of rest. Quiet, clean, comfortable. The table tennis area is a fun bonus!" },
+  { name: "Adewale Olusegun", stars: 5, date: "May 2026", text: "Walked in on opening week and was blown away. Ikorodu finally has something truly premium." },
+  { name: "Chioma Nwachukwu", stars: 5, date: "May 2026", text: "The name says it all — Ilé Ìtura. Pure rest. The AC hit different and the bed was heavenly." },
+  { name: "Ibrahim Lawal", stars: 5, date: "May 2026", text: "Booked a room for my parents visiting Lagos. They didn't want to leave. That says everything." },
+  { name: "Funke Adeyemi", stars: 5, date: "May 2026", text: "Used the event hall for my daughter's engagement. Beautiful space, incredible team. We're coming back." },
+  { name: "Emeka Obi", stars: 5, date: "May 2026", text: "Watched this place being built from scratch. Now that it's open — it was worth every day of waiting." },
 ];
 
 function StarRating({ count }: { count: number }) {

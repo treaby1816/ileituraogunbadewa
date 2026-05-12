@@ -50,7 +50,7 @@ export default function DashboardLogin() {
         
         <div className="flex flex-col items-center mb-8 relative z-10">
           <div className="w-16 h-16 rounded-full overflow-hidden shadow-[0_0_16px_rgba(201,168,76,0.35)] mb-4">
-            <Image unoptimized={true} src="/images/logo.png" alt="Logo" width={64} height={64} className="object-cover" />
+            <Image src="/images/logo.png" alt="Logo" width={64} height={64} className="object-cover" />
           </div>
           <h1 className="font-playfair text-2xl text-cream mb-1">Admin Portal</h1>
           <p className="font-cinzel text-[10px] tracking-widest text-gold-primary uppercase">Ilé Ìtura Ògúnbádéwà</p>

@@ -36,7 +36,7 @@ export function GalleryTeaser() {
               transition={{ delay: i * 0.08 }}
               className={`relative rounded-xl overflow-hidden group cursor-pointer ${img.span}`}
             >
-              <Image unoptimized={true} src={img.src} alt={img.alt} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width:768px) 50vw, 25vw" />
+              <Image src={img.src} alt={img.alt} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width:768px) 50vw, 25vw" />
               <div className="absolute inset-0 bg-gold-primary/0 group-hover:bg-gold-primary/20 transition-colors duration-300 flex items-center justify-center">
                 <span className="text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity">🔍</span>
               </div>

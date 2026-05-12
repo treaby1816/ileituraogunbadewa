@@ -11,7 +11,7 @@ const ROOMS = [
   { type: "standard", name: "Classic Standard Room", price: 15000, maxGuests: 2, isHall: false },
   { type: "deluxe", name: "Deluxe Comfort Room", price: 22000, maxGuests: 2, isHall: false },
   { type: "suite", name: "Executive Suite", price: 35000, maxGuests: 3, isHall: false },
-  { type: "hall", name: "Spacious Event Hall", price: 150000, maxGuests: 150, isHall: true },
+  { type: "hall", name: "Spacious Event Hall", price: 500000, maxGuests: 150, isHall: true },
 ];
 
 function BookingForm() {
@@ -21,7 +21,16 @@ function BookingForm() {
   const [step, setStep] = useState(1);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [bookingRef, setBookingRef] = useState("");
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<{
+    room_type: string;
+    check_in: string;
+    check_out: string;
+    num_guests: number;
+    guest_name: string;
+    guest_phone: string;
+    guest_email: string;
+    special_requests: string;
+  }>({
     room_type: preselected,
     check_in: "",
     check_out: "",
@@ -37,7 +46,8 @@ function BookingForm() {
   const total = nights * selectedRoom.price;
   const today = new Date().toISOString().split("T")[0];
 
-  const update = (field: string, value: string | number) => setForm((prev) => ({ ...prev, [field]: value }));
+  const update = (field: keyof typeof form, value: string | number) => 
+    setForm((prev) => ({ ...prev, [field]: value }));
 
   const inputClass = "w-full bg-white/8 border border-gold-primary/20 rounded-xl px-4 py-3 text-cream text-[13px] outline-none focus:border-gold-primary/60 transition-colors placeholder:text-cream-faint";
 
@@ -135,7 +145,7 @@ function BookingForm() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label className="block font-cinzel text-[9px] tracking-widest text-gold-primary/60 uppercase mb-2">Check-in</label>
-                  <input type="date" className={inputClass} value={form.check_in} min={today} onChange={(e) => {
+                  <input type="date" className={inputClass} value={form.check_in} min={today} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     const val = e.target.value;
                     update("check_in", val);
                     if (selectedRoom.isHall && !form.check_out) update("check_out", val);
@@ -143,7 +153,7 @@ function BookingForm() {
                 </div>
                 <div>
                   <label className="block font-cinzel text-[9px] tracking-widest text-gold-primary/60 uppercase mb-2">Check-out</label>
-                  <input type="date" className={inputClass} value={form.check_out} min={form.check_in || today} onChange={(e) => update("check_out", e.target.value)} required />
+                  <input type="date" className={inputClass} value={form.check_out} min={form.check_in || today} onChange={(e: React.ChangeEvent<HTMLInputElement>) => update("check_out", e.target.value)} required />
                 </div>
               </div>
               <div className="mb-6">
@@ -155,11 +165,11 @@ function BookingForm() {
                     max={selectedRoom.maxGuests}
                     className={inputClass}
                     value={form.num_guests}
-                    onChange={(e) => update("num_guests", parseInt(e.target.value) || 1)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => update("num_guests", parseInt(e.target.value) || 1)}
                     placeholder={`Max ${selectedRoom.maxGuests} guests`}
                   />
                 ) : (
-                  <select className={inputClass} value={form.num_guests} onChange={(e) => update("num_guests", parseInt(e.target.value))}>
+                  <select className={inputClass} value={form.num_guests} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => update("num_guests", parseInt(e.target.value))}>
                     {[1, 2, 3].filter((n) => n <= selectedRoom.maxGuests).map((n) => (
                       <option key={n} value={n} style={{ background: "#0D1A0D" }}>{n} Guest{n > 1 ? "s" : ""}</option>
                     ))}
@@ -196,10 +206,10 @@ function BookingForm() {
             <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
               <h3 className="font-playfair text-xl text-cream mb-6">2. Guest Details</h3>
               <div className="space-y-4 mb-6">
-                <input className={inputClass} placeholder="Full Name *" value={form.guest_name} onChange={(e) => update("guest_name", e.target.value)} required />
-                <input className={inputClass} placeholder="Phone Number *" value={form.guest_phone} onChange={(e) => update("guest_phone", e.target.value)} required />
-                <input className={inputClass} type="email" placeholder="Email (optional)" value={form.guest_email} onChange={(e) => update("guest_email", e.target.value)} />
-                <textarea className={`${inputClass} min-h-[100px] resize-none`} placeholder="Special Requests (optional)" value={form.special_requests} onChange={(e) => update("special_requests", e.target.value)} />
+                <input className={inputClass} placeholder="Full Name *" value={form.guest_name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => update("guest_name", e.target.value)} required />
+                <input className={inputClass} placeholder="Phone Number *" value={form.guest_phone} onChange={(e: React.ChangeEvent<HTMLInputElement>) => update("guest_phone", e.target.value)} required />
+                <input className={inputClass} type="email" placeholder="Email (optional)" value={form.guest_email} onChange={(e: React.ChangeEvent<HTMLInputElement>) => update("guest_email", e.target.value)} />
+                <textarea className={`${inputClass} min-h-[100px] resize-none`} placeholder="Special Requests (optional)" value={form.special_requests} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => update("special_requests", e.target.value)} />
               </div>
               <div className="flex gap-3">
                 <Button variant="ghost" className="flex-1 justify-center" onClick={() => setStep(1)}>← Back</Button>

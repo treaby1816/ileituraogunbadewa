@@ -27,7 +27,7 @@ export function HeroSection() {
   }, [next]);
 
   return (
-    <section className="relative w-full h-[100svh] min-h-[640px] flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative w-full h-[85svh] md:h-[100svh] min-h-[540px] md:min-h-[640px] flex flex-col items-center justify-center overflow-hidden">
       {/* Background carousel images */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -38,12 +38,12 @@ export function HeroSection() {
           transition={{ duration: 1.2, ease: "easeInOut" }}
           className="absolute inset-0"
         >
-          <Image unoptimized={true}
+          <Image
             src={HERO_IMAGES[current].src}
             alt={HERO_IMAGES[current].alt}
             fill
             priority={current === 0}
-            className="object-cover animate-kenburns"
+            className="object-cover object-[center_30%] md:object-center animate-kenburns"
             sizes="100vw"
           />
         </motion.div>

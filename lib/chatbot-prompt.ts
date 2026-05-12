@@ -123,7 +123,7 @@ EVENT HALL
 - Theatre-style seating: 150 to 200 people
 - Banquet/dining capacity (tables & chairs): 150 people
 - The hall is beautiful with a wonderful atmosphere
-- Pricing: FULL DAY hire
+- Pricing: ₦500,000 per FULL DAY hire
 - Included in hire fee: AC, stage, tables, and chairs
 - Air conditioning covers the full hall capacity, supplemented by fans
 - Solar panel backup for electricity during events

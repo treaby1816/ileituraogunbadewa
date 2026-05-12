@@ -66,7 +66,7 @@ export default function AmenitiesPage() {
             >
               <div className={`${i % 2 === 1 ? "lg:order-2" : ""}`}>
                 <div className="relative h-[320px] rounded-2xl overflow-hidden border border-gold-primary/15 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
-                  <Image unoptimized={true} src={item.image} alt={item.title} fill className="object-cover" sizes="(max-width:1024px) 100vw, 50vw" />
+                  <Image src={item.image} alt={item.title} fill className="object-cover" sizes="(max-width:1024px) 100vw, 50vw" />
                 </div>
               </div>
               <div className={`${i % 2 === 1 ? "lg:order-1" : ""}`}>

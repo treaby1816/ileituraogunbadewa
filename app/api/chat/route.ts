@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import * as Sentry from "@sentry/nextjs";
 import { getChatModel } from "@/lib/gemini";
-import { ADUN_SYSTEM_PROMPT } from "@/lib/chatbot-prompt";
 import { chatRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
@@ -45,17 +44,7 @@ export async function POST(req: Request) {
 
     const chatModel = getChatModel();
     const chat = chatModel.startChat({
-      history: [
-        {
-          role: "user",
-          parts: [{ text: "System Prompt (Ignore as user message, just adopt this persona): " + ADUN_SYSTEM_PROMPT }],
-        },
-        {
-          role: "model",
-          parts: [{ text: "Understood. I am Àdùn, the AI concierge for Ilé Ìtura Ògúnbádéwà." }],
-        },
-        ...history,
-      ],
+      history: history,
     });
 
     const result = await chat.sendMessage(lastMessage);

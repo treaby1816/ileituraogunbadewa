@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { ADUN_SYSTEM_PROMPT } from "@/lib/chatbot-prompt";
 
 export const getChatModel = () => {
   if (!process.env.GEMINI_API_KEY) {
@@ -9,6 +10,7 @@ export const getChatModel = () => {
   
   return genAI.getGenerativeModel({
     model: "gemini-flash-latest",
+    systemInstruction: ADUN_SYSTEM_PROMPT,
     generationConfig: {
       maxOutputTokens: 600,
       temperature: 0.75,

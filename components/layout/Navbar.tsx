@@ -46,7 +46,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-full overflow-hidden shadow-[0_0_16px_rgba(201,168,76,0.4)] group-hover:shadow-[0_0_24px_rgba(201,168,76,0.6)] transition-shadow bg-forest-black">
-              <Image unoptimized={true}
+              <Image
                 src="/images/logo.png"
                 alt="Ilé Ìtura Ògúnbádéwà Logo"
                 width={40}

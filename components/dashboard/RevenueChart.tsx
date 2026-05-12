@@ -6,7 +6,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 export function RevenueChart({ bookings }: { bookings: any[] }) {
   // Aggregate mock data by date
   const data = useMemo(() => {
-    const prices: Record<string, number> = { standard: 15000, deluxe: 22000, suite: 35000 };
+    const prices: Record<string, number> = { standard: 15000, deluxe: 22000, suite: 35000, hall: 500000 };
     const grouped: Record<string, { date: string; revenue: number; bookings: number }> = {};
 
     bookings.forEach((b) => {

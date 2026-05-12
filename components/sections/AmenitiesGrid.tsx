@@ -41,7 +41,7 @@ export function AmenitiesGrid() {
               transition={{ duration: 0.5, delay: i * 0.08 }}
               className="group relative h-[300px] rounded-sm overflow-hidden flex flex-col justify-end p-6 md:p-8 cursor-default border border-gold-primary/20 hover:border-gold-primary/50 transition-all duration-300 shadow-xl"
             >
-              <Image unoptimized={true} 
+              <Image 
                 src={item.image} 
                 alt={item.title} 
                 fill 

@@ -79,7 +79,7 @@ export default function GalleryPage() {
               onClick={() => setLightbox(i)}
               className="relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer group"
             >
-              <Image unoptimized={true} src={img.src} alt={img.caption} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width:768px) 50vw, 25vw" />
+              <Image src={img.src} alt={img.caption} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width:768px) 50vw, 25vw" />
               <div className="absolute inset-0 bg-forest-black/0 group-hover:bg-forest-black/40 transition-colors flex items-center justify-center">
                 <span className="text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity">🔍</span>
               </div>
@@ -117,7 +117,7 @@ export default function GalleryPage() {
               className="relative w-full max-w-4xl aspect-video rounded-xl overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <Image unoptimized={true} src={filtered[lightbox].src} alt={filtered[lightbox].caption} fill className="object-contain" sizes="100vw" />
+              <Image src={filtered[lightbox].src} alt={filtered[lightbox].caption} fill className="object-contain" sizes="100vw" />
             </motion.div>
             {/* Next */}
             <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className="absolute right-4 top-1/2 -translate-y-1/2 text-cream-muted hover:text-gold-primary text-3xl cursor-pointer z-10">›</button>

@@ -40,7 +40,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <div className="p-6 mb-4">
         <Link href="/" className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full overflow-hidden shadow-[0_0_16px_rgba(201,168,76,0.35)]">
-            <Image unoptimized={true} src="/images/logo.png" alt="Logo" width={40} height={40} className="object-cover" />
+            <Image src="/images/logo.png" alt="Logo" width={40} height={40} className="object-cover" />
           </div>
           <div>
             <p className="font-playfair text-[15px] text-cream leading-tight">Admin Portal</p>
@@ -113,7 +113,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <header className="lg:hidden flex items-center justify-between p-4 border-b border-gold-primary/10 bg-forest-dark/50 sticky top-0 z-30">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full overflow-hidden">
-              <Image unoptimized={true} src="/images/logo.png" alt="Logo" width={32} height={32} className="object-cover" />
+              <Image src="/images/logo.png" alt="Logo" width={32} height={32} className="object-cover" />
             </div>
             <span className="font-playfair text-cream text-[15px]">Admin Portal</span>
           </div>

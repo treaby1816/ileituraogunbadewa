@@ -67,9 +67,12 @@ export function RoomsTeaser() {
             >
               {/* Image */}
               <div className="relative h-56 overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
-                  style={{ backgroundImage: `url(${room.image})` }}
+                <Image
+                  src={room.image}
+                  alt={room.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-forest-dark/90 to-transparent" />
                 {/* Price badge */}

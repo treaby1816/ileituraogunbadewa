@@ -33,7 +33,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <div className="relative h-[380px] rounded-2xl overflow-hidden border border-gold-primary/15 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
-              <Image unoptimized={true} src="/images/hero-1.jpg" alt="Ilé Ìtura Ògúnbádéwà" fill className="object-cover" sizes="50vw" />
+              <Image src="/images/hero-1.jpg" alt="Ilé Ìtura Ògúnbádéwà" fill className="object-cover" sizes="50vw" />
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
