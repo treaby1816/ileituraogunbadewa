@@ -87,8 +87,8 @@ export function Chatbot() {
       } else {
         throw new Error(data.error);
       }
-    } catch {
-      setMessages(prev => [...prev, { id: Date.now().toString(), role: "assistant", content: "I'm having a little trouble connecting right now. Please reach out to us on WhatsApp instead!", timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
+    } catch (err: any) {
+      setMessages(prev => [...prev, { id: Date.now().toString(), role: "assistant", content: err.message || "I'm having a little trouble connecting right now. Please reach out to us on WhatsApp instead!", timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
     } finally {
       setIsLoading(false);
     }
