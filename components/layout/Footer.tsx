@@ -188,10 +188,17 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-gold-primary/8 px-4 md:px-8 py-5">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-cream-faint">
-          <p>© {new Date().getFullYear()} Ilé Ìtura Ògúnbádéwà. All rights reserved.</p>
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-4 text-[11px] text-cream-faint">
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+            <p>© {new Date().getFullYear()} Ilé Ìtura Ògúnbádéwà. All rights reserved.</p>
+            <div className="hidden sm:block w-[1px] h-3 bg-gold-primary/30" />
+            <Link href="/privacy" className="hover:text-gold-primary transition-colors">Privacy Policy</Link>
+            <div className="hidden sm:block w-[1px] h-3 bg-gold-primary/30" />
+            <Link href="/terms" className="hover:text-gold-primary transition-colors">Terms & Conditions</Link>
+          </div>
           <div className="flex gap-4">
             <p>Developed by Treabyn Inc.</p>
+            <div className="w-[1px] h-3 bg-gold-primary/30 self-center" />
             <Link href="/dashboard" className="hover:text-gold-primary transition-colors">Admin Dashboard</Link>
           </div>
         </div>
