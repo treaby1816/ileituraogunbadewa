@@ -65,8 +65,9 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error("Chat API Error:", error);
     Sentry.captureException(error);
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
-      { error: "Sorry, I am currently experiencing technical difficulties. Please contact us on WhatsApp." },
+      { error: `DEBUG ERROR: ${errorMessage}` },
       { status: 500 }
     );
   }
