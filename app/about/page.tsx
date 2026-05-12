@@ -39,10 +39,10 @@ export default function AboutPage() {
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <h2 className="font-playfair text-3xl text-cream mb-6">Our Beginning</h2>
             <p className="text-cream-muted text-[14px] leading-relaxed mb-4">
-              <strong className="text-gold-primary">Ilé Ìtura Ògúnbádéwà</strong> — in Yoruba, this name embodies our mission: to create a sanctuary of rest and exceptional Nigerian hospitality. Founded in Ikorodu, Lagos State, we set out to prove that world-class comfort and warmth can thrive in every community.
+              <strong className="text-gold-primary">Ilé Ìtura Ògúnbádéwà</strong> — in Yoruba, this name embodies our mission: to create a sanctuary of rest and exceptional Nigerian hospitality. Founded in Ikorodu, Lagos State, we recently opened our doors with a vision to prove that world-class comfort and warmth can thrive in every community.
             </p>
             <p className="text-cream-muted text-[14px] leading-relaxed">
-              Today, we proudly serve hundreds of guests each year with air-conditioned rooms, a vibrant bar & lounge, recreation spaces, and a spacious event hall — all delivered with the warmth and care that defines true Nigerian hospitality.
+              Today, we proudly welcome guests to experience our fully air-conditioned luxury rooms, a vibrant bar & lounge, relaxing recreation spaces, and a spacious event hall — all delivered with the warmth and care that defines true Nigerian hospitality.
             </p>
           </motion.div>
         </div>
