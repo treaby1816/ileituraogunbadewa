@@ -14,7 +14,7 @@ export function LocationMap() {
           <div className="lg:col-span-3 rounded-2xl overflow-hidden border border-gold-primary/15 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
             <iframe
               title="Ilé Ìtura Ògúnbádéwà Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63423.81308!2d3.5027!3d6.6018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf5f0b9af2ec9%3A0x3d0d4e5d5c5e5c5d!2sIkorodu%2C%20Lagos!5e0!3m2!1sen!2sng!4v1620000000000"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.2!2d3.5!3d6.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sSaheed%20Anibaba%20St%2C%20Ikorodu%2C%20Lagos!5e0!3m2!1sen!2sng!4v1715470000000"
               width="100%"
               height="380"
               style={{ border: 0, display: "block" }}
@@ -60,7 +60,7 @@ export function LocationMap() {
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 mt-8">
-                <Button href="https://maps.google.com/?q=Ikorodu+Lagos+Nigeria" variant="primary" size="sm" target="_blank" rel="noreferrer" className="flex-1 justify-center">
+                <Button href="https://www.google.com/maps/dir/?api=1&destination=Saheed+Anibaba+Street+Ikorodu+Lagos" variant="primary" size="sm" target="_blank" rel="noreferrer" className="flex-1 justify-center">
                   Get Directions
                 </Button>
                 <Button href="tel:08129041015" variant="ghost" size="sm" className="flex-1 justify-center">
