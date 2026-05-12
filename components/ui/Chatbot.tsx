@@ -133,7 +133,7 @@ export function Chatbot() {
             </div>
 
             {/* Messages */}
-            <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-linear-to-b from-forest-black to-forest-dark scrollbar-hide">
+            <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-linear-to-b from-forest-black to-forest-dark [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gold-primary/30 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-gold-primary/50">
               {messages.map((m, i) => {
                 const isBot = m.role === "assistant";
                 return (
