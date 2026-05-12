@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { BackButton } from "@/components/ui/BackButton";
 import { toast } from "sonner";
 
 const INQUIRY_TYPES = ["General Inquiry", "Room Booking", "Event Hall Hire", "Complaint", "Partnership", "Other"];
@@ -42,8 +43,10 @@ export default function ContactPage() {
   return (
     <main className="pt-24">
       <section className="py-16 px-4 md:px-8 text-center bg-linear-to-b from-forest-dark to-forest-black">
-        <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Get In Touch</span>
-        <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Contact Us</h1>
+        <div className="max-w-7xl mx-auto flex flex-col items-center">
+          <BackButton />
+          <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Get In Touch</span>
+          <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Contact Us</h1>
         <p className="text-cream-muted max-w-xl mx-auto">We&apos;d love to hear from you. Reach out anytime.</p>
       </section>
 

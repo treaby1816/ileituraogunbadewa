@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
+import { BackButton } from "@/components/ui/BackButton";
 import { formatNaira } from "@/lib/utils";
 import type { RoomType } from "@/lib/types";
 
@@ -64,8 +65,10 @@ export default function RoomsPage() {
     <main className="pt-24">
       {/* Hero */}
       <section className="py-16 px-4 md:px-8 text-center bg-linear-to-b from-forest-dark to-forest-black">
-        <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Accommodation</span>
-        <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Our Rooms & Suites</h1>
+        <div className="max-w-7xl mx-auto flex flex-col items-center">
+          <BackButton />
+          <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Accommodation</span>
+          <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Our Rooms & Suites</h1>
         <p className="text-cream-muted max-w-xl mx-auto">
           Every room at Ilé Ìtura Ògúnbádéwà is designed for maximum comfort and relaxation.
         </p>

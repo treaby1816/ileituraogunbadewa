@@ -31,31 +31,52 @@ export async function POST(req: Request) {
       }
     }
 
-    // Filter out the initial welcome message from history to prevent duplicate "model" roles
-    const history = messages
-      .slice(0, -1)
-      .filter((m: any) => m.id !== "welcome")
-      .map((m: any) => ({
-        role: m.role === "user" ? "user" : "model",
-        parts: [{ text: m.content }],
-      }));
+    // Process history to ensure alternating roles and valid content
+    const history = [];
+    let lastRole = null;
+
+    for (const m of messages.slice(0, -1)) {
+      if (m.id === "welcome") continue;
+      
+      const role = m.role === "user" ? "user" : "model";
+      // Ensure we don't have consecutive same roles which Gemini rejects
+      if (role !== lastRole) {
+        history.push({
+          role,
+          parts: [{ text: m.content || "..." }],
+        });
+        lastRole = role;
+      }
+    }
 
     const lastMessage = messages[messages.length - 1].content;
 
     const chatModel = getChatModel();
+    
+    // Add safety settings to prevent over-eager filtering
     const chat = chatModel.startChat({
       history: history,
+      safetySettings: [
+        { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+        { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" },
+      ]
     });
 
     const result = await chat.sendMessage(lastMessage);
-    const responseText = result.response.text();
+    const response = await result.response;
+    const responseText = response.text();
 
     return NextResponse.json({ response: responseText });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Chat API Error:", error);
     Sentry.captureException(error);
+    
+    // Return more descriptive error for "ADUN ERROR" investigation
+    const errorMessage = error.message || "Unknown error";
     return NextResponse.json(
-      { error: "Sorry, I am currently experiencing technical difficulties. Please contact us on WhatsApp." },
+      { error: `Àdùn Error: ${errorMessage}. Please contact us on WhatsApp.` },
       { status: 500 }
     );
   }

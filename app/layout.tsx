@@ -91,6 +91,7 @@ import { Toaster } from "sonner";
 import DynamicChatbot from "@/components/ui/DynamicChatbot";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import PostHogPageView from "@/components/PostHogPageView";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { Suspense } from "react";
 
 export default function RootLayout({
@@ -116,6 +117,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Footer />
+            <ScrollToTop />
             <DynamicChatbot />
             <WhatsAppButton />
             <Toaster position="bottom-center" toastOptions={{ style: { background: "#0D1A0D", color: "#F8F4E8", border: "1px solid rgba(201,168,76,0.2)" } }} />

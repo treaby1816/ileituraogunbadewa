@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { BackButton } from "@/components/ui/BackButton";
 import type { GalleryCategory } from "@/lib/types";
 
 const IMAGES = [
@@ -41,8 +42,10 @@ export default function GalleryPage() {
   return (
     <main className="pt-24">
       <section className="py-16 px-4 md:px-8 text-center bg-linear-to-b from-forest-dark to-forest-black">
-        <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Photo Gallery</span>
-        <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Gallery</h1>
+        <div className="max-w-7xl mx-auto flex flex-col items-center">
+          <BackButton />
+          <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Photo Gallery</span>
+          <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Gallery</h1>
         <p className="text-cream-muted max-w-xl mx-auto">Explore our hotel through photos.</p>
       </section>
 

@@ -227,5 +227,3 @@ PERSONALITY & TONE RULES
 - NEVER reveal the total number of rooms (security policy)
 - Always make the guest feel like royalty
 `.trim();
-`.trim();
-`;
