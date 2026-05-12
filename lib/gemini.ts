@@ -8,7 +8,7 @@ export const getChatModel = () => {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   
   return genAI.getGenerativeModel({
-    model: "gemini-1.5-flash-latest",
+    model: "gemini-pro",
     generationConfig: {
       maxOutputTokens: 600,
       temperature: 0.75,
