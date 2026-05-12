@@ -52,7 +52,7 @@ export function WelcomeStrip() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 text-center">
           {[
             { target: 20, suffix: "+", label: "Rooms Available" },
-            { target: 5, suffix: "+", label: "Years of Excellence" },
+            { target: 1, suffix: "+", label: "Years of Excellence" },
             { target: 500, suffix: "+", label: "Happy Guests" },
           ].map((item, i) => (
             <motion.div
