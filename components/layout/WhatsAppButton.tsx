@@ -22,7 +22,7 @@ export function WhatsAppButton() {
 
       {/* Button */}
       <a
-        href="https://wa.me/2348129041015?text=Hello%2C%20I%27d%20like%20to%20make%20a%20booking%20at%20Il%C3%A9%20%C3%8Ctura%20%C3%92g%C3%BAnb%C3%A1d%C3%A9w%C3%A0"
+        href="https://wa.me/2348129041015?text=Hello!%20I%20would%20love%20to%20experience%20the%20comfort%20and%20luxury%20of%20Il%C3%A9%20%C3%8Ctura%20%C3%92g%C3%BAnb%C3%A1d%C3%A9w%C3%A0.%20Can%20you%20please%20help%20me%20with%20an%20inquiry%20or%20booking%3F"
         target="_blank"
         rel="noreferrer"
         aria-label="Chat with us on WhatsApp"
