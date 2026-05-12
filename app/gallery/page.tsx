@@ -47,7 +47,8 @@ export default function GalleryPage() {
           <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Photo Gallery</span>
           <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Gallery</h1>
         <p className="text-cream-muted max-w-xl mx-auto">Explore our hotel through photos.</p>
-      </section>
+      </div>
+    </section>
 
       {/* Filters */}
       <section className="py-8 px-4 md:px-8 bg-forest-black">

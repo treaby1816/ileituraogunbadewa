@@ -72,6 +72,7 @@ export default function RoomsPage() {
         <p className="text-cream-muted max-w-xl mx-auto">
           Every room at Ilé Ìtura Ògúnbádéwà is designed for maximum comfort and relaxation.
         </p>
+        </div>
       </section>
 
       {/* Filters */}

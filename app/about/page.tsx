@@ -29,7 +29,8 @@ export default function AboutPage() {
         <p className="text-cream-muted max-w-2xl mx-auto">
           The story of Ilé Ìtura Ògúnbádéwà — a name rooted in Yoruba heritage, meaning &ldquo;a place of rest and comfort.&rdquo;
         </p>
-      </section>
+      </div>
+    </section>
 
       {/* Brand Story */}
       <section className="py-20 px-4 md:px-8 bg-forest-black">

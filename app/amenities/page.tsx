@@ -54,7 +54,8 @@ export default function AmenitiesPage() {
         <p className="text-cream-muted max-w-xl mx-auto">
           Everything you need for a comfortable, enjoyable, and unforgettable stay.
         </p>
-      </section>
+      </div>
+    </section>
 
       <section className="py-16 px-4 md:px-8 bg-forest-black">
         <div className="max-w-6xl mx-auto space-y-24">

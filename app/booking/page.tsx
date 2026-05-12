@@ -277,7 +277,8 @@ export default function BookingPage() {
           <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Reservation</span>
           <h1 className="font-playfair text-4xl md:text-5xl text-gold-primary mt-3 mb-4">Book Your Stay or Event</h1>
         <p className="text-cream-muted max-w-xl mx-auto">Reserve your room or event hall in 3 simple steps. Pay on arrival.</p>
-      </section>
+      </div>
+    </section>
       <section className="py-16 px-4 md:px-8 pb-24 bg-forest-black">
         <Suspense fallback={<div className="text-center text-cream-faint py-20">Loading...</div>}>
           <BookingForm />

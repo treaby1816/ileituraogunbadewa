@@ -48,7 +48,8 @@ export default function ContactPage() {
           <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Get In Touch</span>
           <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-4">Contact Us</h1>
         <p className="text-cream-muted max-w-xl mx-auto">We&apos;d love to hear from you. Reach out anytime.</p>
-      </section>
+      </div>
+    </section>
 
       <section className="py-16 px-4 md:px-8 bg-forest-black">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10">

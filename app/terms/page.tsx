@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BackButton } from "@/components/ui/BackButton";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions | Ilé Ìtura Ògúnbádéwà",
@@ -10,6 +11,7 @@ export default function TermsPage() {
     <main className="pt-32 pb-24 px-4 md:px-8 bg-linear-to-b from-forest-black to-forest-dark min-h-screen">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
+          <BackButton />
           <span className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">Legal Information</span>
           <h1 className="font-playfair text-4xl md:text-5xl text-cream mt-3 mb-6">Terms & Conditions</h1>
           <div className="w-16 h-[1px] bg-gold-primary mx-auto" />
