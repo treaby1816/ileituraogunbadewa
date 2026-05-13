@@ -10,6 +10,7 @@ import {
   Trees, 
   Gamepad2 
 } from 'lucide-react';
+import { ImageSwiper } from "@/components/ui/image-swiper";
 
 const OPTIONS = [
   {
@@ -100,15 +101,15 @@ export const InteractiveSelector = () => {
         </p>
       </motion.div>
 
-      {/* Options Container */}
-      <div className="grid grid-cols-2 gap-3 w-full px-4 md:flex md:max-w-[1000px] md:min-w-[320px] md:h-[500px] md:items-stretch md:overflow-hidden md:relative md:px-0 md:gap-0">
+      {/* Options Container (Desktop Accordion) */}
+      <div className="hidden md:flex md:max-w-[1000px] md:min-w-[320px] md:h-[500px] md:items-stretch md:overflow-hidden md:relative md:px-0 md:gap-0">
         {OPTIONS.map((option, index) => (
           <div
             key={index}
             className={`
               relative flex flex-col justify-end overflow-hidden transition-all duration-700 ease-in-out
               ${activeIndex === index ? 'md:flex-[7] md:border-white' : 'md:flex-[1] md:border-gold-primary/20'}
-              min-w-0 md:min-w-[60px] cursor-pointer bg-forest border-2 border-gold-primary/20 rounded-xl md:rounded-none h-48 md:h-auto
+              min-w-0 md:min-w-[60px] cursor-pointer bg-forest border-2 border-gold-primary/20 rounded-none h-auto
             `}
             style={{
               backgroundImage: `url('${option.image}')`,
@@ -122,21 +123,19 @@ export const InteractiveSelector = () => {
             }}
             onClick={() => handleOptionClick(index)}
           >
-            {/* Shadow effect */}
             <div 
               className={`absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-700 ${
-                activeIndex === index ? 'opacity-100' : 'opacity-40 md:opacity-40 opacity-80'
+                activeIndex === index ? 'opacity-100' : 'opacity-40'
               }`}
             />
             
-            {/* Label with icon and info */}
-            <div className="absolute left-0 right-0 bottom-3 md:bottom-5 flex flex-col md:flex-row items-start md:items-center justify-start z-10 pointer-events-none px-3 md:px-4 gap-2 md:gap-3 w-full">
-              <div className="min-w-[36px] max-w-[36px] h-[36px] md:min-w-[44px] md:max-w-[44px] md:h-[44px] flex items-center justify-center rounded-full bg-forest-dark/80 backdrop-blur-md shadow-lg border border-gold-primary/30 flex-shrink-0 transition-all duration-200">
-                {React.cloneElement(option.icon as React.ReactElement<any>, { className: "text-white w-4 h-4 md:w-6 md:h-6" })}
+            <div className="absolute left-0 right-0 bottom-5 flex flex-row items-center justify-start z-10 pointer-events-none px-4 gap-3 w-full">
+              <div className="min-w-[44px] max-w-[44px] h-[44px] flex items-center justify-center rounded-full bg-forest-dark/80 backdrop-blur-md shadow-lg border border-gold-primary/30 flex-shrink-0 transition-all duration-200">
+                {React.cloneElement(option.icon as React.ReactElement<any>, { className: "text-white w-6 h-6" })}
               </div>
               <div className="text-white whitespace-nowrap relative overflow-hidden">
                 <div 
-                  className="font-playfair text-sm md:text-xl transition-all duration-700 ease-in-out md:opacity-0 md:translate-x-6 hidden md:block"
+                  className="font-playfair text-xl transition-all duration-700 ease-in-out opacity-0 translate-x-6"
                   style={{
                     opacity: activeIndex === index ? 1 : 0,
                     transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)'
@@ -145,7 +144,7 @@ export const InteractiveSelector = () => {
                   {option.title}
                 </div>
                 <div 
-                  className="text-[10px] md:text-sm text-cream-muted transition-all duration-700 ease-in-out md:opacity-0 md:translate-x-6 hidden md:block"
+                  className="text-sm text-cream-muted transition-all duration-700 ease-in-out opacity-0 translate-x-6"
                   style={{
                     opacity: activeIndex === index ? 1 : 0,
                     transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)'
@@ -153,15 +152,20 @@ export const InteractiveSelector = () => {
                 >
                   {option.description}
                 </div>
-                
-                {/* Mobile text */}
-                <div className="md:hidden block">
-                  <div className="font-playfair text-sm truncate">{option.title}</div>
-                </div>
               </div>
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Mobile Card Swiper (Android/Mobile devices) */}
+      <div className="md:hidden flex w-full justify-center px-4">
+        <ImageSwiper 
+          images={OPTIONS.map(opt => opt.image).join(',')} 
+          cardWidth={typeof window !== 'undefined' ? window.innerWidth * 0.8 : 300}
+          cardHeight={typeof window !== 'undefined' ? window.innerWidth * 1.1 : 400}
+          className="my-8"
+        />
       </div>
 
       {/* Lightbox */}
