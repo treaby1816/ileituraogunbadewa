@@ -111,42 +111,53 @@ export const InteractiveSelector = () => {
       </motion.div>
 
       {/* Options Container (Desktop Accordion) */}
-      <div className="hidden md:flex md:max-w-[1000px] md:min-w-[320px] md:h-[500px] md:items-stretch md:overflow-hidden md:relative md:px-0 md:gap-0">
+      <div className="hidden md:flex w-full max-w-[1000px] min-w-[600px] h-[500px] items-stretch overflow-hidden relative">
         {OPTIONS.map((option, index) => (
           <div
             key={index}
             className={`
               relative flex flex-col justify-end overflow-hidden transition-all duration-700 ease-in-out
-              ${activeIndex === index ? 'md:flex-[7] md:border-white' : 'md:flex-[1] md:border-gold-primary/20'}
-              min-w-0 md:min-w-[60px] cursor-pointer bg-forest border-2 border-gold-primary/20 rounded-xl md:rounded-none h-48 md:h-auto
+              ${activeIndex === index ? 'active' : ''}
             `}
             style={{
               backgroundImage: `url('${option.image}')`,
-              backgroundSize: 'cover',
+              backgroundSize: activeIndex === index ? 'auto 100%' : 'auto 120%',
               backgroundPosition: 'center',
               opacity: animatedOptions.includes(index) ? 1 : 0,
               transform: animatedOptions.includes(index) ? 'translateX(0)' : 'translateX(-60px)',
+              minWidth: '60px',
+              borderWidth: '2px',
+              borderStyle: 'solid',
+              borderColor: activeIndex === index ? '#fff' : '#292929',
+              cursor: 'pointer',
               boxShadow: activeIndex === index 
                 ? '0 20px 60px rgba(0,0,0,0.50)' 
                 : '0 10px 30px rgba(0,0,0,0.30)',
+              flex: activeIndex === index ? '7 1 0%' : '1 1 0%',
+              willChange: 'flex-grow, box-shadow, background-size, background-position'
             }}
             onClick={() => handleOptionClick(index)}
           >
-            {/* Shadow effect */}
+            {/* Shadow effect from snippet */}
             <div 
-              className={`absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-700 ${
-                activeIndex === index ? 'opacity-100' : 'opacity-40 md:opacity-40 opacity-80'
-              }`}
-            />
+              className="absolute left-0 right-0 pointer-events-none transition-all duration-700 ease-in-out"
+              style={{
+                bottom: activeIndex === index ? '0' : '-40px',
+                height: '120px',
+                boxShadow: activeIndex === index 
+                  ? 'inset 0 -120px 120px -120px #000, inset 0 -120px 120px -80px #000' 
+                  : 'inset 0 -120px 0px -120px #000, inset 0 -120px 0px -80px #000'
+              }}
+            ></div>
             
-            {/* Label with icon and info */}
-            <div className="absolute left-0 right-0 bottom-3 md:bottom-5 flex flex-col md:flex-row items-start md:items-center justify-start z-10 pointer-events-none px-3 md:px-4 gap-2 md:gap-3 w-full">
-              <div className="min-w-[36px] max-w-[36px] h-[36px] md:min-w-[44px] md:max-w-[44px] md:h-[44px] flex items-center justify-center rounded-full bg-forest-dark/80 backdrop-blur-md shadow-lg border border-gold-primary/30 flex-shrink-0 transition-all duration-200">
-                {React.cloneElement(option.icon as React.ReactElement<any>, { className: "text-white w-4 h-4 md:w-6 md:h-6" })}
+            {/* Label with icon and info (User snippet style) */}
+            <div className="absolute left-0 right-0 bottom-5 flex items-center justify-start h-12 z-10 pointer-events-none px-4 gap-3 w-full">
+              <div className="min-w-[44px] max-w-[44px] h-[44px] flex items-center justify-center rounded-full bg-forest-dark/85 backdrop-blur-md shadow-lg border-2 border-[#444] flex-shrink-0 transition-all duration-200">
+                {React.cloneElement(option.icon as React.ReactElement<any>, { className: "text-white w-6 h-6" })}
               </div>
               <div className="text-white whitespace-nowrap relative overflow-hidden">
                 <div 
-                  className="font-playfair text-sm md:text-xl transition-all duration-700 ease-in-out md:opacity-0 md:translate-x-6 hidden md:block"
+                  className="font-playfair font-bold text-lg transition-all duration-700 ease-in-out"
                   style={{
                     opacity: activeIndex === index ? 1 : 0,
                     transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)'
@@ -155,18 +166,13 @@ export const InteractiveSelector = () => {
                   {option.title}
                 </div>
                 <div 
-                  className="text-[10px] md:text-sm text-cream-muted transition-all duration-700 ease-in-out md:opacity-0 md:translate-x-6 hidden md:block"
+                  className="text-base text-gray-300 transition-all duration-700 ease-in-out"
                   style={{
                     opacity: activeIndex === index ? 1 : 0,
                     transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)'
                   }}
                 >
                   {option.description}
-                </div>
-                
-                {/* Mobile text (unused in desktop wrapper but kept for structure) */}
-                <div className="md:hidden block">
-                  <div className="font-playfair text-sm truncate">{option.title}</div>
                 </div>
               </div>
             </div>
