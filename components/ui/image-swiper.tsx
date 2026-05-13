@@ -7,18 +7,25 @@ interface ImageSwiperProps {
   cardWidth?: number;
   cardHeight?: number;
   className?: string;
+  onCardClick?: (index: number) => void;
+  autoPlay?: boolean;
+  autoPlayInterval?: number;
 }
 
 export const ImageSwiper: React.FC<ImageSwiperProps> = ({
   images,
-  cardWidth = 256,  // 16rem = 256px
-  cardHeight = 352, // 22rem = 352px
-  className = ''
+  cardWidth = 256,
+  cardHeight = 352,
+  className = '',
+  onCardClick,
+  autoPlay = true,
+  autoPlayInterval = 3000
 }) => {
   const cardStackRef = useRef<HTMLDivElement>(null);
   const isSwiping = useRef(false);
   const startX = useRef(0);
   const currentX = useRef(0);
+  const totalMoved = useRef(0);
   const animationFrameId = useRef<number | null>(null);
 
   const imageList = React.useMemo(() => 
@@ -77,6 +84,7 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
     isSwiping.current = true;
     startX.current = clientX;
     currentX.current = clientX;
+    totalMoved.current = 0;
     const card = getActiveCard();
     if (card) card.style.transition = 'none';
   }, [getActiveCard]);
@@ -129,15 +137,47 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
       cancelAnimationFrame(animationFrameId.current);
     }
     animationFrameId.current = requestAnimationFrame(() => {
+      const deltaX = clientX - startX.current;
+      totalMoved.current += Math.abs(clientX - currentX.current);
       currentX.current = clientX;
-      const deltaX = currentX.current - startX.current;
       applySwipeStyles(deltaX);
 
-      if (Math.abs(deltaX) > 50) {
+      if (Math.abs(deltaX) > 80) { // Increased threshold for manual swipe to distinguish from jitter
         handleEnd();
       }
     });
   }, [applySwipeStyles, handleEnd]);
+
+  const triggerAutoSwipe = useCallback(() => {
+    if (isSwiping.current) return;
+    
+    const duration = getDurationFromCSS('--card-swap-duration', cardStackRef.current);
+    const card = getActiveCard();
+    
+    if (card) {
+      card.style.transition = `transform ${duration}ms ease, opacity ${duration}ms ease`;
+      const direction = Math.random() > 0.5 ? 1 : -1;
+      
+      card.style.setProperty('--swipe-x', `${direction * 300}px`);
+      card.style.setProperty('--swipe-rotate', `${direction * 20}deg`);
+      
+      setTimeout(() => {
+        setCardOrder(prev => [...prev.slice(1), prev[0]]);
+      }, duration);
+    }
+  }, [getActiveCard, getDurationFromCSS]);
+
+  useEffect(() => {
+    if (!autoPlay || isSwiping.current) return;
+    
+    const timer = setInterval(() => {
+      if (!isSwiping.current) {
+        triggerAutoSwipe();
+      }
+    }, autoPlayInterval);
+    
+    return () => clearInterval(timer);
+  }, [autoPlay, autoPlayInterval, triggerAutoSwipe]);
 
   useEffect(() => {
     const cardStackElement = cardStackRef.current;
@@ -201,6 +241,11 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
                        translateX(var(--swipe-x, 0px))
                        rotateY(var(--swipe-rotate, 0deg))`
           } as React.CSSProperties}
+          onClick={() => {
+            if (totalMoved.current < 10 && onCardClick) {
+              onCardClick(originalIndex);
+            }
+          }}
         >
           <img
             src={imageList[originalIndex]}
@@ -212,9 +257,11 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
         </article>
       ))}
       
-      {/* Visual cue for users to swipe */}
-      <div className="absolute -bottom-8 left-0 right-0 text-center text-cream-faint text-[11px] uppercase tracking-widest pointer-events-none opacity-50 animate-pulse">
-        Swipe to explore
+      {/* Improved Visual Cue */}
+      <div className="absolute -bottom-10 left-0 right-0 text-center pointer-events-none">
+        <span className="text-cream text-[12px] font-bold uppercase tracking-[0.2em] animate-pulse drop-shadow-md">
+          Swipe <span className="text-gold-primary">to explore</span>
+        </span>
       </div>
     </section>
   );

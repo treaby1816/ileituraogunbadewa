@@ -174,6 +174,7 @@ export const InteractiveSelector = () => {
           cardWidth={windowWidth * 0.8}
           cardHeight={windowWidth * 1.1}
           className="my-8"
+          onCardClick={(index) => setLightbox(index)}
         />
       </div>
 
