@@ -9,7 +9,7 @@ export const getChatModel = () => {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   
   return genAI.getGenerativeModel({
-    model: "models/gemini-1.5-flash",
+    model: "models/gemini-flash-latest",
     systemInstruction: ADUN_SYSTEM_PROMPT,
     generationConfig: {
       maxOutputTokens: 300,
