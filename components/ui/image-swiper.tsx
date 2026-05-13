@@ -228,13 +228,15 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
         <article
           key={`${imageList[originalIndex]}-${originalIndex}`}
           className="image-card absolute cursor-grab active:cursor-grabbing
-                     place-self-center border-2 border-gold-primary/30 rounded-2xl
-                     shadow-2xl overflow-hidden will-change-transform bg-forest"
+                     place-self-center rounded-2xl
+                     shadow-2xl overflow-hidden animate-premium-border
+                     bg-forest group"
           style={{
             '--i': (displayIndex + 1).toString(),
             zIndex: imageList.length - displayIndex,
             width: cardWidth,
             height: cardHeight,
+            padding: '2px', // Space for the border
             transform: `perspective(var(--card-perspective))
                        translateZ(calc(-1 * var(--card-z-offset) * var(--i)))
                        translateY(calc(var(--card-y-offset) * var(--i)))
@@ -247,15 +249,33 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
             }
           }}
         >
-          <img
-            src={imageList[originalIndex]}
-            alt={`Swiper image ${originalIndex + 1}`}
-            className="w-full h-full object-cover select-none pointer-events-none"
-            draggable={false}
-          />
-          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+          {/* Animated Gradient Border */}
+          <div className="absolute inset-[-100%] bg-[conic-gradient(from_var(--border-angle),transparent_20%,#D4AF37_50%,transparent_80%)] animate-[spin_4s_linear_infinite] opacity-50 group-hover:opacity-100 transition-opacity" />
+          
+          {/* Inner Content */}
+          <div className="relative w-full h-full rounded-[14px] overflow-hidden bg-forest z-10">
+            <img
+              src={imageList[originalIndex]}
+              alt={`Swiper image ${originalIndex + 1}`}
+              className="w-full h-full object-cover select-none pointer-events-none"
+              draggable={false}
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+          </div>
         </article>
       ))}
+      
+      <style jsx global>{`
+        @property --border-angle {
+          syntax: '<angle>';
+          initial-value: 0deg;
+          inherits: false;
+        }
+        @keyframes spin {
+          from { --border-angle: 0deg; }
+          to { --border-angle: 360deg; }
+        }
+      `}</style>
       
       {/* Improved Visual Cue */}
       <div className="absolute -bottom-10 left-0 right-0 text-center pointer-events-none">
