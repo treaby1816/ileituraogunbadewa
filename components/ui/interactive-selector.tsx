@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { 
   Bed, 
   Beer, 
@@ -46,12 +47,23 @@ const OPTIONS = [
 export const InteractiveSelector = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animatedOptions, setAnimatedOptions] = useState<number[]>([]);
+  const [lightbox, setLightbox] = useState<number | null>(null);
   
   const handleOptionClick = (index: number) => {
-    if (index !== activeIndex) {
-      setActiveIndex(index);
+    if (window.innerWidth < 768) {
+      setLightbox(index);
+    } else {
+      if (index !== activeIndex) {
+        setActiveIndex(index);
+      } else {
+        setLightbox(index);
+      }
     }
   };
+
+  const closeLightbox = useCallback(() => setLightbox(null), []);
+  const prevImage = useCallback(() => setLightbox((prev) => (prev !== null && prev > 0 ? prev - 1 : OPTIONS.length - 1)), []);
+  const nextImage = useCallback(() => setLightbox((prev) => (prev !== null ? (prev + 1) % OPTIONS.length : null)), []);
 
   useEffect(() => {
     const timers: NodeJS.Timeout[] = [];
@@ -89,14 +101,14 @@ export const InteractiveSelector = () => {
       </motion.div>
 
       {/* Options Container */}
-      <div className="flex w-full max-w-[1000px] min-w-[320px] h-[500px] items-stretch overflow-hidden relative px-4 md:px-0">
+      <div className="grid grid-cols-2 gap-3 w-full px-4 md:flex md:max-w-[1000px] md:min-w-[320px] md:h-[500px] md:items-stretch md:overflow-hidden md:relative md:px-0 md:gap-0">
         {OPTIONS.map((option, index) => (
           <div
             key={index}
             className={`
               relative flex flex-col justify-end overflow-hidden transition-all duration-700 ease-in-out
-              ${activeIndex === index ? 'flex-[7] border-white' : 'flex-[1] border-gold-primary/20'}
-              min-w-[60px] cursor-pointer bg-forest border-2
+              ${activeIndex === index ? 'md:flex-[7] md:border-white' : 'md:flex-[1] md:border-gold-primary/20'}
+              min-w-0 md:min-w-[60px] cursor-pointer bg-forest border-2 border-gold-primary/20 rounded-xl md:rounded-none h-48 md:h-auto
             `}
             style={{
               backgroundImage: `url('${option.image}')`,
@@ -113,18 +125,18 @@ export const InteractiveSelector = () => {
             {/* Shadow effect */}
             <div 
               className={`absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-700 ${
-                activeIndex === index ? 'opacity-100' : 'opacity-40'
+                activeIndex === index ? 'opacity-100' : 'opacity-40 md:opacity-40 opacity-80'
               }`}
             />
             
             {/* Label with icon and info */}
-            <div className="absolute left-0 right-0 bottom-5 flex items-center justify-start h-12 z-10 pointer-events-none px-4 gap-3 w-full">
-              <div className="min-w-[44px] max-w-[44px] h-[44px] flex items-center justify-center rounded-full bg-forest-dark/80 backdrop-blur-md shadow-lg border border-gold-primary/30 flex-shrink-0 transition-all duration-200">
-                {option.icon}
+            <div className="absolute left-0 right-0 bottom-3 md:bottom-5 flex flex-col md:flex-row items-start md:items-center justify-start z-10 pointer-events-none px-3 md:px-4 gap-2 md:gap-3 w-full">
+              <div className="min-w-[36px] max-w-[36px] h-[36px] md:min-w-[44px] md:max-w-[44px] md:h-[44px] flex items-center justify-center rounded-full bg-forest-dark/80 backdrop-blur-md shadow-lg border border-gold-primary/30 flex-shrink-0 transition-all duration-200">
+                {React.cloneElement(option.icon as React.ReactElement<any>, { className: "text-white w-4 h-4 md:w-6 md:h-6" })}
               </div>
               <div className="text-white whitespace-nowrap relative overflow-hidden">
                 <div 
-                  className="font-playfair text-xl transition-all duration-700 ease-in-out"
+                  className="font-playfair text-sm md:text-xl transition-all duration-700 ease-in-out md:opacity-0 md:translate-x-6 hidden md:block"
                   style={{
                     opacity: activeIndex === index ? 1 : 0,
                     transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)'
@@ -133,7 +145,7 @@ export const InteractiveSelector = () => {
                   {option.title}
                 </div>
                 <div 
-                  className="text-sm text-cream-muted transition-all duration-700 ease-in-out"
+                  className="text-[10px] md:text-sm text-cream-muted transition-all duration-700 ease-in-out md:opacity-0 md:translate-x-6 hidden md:block"
                   style={{
                     opacity: activeIndex === index ? 1 : 0,
                     transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)'
@@ -141,11 +153,52 @@ export const InteractiveSelector = () => {
                 >
                   {option.description}
                 </div>
+                
+                {/* Mobile text */}
+                <div className="md:hidden block">
+                  <div className="font-playfair text-sm truncate">{option.title}</div>
+                </div>
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeLightbox}
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+            onKeyDown={(e: React.KeyboardEvent) => { if (e.key === "ArrowLeft") prevImage(); if (e.key === "ArrowRight") nextImage(); if (e.key === "Escape") closeLightbox(); }}
+            tabIndex={0}
+          >
+            {/* Close */}
+            <button onClick={closeLightbox} className="absolute top-6 right-6 text-cream-muted hover:text-cream text-2xl cursor-pointer z-10">✕</button>
+            {/* Counter */}
+            <div className="absolute top-6 left-6 text-cream-faint text-[13px] font-cinzel">{lightbox + 1} / {OPTIONS.length}</div>
+            {/* Prev */}
+            <button onClick={(e: React.MouseEvent) => { e.stopPropagation(); prevImage(); }} className="absolute left-4 top-1/2 -translate-y-1/2 text-cream-muted hover:text-gold-primary text-3xl cursor-pointer z-10">‹</button>
+            {/* Image */}
+            <motion.div
+              key={lightbox}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="relative w-full max-w-4xl aspect-video rounded-xl overflow-hidden"
+              onClick={(e: React.MouseEvent) => e.stopPropagation()}
+            >
+              <Image src={OPTIONS[lightbox].image} alt={OPTIONS[lightbox].title} fill className="object-contain" sizes="100vw" />
+            </motion.div>
+            {/* Next */}
+            <button onClick={(e: React.MouseEvent) => { e.stopPropagation(); nextImage(); }} className="absolute right-4 top-1/2 -translate-y-1/2 text-cream-muted hover:text-gold-primary text-3xl cursor-pointer z-10">›</button>
+            {/* Caption */}
+            <p className="absolute bottom-8 text-cream-muted text-[14px] font-cormorant italic">{OPTIONS[lightbox].title}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

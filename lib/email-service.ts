@@ -78,3 +78,29 @@ export async function sendInquiryNotification(inquiry: any) {
     console.error("Email inquiry error:", err);
   }
 }
+
+export async function sendLapseNotification(booking: any) {
+  if (!resend || !booking.guest_email) return;
+
+  try {
+    await resend.emails.send({
+      from: "Ilé Ìtura Ògúnbádéwà <booking@ileitura.com>",
+      to: booking.guest_email,
+      subject: `Booking Grace Period Expired - ${booking.booking_ref}`,
+      html: `
+        <div style="font-family: serif; color: #0D1A0D; padding: 20px; border: 1px solid #C9A84C;">
+          <h1 style="color: #C9A84C;">Ilé Ìtura Ògúnbádéwà</h1>
+          <p>Dear ${booking.guest_name},</p>
+          <p>Your booking grace period for Ilé Ìtura Ògúnbádéwà has expired. Per our policy, the booking token is non-refundable as the 30-day window has closed.</p>
+          <div style="background: #F8F4E8; padding: 15px; border-radius: 8px;">
+            <p><strong>Booking Ref:</strong> ${booking.booking_ref}</p>
+            <p><strong>Status:</strong> Cancelled / Lapsed</p>
+          </div>
+          <p>If you have any questions, please reply to this email or contact us on WhatsApp.</p>
+        </div>
+      `,
+    });
+  } catch (err) {
+    console.error("Email lapse notification error:", err);
+  }
+}

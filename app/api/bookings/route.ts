@@ -8,11 +8,15 @@ function generateRef(): string {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { room_type, check_in, check_out, num_guests, guest_name, guest_phone, guest_email, special_requests } = body;
+    const { room_type, check_in, check_out, num_guests, guest_name, guest_phone, guest_email, special_requests, paystack_ref } = body;
 
     if (!room_type || !check_in || !check_out || !guest_name || !guest_phone) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
     }
+
+    // Calculate 30 days grace period
+    const gracePeriodExpiresAt = new Date();
+    gracePeriodExpiresAt.setDate(gracePeriodExpiresAt.getDate() + 30);
 
     const booking_ref = generateRef();
     const supabase = await createServiceClient();
@@ -30,6 +34,8 @@ export async function POST(request: Request) {
         num_guests: num_guests || 1,
         special_requests: special_requests || null,
         status: "pending",
+        paystack_ref: paystack_ref || null,
+        grace_period_expires_at: gracePeriodExpiresAt.toISOString(),
       })
       .select("id, booking_ref")
       .single();

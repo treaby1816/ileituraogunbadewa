@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { BackButton } from "@/components/ui/BackButton";
@@ -104,7 +104,7 @@ export default function GalleryPage() {
             exit={{ opacity: 0 }}
             onClick={closeLightbox}
             className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
-            onKeyDown={(e) => { if (e.key === "ArrowLeft") prevImage(); if (e.key === "ArrowRight") nextImage(); if (e.key === "Escape") closeLightbox(); }}
+            onKeyDown={(e: React.KeyboardEvent) => { if (e.key === "ArrowLeft") prevImage(); if (e.key === "ArrowRight") nextImage(); if (e.key === "Escape") closeLightbox(); }}
             tabIndex={0}
           >
             {/* Close */}
@@ -119,7 +119,7 @@ export default function GalleryPage() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               className="relative w-full max-w-4xl aspect-video rounded-xl overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e: React.MouseEvent) => e.stopPropagation()}
             >
               <Image src={filtered[lightbox].src} alt={filtered[lightbox].caption} fill className="object-contain" sizes="100vw" />
             </motion.div>

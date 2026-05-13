@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { BackButton } from "@/components/ui/BackButton";
 import { formatNaira, calcNights, buildWABookingLink } from "@/lib/utils";
 import { toast } from "sonner";
+import { usePaystackPayment } from 'react-paystack';
 
 const ROOMS = [
   { type: "standard", name: "Classic Standard Room", price: 15000, maxGuests: 2, isHall: false },
@@ -14,6 +15,64 @@ const ROOMS = [
   { type: "suite", name: "Executive Suite", price: 35000, maxGuests: 3, isHall: false },
   { type: "hall", name: "Spacious Event Hall", price: 500000, maxGuests: 150, isHall: true },
 ];
+
+interface PaystackProps {
+  form: any;
+  setStatus: React.Dispatch<React.SetStateAction<"idle" | "loading" | "success" | "error">>;
+  setBookingRef: React.Dispatch<React.SetStateAction<string>>;
+  selectedRoom: any;
+  status: "idle" | "loading" | "success" | "error";
+}
+
+function PaystackButtonWrapper({ form, setStatus, setBookingRef, selectedRoom, status }: PaystackProps) {
+  const config = {
+    reference: (new Date()).getTime().toString(),
+    email: form.guest_email || 'guest@ileitura.com.ng',
+    amount: 5000 * 100, // 5000 NGN in kobo
+    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || 'pk_test_placeholder',
+  };
+
+  const initializePayment = usePaystackPayment(config);
+
+  const onSuccess = async (reference: any) => {
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, paystack_ref: reference.reference }),
+      });
+      const data = await res.json();
+      if (res.ok && data.booking_ref) {
+        setBookingRef(data.booking_ref);
+        setStatus("success");
+        toast.success(selectedRoom.isHall ? "Hall booked successfully!" : "Room booked successfully!");
+      } else {
+        console.error("Booking failed:", data.error);
+        setStatus("error");
+        toast.error(data.error || "Failed to book. Please try again.");
+      }
+    } catch {
+      setStatus("error");
+      toast.error("Network error. Please try again later.");
+    }
+  };
+
+  const onClose = () => {
+    toast.error("Payment was cancelled.");
+  };
+
+  return (
+    <Button 
+      variant="primary" 
+      className="flex-1 justify-center" 
+      onClick={() => initializePayment({ onSuccess, onClose })}
+      disabled={status === "loading"}
+    >
+      {status === "loading" ? "Processing…" : "Pay Booking Token ✓"}
+    </Button>
+  );
+}
 
 function BookingForm() {
   const searchParams = useSearchParams();
@@ -52,30 +111,6 @@ function BookingForm() {
 
   const inputClass = "w-full bg-white/8 border border-gold-primary/20 rounded-xl px-4 py-3 text-cream text-[13px] outline-none focus:border-gold-primary/60 transition-colors placeholder:text-cream-faint";
 
-  const handleSubmit = async () => {
-    setStatus("loading");
-    try {
-      const res = await fetch("/api/bookings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (res.ok && data.booking_ref) {
-        setBookingRef(data.booking_ref);
-        setStatus("success");
-        toast.success(selectedRoom.isHall ? "Hall booked successfully!" : "Room booked successfully!");
-      } else {
-        console.error("Booking failed:", data.error);
-        setStatus("error");
-        toast.error(data.error || "Failed to book. Please try again.");
-      }
-    } catch {
-      setStatus("error");
-      toast.error("Network error. Please try again later.");
-    }
-  };
-
   if (status === "success") {
     const waLink = buildWABookingLink({
       guestName: form.guest_name,
@@ -96,7 +131,7 @@ function BookingForm() {
           <p>{selectedRoom.name}{!selectedRoom.isHall && ` · ${nights} night${nights !== 1 ? "s" : ""}`}</p>
           <p>{form.check_in} → {form.check_out}</p>
           <p className="text-gold-primary font-semibold text-lg mt-2">{formatNaira(total)}</p>
-          <p className="text-cream-faint text-[11px] mt-1">💳 Pay on Arrival — No deposit required</p>
+          <p className="text-cream-faint text-[11px] mt-1">💳 Token Paid — Grace Period Active</p>
         </div>
         <Button href={waLink} variant="primary" size="md" target="_blank" rel="noreferrer">
           Confirm via WhatsApp
@@ -247,18 +282,27 @@ function BookingForm() {
                   </div>
                 ))}
                 <div className="flex justify-between pt-3">
-                  <span className="text-cream-muted font-semibold">Total</span>
-                  <span className="font-playfair text-gold-primary text-2xl font-bold">{formatNaira(total)}</span>
+                  <span className="text-cream-muted font-semibold">Total Cost</span>
+                  <span className="font-playfair text-gold-primary text-xl font-bold">{formatNaira(total)}</span>
+                </div>
+                <div className="flex justify-between pt-1">
+                  <span className="text-cream-muted font-semibold">Initial Booking Token</span>
+                  <span className="font-playfair text-gold-primary text-2xl font-bold">{formatNaira(5000)}</span>
                 </div>
               </div>
-              <div className="bg-gold-primary/8 border border-gold-primary/15 rounded-xl p-4 text-center mb-6">
-                <p className="text-gold-primary text-[12px]">💳 Pay on Arrival — No deposit required</p>
+              <div className="bg-red-900/20 border border-red-500/30 rounded-xl p-4 text-center mb-6">
+                <p className="text-cream font-bold text-[13px] uppercase tracking-wide mb-1 text-red-400">Notice</p>
+                <p className="text-cream-muted text-[12px]">A 30-day grace period applies after this payment. If the booking is not finalized within one month, the token becomes non-refundable and the slot is released.</p>
               </div>
               <div className="flex gap-3">
                 <Button variant="ghost" className="flex-1 justify-center" onClick={() => setStep(2)}>← Back</Button>
-                <Button variant="primary" className="flex-1 justify-center" onClick={handleSubmit} disabled={status === "loading"}>
-                  {status === "loading" ? "Booking…" : "Confirm Booking ✓"}
-                </Button>
+                <PaystackButtonWrapper 
+                  form={form} 
+                  setStatus={setStatus} 
+                  setBookingRef={setBookingRef} 
+                  selectedRoom={selectedRoom}
+                  status={status}
+                />
               </div>
             </motion.div>
           )}

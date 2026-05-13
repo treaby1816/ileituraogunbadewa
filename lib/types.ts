@@ -27,6 +27,8 @@ export interface Booking {
   num_guests: number;
   special_requests?: string;
   status: BookingStatus;
+  paystack_ref?: string | null;
+  grace_period_expires_at?: string | null;
   created_at: string;
   room?: Room;
 }
