@@ -227,10 +227,10 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
       {cardOrder.map((originalIndex, displayIndex) => (
         <article
           key={`${imageList[originalIndex]}-${originalIndex}`}
-          className="image-card absolute cursor-grab active:cursor-grabbing
+          className={`image-card absolute cursor-grab active:cursor-grabbing
                      place-self-center rounded-2xl
                      shadow-2xl overflow-hidden animate-premium-border
-                     bg-forest group"
+                     bg-forest group`}
           style={{
             '--i': (displayIndex + 1).toString(),
             zIndex: imageList.length - displayIndex,
