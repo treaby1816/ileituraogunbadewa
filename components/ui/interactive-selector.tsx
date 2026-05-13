@@ -66,6 +66,15 @@ export const InteractiveSelector = () => {
   const prevImage = useCallback(() => setLightbox((prev) => (prev !== null && prev > 0 ? prev - 1 : OPTIONS.length - 1)), []);
   const nextImage = useCallback(() => setLightbox((prev) => (prev !== null ? (prev + 1) % OPTIONS.length : null)), []);
 
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 320);
+  
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     const timers: NodeJS.Timeout[] = [];
     
@@ -162,8 +171,8 @@ export const InteractiveSelector = () => {
       <div className="md:hidden flex w-full justify-center px-4">
         <ImageSwiper 
           images={OPTIONS.map(opt => opt.image).join(',')} 
-          cardWidth={typeof window !== 'undefined' ? window.innerWidth * 0.8 : 300}
-          cardHeight={typeof window !== 'undefined' ? window.innerWidth * 1.1 : 400}
+          cardWidth={windowWidth * 0.8}
+          cardHeight={windowWidth * 1.1}
           className="my-8"
         />
       </div>

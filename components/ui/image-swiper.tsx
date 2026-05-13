@@ -21,7 +21,11 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
   const currentX = useRef(0);
   const animationFrameId = useRef<number | null>(null);
 
-  const imageList = images.split(',').map(img => img.trim()).filter(img => img);
+  const imageList = React.useMemo(() => 
+    images.split(',').map(img => img.trim()).filter(img => img),
+    [images]
+  );
+  
   const [cardOrder, setCardOrder] = useState<number[]>(() =>
     Array.from({ length: imageList.length }, (_, i) => i)
   );
@@ -42,7 +46,7 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
 
   const getCards = useCallback((): HTMLElement[] => {
     if (!cardStackRef.current) return [];
-    return [...cardStackRef.current.querySelectorAll('.image-card')] as HTMLElement[];
+    return Array.from(cardStackRef.current.querySelectorAll('.image-card')) as HTMLElement[];
   }, []);
 
   const getActiveCard = useCallback((): HTMLElement | null => {
@@ -139,43 +143,20 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
     const cardStackElement = cardStackRef.current;
     if (!cardStackElement) return;
 
-    const handlePointerDown = (e: PointerEvent) => {
-      handleStart(e.clientX);
-    };
-    const handlePointerMove = (e: PointerEvent) => {
-      handleMove(e.clientX);
-    };
-    const handlePointerUp = (e: PointerEvent) => {
-      handleEnd();
-    };
-
-    // For mobile touch support
-    const handleTouchStart = (e: TouchEvent) => {
-      handleStart(e.touches[0].clientX);
-    };
-    const handleTouchMove = (e: TouchEvent) => {
-      handleMove(e.touches[0].clientX);
-    };
-    const handleTouchEnd = (e: TouchEvent) => {
-      handleEnd();
-    };
+    const handlePointerDown = (e: PointerEvent) => handleStart(e.clientX);
+    const handlePointerMove = (e: PointerEvent) => handleMove(e.clientX);
+    const handlePointerUp = () => handleEnd();
 
     cardStackElement.addEventListener('pointerdown', handlePointerDown);
     cardStackElement.addEventListener('pointermove', handlePointerMove);
     cardStackElement.addEventListener('pointerup', handlePointerUp);
-    
-    cardStackElement.addEventListener('touchstart', handleTouchStart);
-    cardStackElement.addEventListener('touchmove', handleTouchMove);
-    cardStackElement.addEventListener('touchend', handleTouchEnd);
+    cardStackElement.addEventListener('pointercancel', handlePointerUp);
 
     return () => {
       cardStackElement.removeEventListener('pointerdown', handlePointerDown);
       cardStackElement.removeEventListener('pointermove', handlePointerMove);
       cardStackElement.removeEventListener('pointerup', handlePointerUp);
-
-      cardStackElement.removeEventListener('touchstart', handleTouchStart);
-      cardStackElement.removeEventListener('touchmove', handleTouchMove);
-      cardStackElement.removeEventListener('touchend', handleTouchEnd);
+      cardStackElement.removeEventListener('pointercancel', handlePointerUp);
 
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
