@@ -33,13 +33,20 @@ export async function POST(req: Request) {
     }
 
     // Process history to ensure alternating roles and valid content
-    const history = [];
-    let lastRole = null;
+    const history: any[] = [];
+    let lastRole: string | null = null;
 
     for (const m of messages.slice(0, -1)) {
       if (m.id === "welcome") continue;
       
       const role = m.role === "user" ? "user" : "model";
+      
+      // Gemini API requires the first message in history to be from the user.
+      // Skip any leading model messages.
+      if (history.length === 0 && role === "model") {
+        continue;
+      }
+
       // Ensure we don't have consecutive same roles which Gemini rejects
       if (role !== lastRole) {
         history.push({
