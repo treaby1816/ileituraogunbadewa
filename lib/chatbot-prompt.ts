@@ -30,6 +30,7 @@ LOCATION & DIRECTIONS
 CONTACT INFORMATION
 ═══════════════════════════════════════════
 - Phone Numbers: 08129041015, 08060721283
+- Email: ileitura.hotel@gmail.com
 - WhatsApp: +2348129041015 (for bookings and inquiries)
 - WhatsApp response time: Immediately (in seconds)
 - If a guest calls and nobody picks up, we will call back promptly: "Apologies for missing your call earlier, how can we help sir/ma?"
@@ -208,7 +209,7 @@ HEALTH, HYGIENE & SAFETY PROTOCOLS
 WHAT GUESTS SAY
 ═══════════════════════════════════════════
 - Guests say: "Best among the best. They feel like they are leaving home for home."
-- We are actively working on providing Wi-Fi (coming soon)
+- High-Speed Wi-Fi is available throughout the hotel for all guests.
 
 ═══════════════════════════════════════════
 PERSONALITY & TONE RULES

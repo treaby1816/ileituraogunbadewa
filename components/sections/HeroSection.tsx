@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 
@@ -113,26 +114,41 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.5 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col items-center justify-center gap-6"
         >
-          <Button href="/booking" variant="primary" size="lg">
-            Book Your Stay
-          </Button>
-          <Button href="/rooms" variant="ghost" size="lg">
-            Explore Rooms
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+            <Button href="/booking" variant="primary" size="lg" className="w-full sm:w-auto">
+              Book Your Stay
+            </Button>
+            <Button href="/rooms" variant="ghost" size="lg" className="w-full sm:w-auto">
+              Explore Rooms
+            </Button>
+          </div>
+          
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.8 }}
+            transition={{ delay: 1.8 }}
+          >
+            <Link 
+              href="/event-hall" 
+              className="text-[12px] font-cinzel tracking-[0.15em] text-cream-faint hover:text-gold-primary transition-colors border-b border-gold-primary/30 pb-0.5"
+            >
+              Explore Event Hall
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
 
-      {/* Slide indicators */}
-      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+      {/* Slide indicators - moved lower to avoid overlap */}
+      <div className="absolute bottom-20 md:bottom-28 left-1/2 -translate-x-1/2 z-10 flex gap-2">
         {HERO_IMAGES.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
+            className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-300 cursor-pointer ${
               i === current
-                ? "bg-gold-primary w-6"
+                ? "bg-gold-primary w-5 md:w-6"
                 : "bg-cream/30 hover:bg-cream/50"
             }`}
             aria-label={`Go to slide ${i + 1}`}
@@ -140,20 +156,20 @@ export function HeroSection() {
         ))}
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator - moved lower */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="font-cinzel text-[9px] tracking-[0.15em] text-gold-primary/50 uppercase">
+        <span className="font-cinzel text-[8px] md:text-[9px] tracking-[0.15em] text-gold-primary/50 uppercase">
           Scroll
         </span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
-          className="w-[1px] h-8 bg-linear-to-b from-gold-primary/50 to-transparent"
+          className="w-[1px] h-6 md:h-8 bg-linear-to-b from-gold-primary/50 to-transparent"
         />
       </motion.div>
     </section>

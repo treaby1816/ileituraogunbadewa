@@ -66,6 +66,7 @@ export default function ContactPage() {
               {[
                 { icon: "📍", label: "Address", value: "Saheed Anibaba Street, Off Obafemi Awolowo Way (Near Grammar School / Baba Ijebu), Ikorodu, Lagos State, Nigeria" },
                 { icon: "📞", label: "Phone", value: "08129041015 / 08060721283" },
+                { icon: "✉️", label: "Email", value: "ileitura.hotel@gmail.com" },
                 { icon: "💬", label: "WhatsApp", value: "+234 812 904 1015" },
               ].map((c) => (
                 <div key={c.label} className="p-5 rounded-xl border border-gold-primary/20 bg-forest/40 backdrop-blur-sm hover:-translate-y-1 hover:border-gold-primary/40 hover:shadow-[0_12px_30px_rgba(201,168,76,0.08)] transition-all duration-300">

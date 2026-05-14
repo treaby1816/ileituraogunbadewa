@@ -4,6 +4,7 @@ import Image from "next/image";
 const QUICK_LINKS = [
   { href: "/", label: "Home" },
   { href: "/rooms", label: "Rooms & Suites" },
+  { href: "/event-hall", label: "Event Hall" },
   { href: "/amenities", label: "Amenities" },
   { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About Us" },
@@ -155,6 +156,15 @@ export function Footer() {
                 >
                   <span className="text-base">💬</span>
                   WhatsApp Us
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:ileitura.hotel@gmail.com"
+                  className="flex gap-3 text-cream-muted hover:text-gold-primary transition-colors"
+                >
+                  <span className="text-gold-primary text-base">✉️</span>
+                  ileitura.hotel@gmail.com
                 </a>
               </li>
             </ul>
