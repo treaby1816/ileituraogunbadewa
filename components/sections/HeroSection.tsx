@@ -117,10 +117,10 @@ export function HeroSection() {
           className="flex flex-col items-center justify-center gap-5 md:gap-6"
         >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 w-full">
-            <Button href="/booking" variant="primary" size="lg" className="w-full sm:w-auto text-sm py-3 md:py-4">
+            <Button href="/booking" variant="primary" size="lg" className="w-[260px] sm:w-auto text-[12px] md:text-sm py-3 md:py-4">
               Book Your Stay
             </Button>
-            <Button href="/rooms" variant="ghost" size="lg" className="w-full sm:w-auto text-sm py-3 md:py-4">
+            <Button href="/rooms" variant="ghost" size="lg" className="w-[260px] sm:w-auto text-[12px] md:text-sm py-3 md:py-4">
               Explore Rooms
             </Button>
           </div>
@@ -141,7 +141,7 @@ export function HeroSection() {
       </div>
 
       {/* Slide indicators - moved significantly lower to avoid overlap */}
-      <div className="absolute bottom-16 md:bottom-28 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+      <div className="absolute bottom-12 md:bottom-28 left-1/2 -translate-x-1/2 z-10 flex gap-2">
         {HERO_IMAGES.map((_, i) => (
           <button
             key={i}
@@ -161,7 +161,7 @@ export function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2 }}
-        className="absolute bottom-4 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 md:gap-2"
+        className="absolute bottom-3 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 md:gap-2"
       >
         <span className="font-cinzel text-[7px] md:text-[9px] tracking-[0.15em] text-gold-primary/50 uppercase">
           Scroll
@@ -169,7 +169,7 @@ export function HeroSection() {
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
-          className="w-[1px] h-4 md:h-8 bg-linear-to-b from-gold-primary/50 to-transparent"
+          className="w-[1px] h-3 md:h-8 bg-linear-to-b from-gold-primary/50 to-transparent"
         />
       </motion.div>
     </section>
