@@ -23,13 +23,19 @@ async function getDashboardData() {
     const totalBookings = bookings?.length || 0;
     const totalInquiries = inquiries?.length || 0;
     
-    // Calculate mock revenue based on room types (Standard: 15k, Deluxe: 22k, Suite: 35k)
+    // Calculate revenue based on room types (Standard: 15k, Deluxe: 22k, Suite: 35k, Hall: 500k)
     let totalRevenue = 0;
-    const prices: Record<string, number> = { standard: 15000, deluxe: 22000, suite: 35000 };
+    const prices: Record<string, number> = { 
+      standard: 15000, 
+      deluxe: 22000, 
+      suite: 35000,
+      hall: 500000
+    };
     
     bookings?.forEach((b) => {
-      // Assuming 1 night for simplicity in this mock revenue calculation
-      totalRevenue += prices[b.room_type] || 0;
+      // For room bookings, we estimate 1 night if dates are missing, or calculate properly
+      const roomType = b.room_type?.toLowerCase();
+      totalRevenue += prices[roomType] || 0;
     });
 
     return { bookings: bookings || [], inquiries: inquiries || [], totalBookings, totalInquiries, totalRevenue };

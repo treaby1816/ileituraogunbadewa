@@ -1,4 +1,5 @@
 import { createServiceClient } from "@/lib/supabase-server";
+import { BookingActions } from "@/components/dashboard/BookingActions";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +20,7 @@ export default async function BookingsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="font-playfair text-3xl text-cream mb-1">Bookings</h1>
-        <p className="text-cream-muted text-[14px]">Manage all room reservations.</p>
+        <p className="text-cream-muted text-[14px]">Manage all room and hall reservations.</p>
       </div>
 
       <div className="bg-forest-dark border border-gold-primary/10 rounded-2xl overflow-hidden">
@@ -29,10 +30,11 @@ export default async function BookingsPage() {
               <tr>
                 <th className="px-6 py-4 font-medium">Ref</th>
                 <th className="px-6 py-4 font-medium">Guest</th>
-                <th className="px-6 py-4 font-medium">Room</th>
+                <th className="px-6 py-4 font-medium">Room/Hall</th>
                 <th className="px-6 py-4 font-medium">Check In</th>
                 <th className="px-6 py-4 font-medium">Check Out</th>
                 <th className="px-6 py-4 font-medium">Status</th>
+                <th className="px-6 py-4 font-medium text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -54,6 +56,11 @@ export default async function BookingsPage() {
                     }`}>
                       {b.status}
                     </span>
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <div className="flex justify-end">
+                      <BookingActions bookingId={b.id} currentStatus={b.status} />
+                    </div>
                   </td>
                 </tr>
               ))}

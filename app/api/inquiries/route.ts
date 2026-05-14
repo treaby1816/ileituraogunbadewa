@@ -31,3 +31,27 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ error: "Missing ID" }, { status: 400 });
+    }
+
+    const supabase = await createServiceClient();
+    const { error } = await supabase
+      .from("inquiries")
+      .delete()
+      .eq("id", id);
+
+    if (error) throw error;
+
+    return NextResponse.json({ success: true });
+  } catch (err: any) {
+    console.error("Inquiry DELETE error:", err);
+    return NextResponse.json({ error: "Failed to delete inquiry" }, { status: 500 });
+  }
+}

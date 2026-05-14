@@ -64,3 +64,27 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: `Invalid request: ${err.message || "Unknown error"}` }, { status: 400 });
   }
 }
+
+export async function PATCH(request: Request) {
+  try {
+    const body = await request.json();
+    const { id, status } = body;
+
+    if (!id || !status) {
+      return NextResponse.json({ error: "Missing ID or status" }, { status: 400 });
+    }
+
+    const supabase = await createServiceClient();
+    const { error } = await supabase
+      .from("bookings")
+      .update({ status })
+      .eq("id", id);
+
+    if (error) throw error;
+
+    return NextResponse.json({ success: true });
+  } catch (err: any) {
+    console.error("Booking PATCH error:", err);
+    return NextResponse.json({ error: "Failed to update booking" }, { status: 500 });
+  }
+}

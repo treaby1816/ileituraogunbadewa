@@ -1,4 +1,5 @@
 import { createServiceClient } from "@/lib/supabase-server";
+import { InquiryActions } from "@/components/dashboard/InquiryActions";
 
 export const dynamic = "force-dynamic";
 
@@ -31,6 +32,7 @@ export default async function InquiriesPage() {
                 <th className="px-6 py-4 font-medium">Contact</th>
                 <th className="px-6 py-4 font-medium">Type</th>
                 <th className="px-6 py-4 font-medium">Message</th>
+                <th className="px-6 py-4 font-medium text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -49,6 +51,9 @@ export default async function InquiriesPage() {
                   </td>
                   <td className="px-6 py-4 min-w-[300px]">
                     <p className="text-[13px] leading-relaxed">{inq.message}</p>
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <InquiryActions inquiryId={inq.id} />
                   </td>
                 </tr>
               ))}
