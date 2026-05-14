@@ -25,18 +25,24 @@ const parseText = (text: string) => {
   });
 };
 
-function TypewriterEffect({ text }: { text: string }) {
+function TypewriterEffect({ text, onComplete }: { text: string; onComplete?: () => void }) {
   const [displayed, setDisplayed] = useState("");
+  const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
     let i = 0;
+    // Faster typewriter for better UX (10ms)
     const interval = setInterval(() => {
       setDisplayed(text.substring(0, i));
       i++;
-      if (i > text.length) clearInterval(interval);
-    }, 15);
+      if (i > text.length) {
+        clearInterval(interval);
+        setIsDone(true);
+        onComplete?.();
+      }
+    }, 10);
     return () => clearInterval(interval);
-  }, [text]);
+  }, [text, onComplete]);
 
   return <p className="text-[14px] leading-relaxed break-words">{parseText(displayed)}</p>;
 }
@@ -51,6 +57,7 @@ export function Chatbot() {
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
+  const [completedMessages, setCompletedMessages] = useState<Set<string>>(new Set(["welcome"]));
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -83,12 +90,12 @@ export function Chatbot() {
       const data = await res.json();
       
       if (data.response) {
-        setMessages(prev => [...prev, { id: Date.now().toString(), role: "assistant", content: data.response, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
+        setMessages(prev => [...prev, { id: "msg-" + Date.now().toString(), role: "assistant", content: data.response, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
       } else {
         throw new Error(data.error);
       }
     } catch (err: any) {
-      setMessages(prev => [...prev, { id: Date.now().toString(), role: "assistant", content: err.message || "I'm having a little trouble connecting right now. Please reach out to us on WhatsApp instead!", timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
+      setMessages(prev => [...prev, { id: "err-" + Date.now().toString(), role: "assistant", content: err.message || "I'm having a little trouble connecting right now. Please reach out to us on WhatsApp instead!", timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
     } finally {
       setIsLoading(false);
     }
@@ -134,12 +141,21 @@ export function Chatbot() {
 
             {/* Messages */}
             <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-linear-to-b from-forest-black to-forest-dark [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gold-primary/30 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-gold-primary/50">
-              {messages.map((m, i) => {
+              {messages.map((m) => {
                 const isBot = m.role === "assistant";
+                const isTyping = isBot && !completedMessages.has(m.id);
+                
                 return (
                   <motion.div key={m.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex flex-col ${isBot ? "items-start" : "items-end"}`}>
                     <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${isBot ? "bg-white/5 border border-gold-primary/15 rounded-tl-sm text-cream-muted" : "bg-gold-primary text-[#0D1A0D] rounded-tr-sm"}`}>
-                      {isBot && i === messages.length - 1 ? <TypewriterEffect text={m.content} /> : <p className="text-[14px] leading-relaxed break-words">{isBot ? parseText(m.content) : m.content}</p>}
+                      {isTyping ? (
+                        <TypewriterEffect 
+                          text={m.content} 
+                          onComplete={() => setCompletedMessages(prev => new Set(prev).add(m.id))}
+                        />
+                      ) : (
+                        <p className="text-[14px] leading-relaxed break-words">{isBot ? parseText(m.content) : m.content}</p>
+                      )}
                     </div>
                     <span className="text-cream-faint text-[10px] mt-1 px-1">{m.timestamp}</span>
                   </motion.div>

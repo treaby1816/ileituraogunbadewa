@@ -12,7 +12,7 @@ export const getChatModel = () => {
     model: "models/gemini-flash-latest",
     systemInstruction: ADUN_SYSTEM_PROMPT,
     generationConfig: {
-      maxOutputTokens: 300,
+      maxOutputTokens: 1000,
       temperature: 0.75,
       topP: 0.9,
     },
