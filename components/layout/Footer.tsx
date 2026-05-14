@@ -76,7 +76,7 @@ export function Footer() {
                     </svg>
                   ), 
                   label: "TikTok", 
-                  href: "https://www.tiktok.com/@ileituraogunbadewa" 
+                  href: "https://www.tiktok.com/@ile.itura.ogunbade" 
                 },
                 { 
                   icon: (
