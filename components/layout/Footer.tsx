@@ -23,13 +23,13 @@ export function Footer() {
           {/* Brand col */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-5 group cursor-pointer block w-max">
-              <div className="w-12 h-12 rounded-full overflow-hidden shadow-[0_0_16px_rgba(201,168,76,0.35)] group-hover:shadow-[0_0_24px_rgba(201,168,76,0.6)] transition-shadow">
+              <div className="w-12 h-12 rounded-full overflow-hidden shadow-[0_0_16px_rgba(201,168,76,0.35)] group-hover:shadow-[0_0_24px_rgba(201,168,76,0.6)] transition-shadow bg-forest-black">
                 <Image
                   src="/images/logo.png"
                   alt="Ilé Ìtura Ògúnbádéwà Logo"
                   width={60}
                   height={60}
-                  className="object-contain brightness-0 invert"
+                  className="object-cover"
                 />
               </div>
               <div>
@@ -67,21 +67,32 @@ export function Footer() {
                     </svg>
                   ), 
                   label: "Instagram", 
-                  href: "#" 
+                  href: "https://instagram.com/ileituraogunbadewa" 
                 },
                 { 
                   icon: (
                     <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.13-1.47-.23-.16-.44-.34-.64-.53v6.34c0 2.1-.55 4.3-2.12 5.73-1.57 1.44-3.87 1.95-5.89 1.43-2.02-.52-3.72-2.14-4.24-4.11-.53-1.98-.01-4.28 1.43-5.85 1.44-1.57 3.64-2.12 5.73-1.57.16.04.31.09.46.15v4.11c-.51-.23-1.08-.34-1.64-.34-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3V0z"/>
                     </svg>
                   ), 
-                  label: "X / Twitter", 
-                  href: "#" 
+                  label: "TikTok", 
+                  href: "https://www.tiktok.com/@ileituraogunbadewa" 
+                },
+                { 
+                  icon: (
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                      <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                  ), 
+                  label: "Twitter", 
+                  href: "https://twitter.com/ileiturahotel" 
                 },
               ].map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
                   aria-label={s.label}
                   className="w-9 h-9 rounded-full border border-gold-primary/25 flex items-center justify-center text-gold-primary/60 hover:border-gold-primary hover:text-gold-primary hover:bg-gold-primary/10 transition-all"
                 >
