@@ -96,7 +96,7 @@ export function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="font-cormorant italic text-lg md:text-2xl text-[#F8F4E8]/70 mb-8 md:mb-10"
+          className="font-cormorant italic text-lg md:text-2xl text-[#F8F4E8]/70 mb-6 md:mb-10"
         >
           …Embrace Comfort, Enjoy Luxury
         </motion.p>
@@ -106,7 +106,7 @@ export function HeroSection() {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.8, delay: 1.0 }}
-          className="w-12 md:w-16 h-[1px] bg-gold-primary mx-auto mb-8 md:mb-10"
+          className="w-12 md:w-16 h-[1px] bg-gold-primary mx-auto mb-6 md:mb-10"
         />
 
         {/* CTAs */}
@@ -114,13 +114,13 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.5 }}
-          className="flex flex-col items-center justify-center gap-5 md:gap-6"
+          className="flex flex-col items-center justify-center gap-3 md:gap-6"
         >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 w-full">
-            <Button href="/booking" variant="primary" size="lg" className="w-[260px] sm:w-auto text-[12px] md:text-sm py-2.5 md:py-3.5">
+            <Button href="/booking" variant="primary" size="lg" className="w-[260px] sm:w-auto text-[11px] md:text-sm py-2 md:py-3.5">
               Book Your Stay
             </Button>
-            <Button href="/rooms" variant="ghost" size="lg" className="w-[260px] sm:w-auto text-[12px] md:text-sm py-2.5 md:py-3.5">
+            <Button href="/rooms" variant="ghost" size="lg" className="w-[260px] sm:w-auto text-[11px] md:text-sm py-2 md:py-3.5">
               Explore Rooms
             </Button>
           </div>
