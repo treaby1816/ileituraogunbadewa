@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function DashboardLogin() {
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -57,16 +59,25 @@ export default function DashboardLogin() {
         </div>
 
         <form onSubmit={handleLogin} className="space-y-5 relative z-10">
-          <div>
+          <div className="relative">
             <input 
-              type="password" 
+              type={showPassword ? "text" : "password"} 
               placeholder="Enter Admin Password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-forest-black border border-gold-primary/20 rounded-xl px-4 py-3 text-cream text-[14px] outline-none focus:border-gold-primary/60 transition-colors placeholder:text-cream-faint text-center tracking-widest"
+              className="w-full bg-forest-black border border-gold-primary/20 rounded-xl px-4 py-3 text-cream text-[14px] outline-none focus:border-gold-primary/60 transition-colors placeholder:text-cream-faint text-center tracking-widest pr-12"
               required
+              autoComplete="off"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gold-primary/50 hover:text-gold-primary transition-colors"
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
           </div>
+
 
           {error && <p className="text-red-400 text-sm text-center">{error}</p>}
 

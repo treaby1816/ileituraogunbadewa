@@ -64,7 +64,19 @@ export interface ChatMessage {
 export interface DashboardStats {
   totalBookings: number;
   totalRevenue: number;
+  totalExpenses: number;
+  netProfit: number;
   avgOccupancy: number;
   pendingCount: number;
   confirmedToday: number;
 }
+
+export interface Expense {
+  id: string;
+  description: string;
+  amount: number;
+  category: string;
+  date: string;
+  created_at: string;
+}
+

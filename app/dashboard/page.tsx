@@ -19,10 +19,18 @@ async function getDashboardData() {
       .select("*")
       .order("created_at", { ascending: false });
 
+    // Fetch expenses
+    const { data: expenses } = await supabase
+      .from("expenses")
+      .select("*");
+
     // Calculate totals
     const totalBookings = bookings?.length || 0;
     const totalInquiries = inquiries?.length || 0;
     
+    let totalExpenses = 0;
+    expenses?.forEach((e) => totalExpenses += Number(e.amount));
+
     // Calculate revenue based on room types (Standard: 15k, Deluxe: 22k, Suite: 35k, Hall: 500k)
     let totalRevenue = 0;
     const prices: Record<string, number> = { 
@@ -33,28 +41,37 @@ async function getDashboardData() {
     };
     
     bookings?.forEach((b) => {
-      // For room bookings, we estimate 1 night if dates are missing, or calculate properly
       const roomType = b.room_type?.toLowerCase();
       totalRevenue += prices[roomType] || 0;
     });
 
-    return { bookings: bookings || [], inquiries: inquiries || [], totalBookings, totalInquiries, totalRevenue };
+    return { 
+      bookings: bookings || [], 
+      inquiries: inquiries || [], 
+      totalBookings, 
+      totalInquiries, 
+      totalRevenue,
+      totalExpenses,
+      netProfit: totalRevenue - totalExpenses
+    };
   } catch (error) {
     console.error("Dashboard data fetch error:", error);
-    return { bookings: [], inquiries: [], totalBookings: 0, totalInquiries: 0, totalRevenue: 0 };
+    return { bookings: [], inquiries: [], totalBookings: 0, totalInquiries: 0, totalRevenue: 0, totalExpenses: 0, netProfit: 0 };
   }
 }
 
 export const dynamic = "force-dynamic";
 
 export default async function DashboardOverview() {
-  const { bookings, inquiries, totalBookings, totalInquiries, totalRevenue } = await getDashboardData();
+  const { bookings, inquiries, totalBookings, totalInquiries, totalRevenue, totalExpenses, netProfit } = await getDashboardData();
 
   const STATS = [
-    { label: "Total Revenue", value: formatNaira(totalRevenue), icon: DollarSign },
-    { label: "Total Bookings", value: totalBookings.toString(), icon: CalendarCheck },
-    { label: "Total Inquiries", value: totalInquiries.toString(), icon: MessageSquare },
+    { label: "Total Revenue", value: formatNaira(totalRevenue), icon: DollarSign, color: "text-green-400" },
+    { label: "Total Expenses", value: formatNaira(totalExpenses), icon: DollarSign, color: "text-red-400" },
+    { label: "Net Profit", value: formatNaira(netProfit), icon: DollarSign, color: "text-gold-primary" },
+    { label: "Total Bookings", value: totalBookings.toString(), icon: CalendarCheck, color: "text-cream" },
   ];
+
 
   return (
     <div className="space-y-6">
@@ -64,7 +81,7 @@ export default async function DashboardOverview() {
       </div>
 
       {/* Stat Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {STATS.map((s, i) => {
           const Icon = s.icon;
           return (
@@ -74,12 +91,13 @@ export default async function DashboardOverview() {
               </div>
               <div className="relative z-10">
                 <p className="font-cinzel text-[11px] tracking-widest text-gold-primary uppercase mb-2">{s.label}</p>
-                <p className="font-playfair text-4xl text-cream">{s.value}</p>
+                <p className={`font-playfair text-3xl text-cream ${s.color}`}>{s.value}</p>
               </div>
             </div>
           );
         })}
       </div>
+
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Revenue Chart */}

@@ -10,14 +10,16 @@ import {
   MessageSquare, 
   LogOut,
   Menu,
-  X
+  Receipt,
 } from "lucide-react";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
   { href: "/dashboard/bookings", label: "Bookings", icon: CalendarCheck },
+  { href: "/dashboard/expenses", label: "Expenses", icon: Receipt },
   { href: "/dashboard/inquiries", label: "Inquiries", icon: MessageSquare },
 ];
+
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
