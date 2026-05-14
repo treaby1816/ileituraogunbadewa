@@ -127,12 +127,12 @@ export function HeroSection() {
           
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.8 }}
+            animate={{ opacity: 1 }}
             transition={{ delay: 1.8 }}
           >
             <Link 
               href="/event-hall" 
-              className="text-[12px] font-cinzel tracking-[0.15em] text-cream-faint hover:text-gold-primary transition-colors border-b border-gold-primary/30 pb-0.5"
+              className="text-[13px] font-cinzel font-bold tracking-[0.18em] text-gold-primary hover:text-cream transition-all border-b border-gold-primary/50 pb-0.5"
             >
               Explore Event Hall
             </Link>
