@@ -11,8 +11,9 @@ CREATE TABLE IF NOT EXISTS expenses (
 -- Enable RLS
 ALTER TABLE expenses ENABLE ROW LEVEL SECURITY;
 
--- Create policy to allow all actions for authenticated users (admins)
-CREATE POLICY "Allow all actions for authenticated users" ON expenses
-  FOR ALL TO authenticated
+-- Create policy to allow all actions (secured by API route)
+CREATE POLICY "Allow all actions" ON expenses
+  FOR ALL TO public
   USING (true)
   WITH CHECK (true);
+
