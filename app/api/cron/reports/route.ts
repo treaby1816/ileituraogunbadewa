@@ -30,16 +30,29 @@ export async function GET(request: Request) {
     const { data: monthlyBookings } = await supabase.from("bookings").select("*").gt("created_at", oneMonthAgo);
     const { data: inquiries } = await supabase.from("inquiries").select("*").gt("created_at", oneDayAgo);
 
-    // 3. Calculate Revenue (standard: 15k, deluxe: 22k, suite: 35k, hall: 500k)
+    // Fetch Expenses
+    const { data: dailyExpenses } = await supabase.from("expenses").select("*").gt("date", oneDayAgo.split('T')[0]);
+    const { data: weeklyExpenses } = await supabase.from("expenses").select("*").gt("date", oneWeekAgo.split('T')[0]);
+    const { data: monthlyExpenses } = await supabase.from("expenses").select("*").gt("date", oneMonthAgo.split('T')[0]);
+
+    // 3. Calculate Financials
     const prices: Record<string, number> = { standard: 15000, deluxe: 22000, suite: 35000, hall: 500000 };
     
     const calculateRevenue = (bookings: any[] | null) => {
       return bookings?.reduce((acc, b) => acc + (prices[b.room_type?.toLowerCase()] || 0), 0) || 0;
     };
 
+    const sumExpenses = (expenses: any[] | null) => {
+      return expenses?.reduce((acc, e) => acc + Number(e.amount), 0) || 0;
+    };
+
     const dailyRev = calculateRevenue(dailyBookings);
     const weeklyRev = calculateRevenue(weeklyBookings);
     const monthlyRev = calculateRevenue(monthlyBookings);
+
+    const dailyExp = sumExpenses(dailyExpenses);
+    const weeklyExp = sumExpenses(weeklyExpenses);
+    const monthlyExp = sumExpenses(monthlyExpenses);
 
     const formatNaira = (amount: number) => new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(amount);
 
@@ -52,28 +65,32 @@ export async function GET(request: Request) {
         </div>
 
         <div style="background: #F8F4E8; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-          <h2 style="font-size: 18px; border-bottom: 1px solid #C9A84C30; padding-bottom: 10px;">Daily Performance (Last 24h)</h2>
-          <p><strong>New Bookings:</strong> ${dailyBookings?.length || 0}</p>
-          <p><strong>Daily Revenue:</strong> <span style="color: #0D1A0D; font-weight: bold;">${formatNaira(dailyRev)}</span></p>
-          <p><strong>New Inquiries:</strong> ${inquiries?.length || 0}</p>
+          <h2 style="font-size: 18px; border-bottom: 1px solid #C9A84C30; padding-bottom: 10px; margin-top: 0;">Daily Performance (Last 24h)</h2>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr><td style="padding: 5px 0;">New Bookings:</td><td style="text-align: right; font-weight: bold;">${dailyBookings?.length || 0}</td></tr>
+            <tr><td style="padding: 5px 0;">Daily Revenue:</td><td style="text-align: right; font-weight: bold; color: #166534;">${formatNaira(dailyRev)}</td></tr>
+            <tr><td style="padding: 5px 0;">Daily Expenses:</td><td style="text-align: right; font-weight: bold; color: #991b1b;">${formatNaira(dailyExp)}</td></tr>
+            <tr style="border-top: 1px solid #C9A84C30;"><td style="padding: 10px 0; font-size: 16px;"><strong>Net Profit:</strong></td><td style="text-align: right; font-size: 16px; font-weight: bold;">${formatNaira(dailyRev - dailyExp)}</td></tr>
+          </table>
+          <p style="font-size: 12px; color: #666; margin-top: 10px;">New Inquiries: ${inquiries?.length || 0}</p>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
           <div style="background: #f4f4f4; padding: 15px; border-radius: 8px;">
-            <p style="font-size: 12px; color: #666; margin: 0;">Weekly Revenue</p>
-            <p style="font-size: 20px; font-weight: bold; margin: 5px 0;">${formatNaira(weeklyRev)}</p>
-            <p style="font-size: 11px; margin: 0;">${weeklyBookings?.length || 0} bookings</p>
+            <p style="font-size: 11px; color: #666; text-transform: uppercase; margin: 0;">Weekly Net Profit</p>
+            <p style="font-size: 20px; font-weight: bold; margin: 5px 0; color: #0D1A0D;">${formatNaira(weeklyRev - weeklyExp)}</p>
+            <p style="font-size: 10px; margin: 0; color: #888;">Rev: ${formatNaira(weeklyRev)} | Exp: ${formatNaira(weeklyExp)}</p>
           </div>
           <div style="background: #f4f4f4; padding: 15px; border-radius: 8px;">
-            <p style="font-size: 12px; color: #666; margin: 0;">Monthly Revenue</p>
-            <p style="font-size: 20px; font-weight: bold; margin: 5px 0;">${formatNaira(monthlyRev)}</p>
-            <p style="font-size: 11px; margin: 0;">${monthlyBookings?.length || 0} bookings</p>
+            <p style="font-size: 11px; color: #666; text-transform: uppercase; margin: 0;">Monthly Net Profit</p>
+            <p style="font-size: 20px; font-weight: bold; margin: 5px 0; color: #0D1A0D;">${formatNaira(monthlyRev - monthlyExp)}</p>
+            <p style="font-size: 10px; margin: 0; color: #888;">Rev: ${formatNaira(monthlyRev)} | Exp: ${formatNaira(monthlyExp)}</p>
           </div>
         </div>
 
         <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; text-align: center;">
           <a href="${process.env.NEXT_PUBLIC_APP_URL}/dashboard" style="background: #0D1A0D; color: #C9A84C; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
-            Access Admin Portal
+            Access Full Bookkeeping
           </a>
         </div>
         
@@ -87,11 +104,12 @@ export async function GET(request: Request) {
     await resend.emails.send({
       from: "Ilé Ìtura Reports <reports@ileitura.com>",
       to: REPORT_EMAIL_TO,
-      subject: `Hotel Performance Report - ${now.toLocaleDateString()}`,
+      subject: `Hotel Performance & Bookkeeping - ${now.toLocaleDateString()}`,
       html: html,
     });
 
-    return NextResponse.json({ success: true, message: "Report generated and sent." });
+    return NextResponse.json({ success: true, message: "Bookkeeping report generated and sent." });
+
 
   } catch (err: any) {
     console.error("Report generation error:", err);
