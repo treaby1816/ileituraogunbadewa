@@ -117,10 +117,10 @@ export function HeroSection() {
           className="flex flex-col items-center justify-center gap-5 md:gap-6"
         >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 w-full">
-            <Button href="/booking" variant="primary" size="lg" className="w-[260px] sm:w-auto text-[12px] md:text-sm py-3 md:py-4">
+            <Button href="/booking" variant="primary" size="lg" className="w-[260px] sm:w-auto text-[12px] md:text-sm py-2.5 md:py-3.5">
               Book Your Stay
             </Button>
-            <Button href="/rooms" variant="ghost" size="lg" className="w-[260px] sm:w-auto text-[12px] md:text-sm py-3 md:py-4">
+            <Button href="/rooms" variant="ghost" size="lg" className="w-[260px] sm:w-auto text-[12px] md:text-sm py-2.5 md:py-3.5">
               Explore Rooms
             </Button>
           </div>

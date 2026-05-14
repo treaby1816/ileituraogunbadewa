@@ -30,7 +30,7 @@ const VARIANTS: Record<string, string> = {
 const SIZES: Record<string, string> = {
   sm: "px-4 py-2 text-[11px] tracking-[0.08em] rounded-xl",
   md: "px-6 py-3 text-[12px] tracking-[0.06em] rounded-xl",
-  lg: "px-8 py-4 text-[13px] tracking-[0.05em] rounded-xl",
+  lg: "px-8 py-3.5 text-[13px] tracking-[0.05em] rounded-xl",
 };
 
 export function Button({
@@ -47,9 +47,10 @@ export function Button({
   id,
 }: ButtonProps) {
   const base = cn(
-    "inline-flex items-center gap-2 font-cinzel uppercase transition-all duration-200 cursor-pointer select-none",
+    "inline-flex items-center justify-center gap-2 font-cinzel uppercase transition-all duration-200 cursor-pointer select-none",
     VARIANTS[variant],
     SIZES[size],
+
     disabled && "opacity-40 cursor-not-allowed pointer-events-none",
     className
   );
