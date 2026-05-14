@@ -28,7 +28,7 @@ export function HeroSection() {
   }, [next]);
 
   return (
-    <section className="relative w-full h-[85svh] md:h-[100svh] min-h-[540px] md:min-h-[640px] flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative w-full h-[100svh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden">
       {/* Background carousel images */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -61,30 +61,30 @@ export function HeroSection() {
         }}
       />
 
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto pt-10">
         {/* Eyebrow label */}
         <motion.p
           initial={{ opacity: 0, letterSpacing: "0.5em" }}
           animate={{ opacity: 1, letterSpacing: "0.2em" }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="font-cinzel text-[10px] text-gold-primary tracking-[0.2em] uppercase mb-6"
+          className="font-cinzel text-[9px] md:text-[10px] text-gold-primary tracking-[0.2em] uppercase mb-4 md:mb-6"
         >
           Ikorodu · Lagos State · Nigeria
         </motion.p>
 
         {/* Main title — staggered word reveal */}
-        <h1 className="font-playfair text-5xl sm:text-6xl md:text-7xl text-[#F8F4E8] leading-tight mb-6">
+        <h1 className="font-playfair text-4xl sm:text-6xl md:text-7xl text-[#F8F4E8] leading-tight mb-4 md:mb-6">
           {["Ilé", "Ìtura", "Ògúnbádéwà"].map((word, i) => (
             <motion.span
               key={word}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.7,
                 delay: 0.5 + i * 0.18,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="inline-block mr-4 last:mr-0"
+              className="inline-block mr-3 md:mr-4 last:mr-0"
             >
               {word}
             </motion.span>
@@ -96,7 +96,7 @@ export function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="font-cormorant italic text-xl md:text-2xl text-[#F8F4E8]/70 mb-10"
+          className="font-cormorant italic text-lg md:text-2xl text-[#F8F4E8]/70 mb-8 md:mb-10"
         >
           …Embrace Comfort, Enjoy Luxury
         </motion.p>
@@ -106,7 +106,7 @@ export function HeroSection() {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.8, delay: 1.0 }}
-          className="w-16 h-[1px] bg-gold-primary mx-auto mb-10"
+          className="w-12 md:w-16 h-[1px] bg-gold-primary mx-auto mb-8 md:mb-10"
         />
 
         {/* CTAs */}
@@ -114,13 +114,13 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.5 }}
-          className="flex flex-col items-center justify-center gap-6"
+          className="flex flex-col items-center justify-center gap-5 md:gap-6"
         >
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
-            <Button href="/booking" variant="primary" size="lg" className="w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 w-full">
+            <Button href="/booking" variant="primary" size="lg" className="w-full sm:w-auto text-sm py-3 md:py-4">
               Book Your Stay
             </Button>
-            <Button href="/rooms" variant="ghost" size="lg" className="w-full sm:w-auto">
+            <Button href="/rooms" variant="ghost" size="lg" className="w-full sm:w-auto text-sm py-3 md:py-4">
               Explore Rooms
             </Button>
           </div>
@@ -132,7 +132,7 @@ export function HeroSection() {
           >
             <Link 
               href="/event-hall" 
-              className="text-[13px] font-cinzel font-bold tracking-[0.18em] text-gold-primary hover:text-cream transition-all border-b border-gold-primary/50 pb-0.5"
+              className="text-[11px] md:text-[13px] font-cinzel font-bold tracking-[0.18em] text-gold-primary hover:text-cream transition-all border-b border-gold-primary/50 pb-0.5"
             >
               Explore Event Hall
             </Link>
@@ -140,15 +140,15 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Slide indicators - moved lower to avoid overlap */}
-      <div className="absolute bottom-20 md:bottom-28 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+      {/* Slide indicators - moved significantly lower to avoid overlap */}
+      <div className="absolute bottom-16 md:bottom-28 left-1/2 -translate-x-1/2 z-10 flex gap-2">
         {HERO_IMAGES.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-300 cursor-pointer ${
+            className={`w-1 h-1 md:w-2 md:h-2 rounded-full transition-all duration-300 cursor-pointer ${
               i === current
-                ? "bg-gold-primary w-5 md:w-6"
+                ? "bg-gold-primary w-4 md:w-6"
                 : "bg-cream/30 hover:bg-cream/50"
             }`}
             aria-label={`Go to slide ${i + 1}`}
@@ -161,15 +161,15 @@ export function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2 }}
-        className="absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-4 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 md:gap-2"
       >
-        <span className="font-cinzel text-[8px] md:text-[9px] tracking-[0.15em] text-gold-primary/50 uppercase">
+        <span className="font-cinzel text-[7px] md:text-[9px] tracking-[0.15em] text-gold-primary/50 uppercase">
           Scroll
         </span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
-          className="w-[1px] h-6 md:h-8 bg-linear-to-b from-gold-primary/50 to-transparent"
+          className="w-[1px] h-4 md:h-8 bg-linear-to-b from-gold-primary/50 to-transparent"
         />
       </motion.div>
     </section>

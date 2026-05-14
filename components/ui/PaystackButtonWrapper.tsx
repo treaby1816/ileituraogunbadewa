@@ -11,13 +11,14 @@ export interface PaystackProps {
   setBookingRef: React.Dispatch<React.SetStateAction<string>>;
   selectedRoom: any;
   status: "idle" | "loading" | "success" | "error";
+  amount: number;
 }
 
-export default function PaystackButtonWrapper({ form, setStatus, setBookingRef, selectedRoom, status }: PaystackProps) {
+export default function PaystackButtonWrapper({ form, setStatus, setBookingRef, selectedRoom, status, amount }: PaystackProps) {
   const config = {
     reference: (new Date()).getTime().toString(),
     email: form.guest_email || 'guest@ileitura.com.ng',
-    amount: 5000 * 100, // 5000 NGN in kobo
+    amount: amount * 100, // Dynamic amount in kobo
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || 'pk_test_placeholder',
   };
 

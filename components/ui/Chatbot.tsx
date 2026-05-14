@@ -57,7 +57,7 @@ export function Chatbot() {
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
-  const [completedMessages, setCompletedMessages] = useState<Set<string>>(new Set(["welcome"]));
+  const [completedMessages, setCompletedMessages] = useState<Set<string>>(new Set());
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);

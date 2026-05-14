@@ -51,7 +51,22 @@ function BookingForm() {
   const selectedRoom = ROOMS.find((r) => r.type === form.room_type) || ROOMS[0];
   const nights = form.check_in && form.check_out ? calcNights(form.check_in, form.check_out) : 0;
   const total = nights * selectedRoom.price;
+  const deposit = total * 0.5;
   const today = new Date().toISOString().split("T")[0];
+
+  const handleDownloadPDF = async () => {
+    const { generateBookingPDF } = await import("@/lib/pdf-gen");
+    generateBookingPDF({
+      bookingRef,
+      guestName: form.guest_name,
+      roomName: selectedRoom.name,
+      checkIn: form.check_in,
+      checkOut: form.check_out,
+      totalAmount: total,
+      depositPaid: deposit,
+      isHall: selectedRoom.isHall
+    });
+  };
 
   const update = (field: keyof typeof form, value: string | number) => 
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -78,11 +93,16 @@ function BookingForm() {
           <p>{selectedRoom.name}{!selectedRoom.isHall && ` · ${nights} night${nights !== 1 ? "s" : ""}`}</p>
           <p>{form.check_in} → {form.check_out}</p>
           <p className="text-gold-primary font-semibold text-lg mt-2">{formatNaira(total)}</p>
-          <p className="text-cream-faint text-[11px] mt-1">💳 Token Paid — Grace Period Active</p>
+          <p className="text-green-400 font-medium text-[11px] mt-1">💳 50% Deposit Paid — Grace Period Active</p>
         </div>
-        <Button href={waLink} variant="primary" size="md" target="_blank" rel="noreferrer">
-          Confirm via WhatsApp
-        </Button>
+        <div className="flex flex-col gap-3">
+          <Button href={waLink} variant="primary" size="md" target="_blank" rel="noreferrer" className="w-full justify-center">
+            Confirm via WhatsApp
+          </Button>
+          <Button variant="ghost" size="md" onClick={handleDownloadPDF} className="w-full justify-center border-gold-primary/30 text-gold-primary">
+            Download Booking Voucher (PDF)
+          </Button>
+        </div>
       </motion.div>
     );
   }
@@ -233,13 +253,16 @@ function BookingForm() {
                   <span className="font-playfair text-gold-primary text-xl font-bold">{formatNaira(total)}</span>
                 </div>
                 <div className="flex justify-between pt-1">
-                  <span className="text-cream-muted font-semibold">Initial Booking Token</span>
-                  <span className="font-playfair text-gold-primary text-2xl font-bold">{formatNaira(5000)}</span>
+                  <span className="text-cream-muted font-semibold">Initial Deposit (50%)</span>
+                  <span className="font-playfair text-gold-primary text-2xl font-bold">{formatNaira(deposit)}</span>
                 </div>
               </div>
               <div className="bg-red-900/20 border border-red-500/30 rounded-xl p-4 text-center mb-6">
                 <p className="text-cream font-bold text-[13px] uppercase tracking-wide mb-1 text-red-400">Notice</p>
-                <p className="text-cream-muted text-[12px]">A 30-day grace period applies after this payment. If the booking is not finalized within one month, the token becomes non-refundable and the slot is released.</p>
+                <p className="text-cream-muted text-[12px]">
+                  A {selectedRoom.isHall ? "14" : "7"}-day grace period applies after this deposit. 
+                  Balance must be paid within this window to finalize the booking.
+                </p>
               </div>
               <div className="flex gap-3">
                 <Button variant="ghost" className="flex-1 justify-center" onClick={() => setStep(2)}>← Back</Button>
@@ -249,6 +272,7 @@ function BookingForm() {
                   setBookingRef={setBookingRef} 
                   selectedRoom={selectedRoom}
                   status={status}
+                  amount={deposit}
                 />
               </div>
             </motion.div>

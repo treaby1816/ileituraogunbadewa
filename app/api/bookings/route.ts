@@ -14,9 +14,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
     }
 
-    // Calculate 30 days grace period
+    // Calculate Grace Period: 14 days for hall, 7 days for rooms
+    const isHall = room_type.toLowerCase().includes("hall");
+    const graceDays = isHall ? 14 : 7;
     const gracePeriodExpiresAt = new Date();
-    gracePeriodExpiresAt.setDate(gracePeriodExpiresAt.getDate() + 30);
+    gracePeriodExpiresAt.setDate(gracePeriodExpiresAt.getDate() + graceDays);
 
     const booking_ref = generateRef();
     const supabase = await createServiceClient();

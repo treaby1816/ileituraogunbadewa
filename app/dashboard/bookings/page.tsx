@@ -59,7 +59,7 @@ export default async function BookingsPage() {
                   </td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex justify-end">
-                      <BookingActions bookingId={b.id} currentStatus={b.status} />
+                      <BookingActions booking={b} />
                     </div>
                   </td>
                 </tr>
