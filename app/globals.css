@@ -7,31 +7,29 @@
   --theme-forest-black: #070E07;
   --theme-cream: #F8F4E8;
   --theme-cream-light: #FFFDF5;
-  --theme-cream-muted: #F8F4E899; /* 60% opacity */
-  --theme-cream-faint: #F8F4E84D; /* 30% opacity */
+  --theme-cream-muted: #F8F4E899;
+  --theme-cream-faint: #F8F4E84D;
   --theme-charcoal: #A0A0A0;
 }
 
-/* ─── Light Theme ──────────────────────────────────────────────────────────── */
+/* ─── Light Theme — High Contrast, Crisp Text ─────────────────────────────── */
 [data-theme="light"] {
   --theme-forest: #FDFBF5;
   --theme-forest-dark: #F5F0E3;
   --theme-forest-black: #FFFDF7;
-  --theme-cream: #1A2B1A;
-  --theme-cream-light: #0D1A0D;
-  --theme-cream-muted: #1A2B1A99;
-  --theme-cream-faint: #1A2B1A4D;
-  --theme-charcoal: #5A5A5A;
+  --theme-cream: #1B2E1B;
+  --theme-cream-light: #0F1F0F;
+  --theme-cream-muted: #3A5A3A;
+  --theme-cream-faint: #5A7A5A;
+  --theme-charcoal: #4A4A4A;
 }
 
 /* ─── Brand Design Tokens (Tailwind v4 @theme) ─────────────────────────────── */
 @theme inline {
-  /* Static Colors — Gold stays consistent across both themes */
   --color-gold-primary: #C9A84C;
   --color-gold-deep: #A07830;
   --color-gold-light: #E8D08A;
 
-  /* Dynamic Theme Colors */
   --color-forest: var(--theme-forest);
   --color-forest-dark: var(--theme-forest-dark);
   --color-forest-black: var(--theme-forest-black);
@@ -41,13 +39,11 @@
   --color-cream-faint: var(--theme-cream-faint);
   --color-charcoal: var(--theme-charcoal);
 
-  /* Fonts */
   --font-playfair: var(--font-playfair-display), serif;
   --font-cinzel: var(--font-cinzel-family), serif;
   --font-cormorant: var(--font-cormorant-garamond), serif;
   --font-dm-sans: var(--font-dm-sans-family), sans-serif;
 
-  /* Custom animations */
   --animate-kenburns: kenburns 20s ease-in-out infinite;
   --animate-pulse-gold: pulseGold 2.4s ease-in-out infinite;
   --animate-fade-in: fadeIn 0.4s ease-out;
@@ -80,8 +76,8 @@ body {
 
 /* ─── Scrollbar (Light) ─────────────────────────────────────────────────────── */
 [data-theme="light"] ::-webkit-scrollbar-track { background: #f0ead8; }
-[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(160,120,48,0.25); }
-[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: rgba(160,120,48,0.5); }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(160,120,48,0.3); }
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: rgba(160,120,48,0.55); }
 
 /* ─── Date Input Styling ────────────────────────────────────────────────────── */
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -93,32 +89,105 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 
 [data-theme="light"] input[type="date"]::-webkit-calendar-picker-indicator {
   filter: none;
+  opacity: 0.8;
 }
 
-/* ─── Light theme overrides for semi-transparent backgrounds ────────────────── */
-[data-theme="light"] .bg-white\/5 {
-  background-color: rgba(26, 43, 26, 0.05);
+/* ════════════════════════════════════════════════════════════════════════════════
+   LIGHT MODE — Crisp & Legible Text Overrides
+   Forces high-contrast, fully readable text throughout. No blur or faded text.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* --- Opacity text classes: make them solid in light mode --- */
+[data-theme="light"] [class*="text-cream/"] {
+  color: #2A4A2A !important;
 }
 
-[data-theme="light"] .border-gold-primary\/20 {
-  border-color: rgba(160, 120, 48, 0.25);
+[data-theme="light"] [class*="text-cream-muted"] {
+  color: #3A5A3A !important;
 }
 
-[data-theme="light"] .bg-forest-dark\/95 {
-  background-color: rgba(245, 240, 227, 0.97);
+[data-theme="light"] [class*="text-cream-faint"] {
+  color: #5A7A5A !important;
 }
 
-[data-theme="light"] .shadow-black\/30 {
-  --tw-shadow-color: rgba(0,0,0,0.08);
+/* --- Backgrounds: warm ivory tones for cards --- */
+[data-theme="light"] [class*="bg-forest"] {
+  background-color: #FDFBF5;
 }
 
-/* ─── Smooth transitions for themed elements ────────────────────────────────── */
-header, footer, nav, main, section, aside, div {
-  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.3s ease;
+[data-theme="light"] .bg-forest-dark\/95,
+[data-theme="light"] .bg-forest-dark\/98 {
+  background-color: rgba(245, 240, 227, 0.98);
 }
 
-a, button, p, span, h1, h2, h3, h4, h5, h6, label {
-  transition: color 0.3s ease;
+[data-theme="light"] [class*="bg-white/5"],
+[data-theme="light"] [class*="bg-white/10"] {
+  background-color: rgba(26, 43, 26, 0.04);
+}
+
+/* --- Card borders: slightly stronger in light mode --- */
+[data-theme="light"] [class*="border-gold-primary/"] {
+  border-color: rgba(160, 120, 48, 0.3);
+}
+
+[data-theme="light"] [class*="border-white/"] {
+  border-color: rgba(26, 43, 26, 0.08);
+}
+
+/* --- Inputs: readable dark text on light background --- */
+[data-theme="light"] input,
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  color: #1B2E1B !important;
+  background-color: rgba(255, 253, 247, 0.8) !important;
+  border-color: rgba(160, 120, 48, 0.3) !important;
+}
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #7A9A7A !important;
+}
+
+[data-theme="light"] option {
+  background: #F5F0E3 !important;
+  color: #1B2E1B !important;
+}
+
+/* --- Buttons: ensure gold buttons are visible --- */
+[data-theme="light"] [class*="bg-gradient-to-r"][class*="from-gold"] {
+  color: #1B2E1B !important;
+}
+
+/* --- Shadows: softer in light mode --- */
+[data-theme="light"] [class*="shadow-black/"],
+[data-theme="light"] [class*="shadow-lg"] {
+  --tw-shadow-color: rgba(0, 0, 0, 0.06);
+}
+
+/* --- Footer specific: ensure legibility --- */
+[data-theme="light"] footer {
+  background-color: #F0EBD8 !important;
+  border-color: rgba(160, 120, 48, 0.15) !important;
+}
+
+/* --- Navbar overlay: warm ivory --- */
+[data-theme="light"] header[class*="bg-forest-dark"] {
+  background-color: rgba(253, 251, 245, 0.97) !important;
+}
+
+/* --- Status colors: keep them vivid in both themes --- */
+[data-theme="light"] .text-green-400 { color: #16a34a !important; }
+[data-theme="light"] .text-red-400 { color: #dc2626 !important; }
+[data-theme="light"] .text-amber-400 { color: #d97706 !important; }
+[data-theme="light"] .text-blue-400 { color: #2563eb !important; }
+
+/* --- Smooth element transitions --- */
+header, footer, nav, main, section, aside {
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+a, button, p, span, h1, h2, h3, h4, h5, h6, label, input, select {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* ─── Keyframes ─────────────────────────────────────────────────────────────── */
