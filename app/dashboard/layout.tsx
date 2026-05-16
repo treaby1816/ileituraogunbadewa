@@ -11,11 +11,13 @@ import {
   LogOut,
   Menu,
   Receipt,
+  ConciergeBell,
 } from "lucide-react";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
   { href: "/dashboard/bookings", label: "Bookings", icon: CalendarCheck },
+  { href: "/dashboard/front-desk", label: "Front Desk", icon: ConciergeBell },
   { href: "/dashboard/expenses", label: "Expenses", icon: Receipt },
   { href: "/dashboard/inquiries", label: "Inquiries", icon: MessageSquare },
 ];

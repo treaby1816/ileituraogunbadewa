@@ -1,0 +1,218 @@
+"use client";
+import { useState, useEffect } from "react";
+import { createBrowserClient } from "@/lib/supabase-browser";
+import Link from "next/link";
+import { formatNaira } from "@/lib/utils";
+import { timeAgo } from "@/lib/utils";
+
+export default function FrontDeskPage() {
+  const [roomStatus, setRoomStatus] = useState([]);
+  const [todayBookings, setTodayBookings] = useState({ checkins: [], checkouts: [] });
+  const [shiftLog, setShiftLog] = useState([]);
+  const supabase = createBrowserClient();
+  const today = new Date().toISOString().split("T")[0];
+
+  useEffect(() => {
+    // Fetch room status board
+    supabase.from("room_status_today").select("*")
+      .then(({ data }: { data: any }) => setRoomStatus(data ?? [] as any));
+
+    // Today's check-ins
+    supabase.from("bookings").select("*, room:rooms(name,type)")
+      .eq("check_in", today).eq("status", "confirmed")
+      .then(({ data }: { data: any }) => setTodayBookings(prev => ({ ...prev, checkins: data ?? [] as any})));
+
+    // Today's check-outs
+    supabase.from("bookings").select("*, room:rooms(name,type)")
+      .eq("check_out", today).eq("status", "confirmed")
+      .then(({ data }: { data: any }) => setTodayBookings(prev => ({ ...prev, checkouts: data ?? [] as any})));
+
+    // Today's shift transactions (receipts issued today)
+    supabase.from("receipts").select("*")
+      .gte("created_at", today + "T00:00:00")
+      .order("created_at", { ascending: false })
+      .then(({ data }: { data: any }) => setShiftLog(data ?? [] as any));
+  }, [today, supabase]);
+
+  const STATUS_COLORS: Record<string, { bg: string, border: string, text: string, label: string }> = {
+    available:           { bg: "bg-green-500/15", border: "border-green-500/40", text: "text-green-400", label: "Available" },
+    occupied:            { bg: "bg-red-500/15",   border: "border-red-500/40",   text: "text-red-400",   label: "Occupied" },
+    checking_in_today:   { bg: "bg-blue-500/15",  border: "border-blue-500/40",  text: "text-blue-400",  label: "Checking In Today" },
+    checking_out_today:  { bg: "bg-amber-500/15", border: "border-amber-500/40", text: "text-amber-400", label: "Checking Out" },
+    maintenance:         { bg: "bg-gray-500/15",  border: "border-gray-500/30",  text: "text-gray-400",  label: "Maintenance" },
+  };
+
+  return (
+    <div className="p-6 max-w-7xl mx-auto">
+
+      {/* Header */}
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <p className="font-cinzel text-[10px] tracking-[0.2em] text-gold-primary uppercase">
+            Front Desk Terminal
+          </p>
+          <h1 className="font-playfair text-3xl text-cream mt-1">
+            {new Date().toLocaleDateString("en-NG", {
+              weekday: "long", day: "numeric", month: "long", year: "numeric"
+            })}
+          </h1>
+        </div>
+        <div className="text-right">
+          <p className="text-cream/40 text-xs">Shift started</p>
+          <p className="text-gold-primary font-bold text-lg font-mono" id="shift-clock">
+             {new Date().toLocaleTimeString('en-NG')}
+          </p>
+        </div>
+      </div>
+
+      {/* Quick Action Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {[
+          { href: "/dashboard/front-desk/room", icon: "🛏️", label: "Book a Room",      sub: "Walk-in guest",    color: "gold"  },
+          { href: "/dashboard/front-desk/hall", icon: "🏛️", label: "Book Event Hall",  sub: "Event client",     color: "blue"  },
+          { href: "/dashboard/receipts",         icon: "🖨️", label: "Print Receipt",    sub: "Reprint / archive",color: "green" },
+          { href: "/dashboard/rooms-board",      icon: "📋", label: "Room Status",      sub: "Full board view",  color: "amber" },
+        ].map(card => (
+          <Link
+            key={card.href}
+            href={card.href}
+            className="p-5 rounded-2xl border transition-all hover:-translate-y-1 hover:shadow-lg
+                       bg-gradient-to-br from-forest/60 to-forest-dark
+                       border-gold-primary/20 hover:border-gold-primary/50
+                       flex flex-col items-center text-center gap-2 group"
+          >
+            <span className="text-4xl">{card.icon}</span>
+            <p className="font-cinzel text-[11px] tracking-wide text-cream uppercase font-bold">
+              {card.label}
+            </p>
+            <p className="text-cream/40 text-xs">{card.sub}</p>
+          </Link>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        {/* Room Status Board */}
+        <div className="lg:col-span-2 bg-gradient-to-br from-forest/60 to-forest-dark
+                        rounded-2xl border border-gold-primary/15 overflow-hidden">
+          <div className="px-5 py-4 border-b border-gold-primary/10 flex justify-between">
+            <p className="font-cinzel text-[11px] tracking-wide text-gold-primary uppercase">
+              Room Status Board
+            </p>
+            <span className="text-cream/40 text-xs">{roomStatus.length} rooms total</span>
+          </div>
+          <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {roomStatus.map((room: any) => {
+              const s = STATUS_COLORS[room.room_status] || STATUS_COLORS.available;
+              return (
+                <div key={room.id}
+                  className={`p-4 rounded-xl border ${s.bg} ${s.border} flex gap-3 items-start`}>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-cream font-medium text-sm truncate">{room.room_name}</p>
+                    <p className="text-cream/50 text-xs capitalize">{room.type}</p>
+                    {room.guest_name && (
+                      <p className="text-cream/70 text-xs mt-1 truncate">
+                        👤 {room.guest_name}
+                      </p>
+                    )}
+                    {room.check_out && (
+                      <p className="text-cream/50 text-xs">
+                        Out: {room.check_out}
+                      </p>
+                    )}
+                  </div>
+                  <span className={`text-xs font-bold ${s.text} flex-shrink-0`}>
+                    {s.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Today's Activity */}
+        <div className="space-y-4">
+
+          {/* Check-ins today */}
+          <div className="bg-gradient-to-br from-forest/60 to-forest-dark
+                          rounded-2xl border border-green-500/20 overflow-hidden">
+            <div className="px-4 py-3 border-b border-green-500/15 flex justify-between">
+              <p className="font-cinzel text-[10px] tracking-wide text-green-400 uppercase">
+                Check-ins Today
+              </p>
+              <span className="text-green-400 font-bold">{todayBookings.checkins.length}</span>
+            </div>
+            <div className="p-3 space-y-2 max-h-40 overflow-y-auto">
+              {todayBookings.checkins.length === 0
+                ? <p className="text-cream/30 text-xs text-center py-2">None scheduled</p>
+                : todayBookings.checkins.map((b: any) => (
+                  <div key={b.id} className="flex justify-between items-center">
+                    <div>
+                      <p className="text-cream text-xs font-medium">{b.guest_name}</p>
+                      <p className="text-cream/40 text-[10px]">{b.room?.name}</p>
+                    </div>
+                    <span className="text-green-400 text-[10px]">{b.booking_ref}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          {/* Check-outs today */}
+          <div className="bg-gradient-to-br from-forest/60 to-forest-dark
+                          rounded-2xl border border-amber-500/20 overflow-hidden">
+            <div className="px-4 py-3 border-b border-amber-500/15 flex justify-between">
+              <p className="font-cinzel text-[10px] tracking-wide text-amber-400 uppercase">
+                Check-outs Today
+              </p>
+              <span className="text-amber-400 font-bold">{todayBookings.checkouts.length}</span>
+            </div>
+            <div className="p-3 space-y-2 max-h-40 overflow-y-auto">
+              {todayBookings.checkouts.length === 0
+                ? <p className="text-cream/30 text-xs text-center py-2">None scheduled</p>
+                : todayBookings.checkouts.map((b: any) => (
+                  <div key={b.id} className="flex justify-between items-center">
+                    <div>
+                      <p className="text-cream text-xs font-medium">{b.guest_name}</p>
+                      <p className="text-cream/40 text-[10px]">{b.room?.name}</p>
+                    </div>
+                    <span className="text-amber-400 text-[10px]">{b.booking_ref}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          {/* Shift receipts */}
+          <div className="bg-gradient-to-br from-forest/60 to-forest-dark
+                          rounded-2xl border border-gold-primary/15 overflow-hidden">
+            <div className="px-4 py-3 border-b border-gold-primary/10 flex justify-between">
+              <p className="font-cinzel text-[10px] tracking-wide text-gold-primary uppercase">
+                Shift Receipts
+              </p>
+              <span className="text-gold-primary font-bold">{shiftLog.length}</span>
+            </div>
+            <div className="p-3 space-y-2 max-h-44 overflow-y-auto">
+              {shiftLog.length === 0
+                ? <p className="text-cream/30 text-xs text-center py-2">No receipts yet</p>
+                : shiftLog.map((r: any) => (
+                  <div key={r.id} className="flex justify-between items-center">
+                    <div>
+                      <p className="text-cream text-xs font-medium truncate max-w-[120px]">
+                        {r.guest_name}
+                      </p>
+                      <p className="text-cream/40 text-[10px]">{r.receipt_number}</p>
+                    </div>
+                    <span className="text-gold-primary text-xs font-bold">
+                      {formatNaira(r.amount)}
+                    </span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
