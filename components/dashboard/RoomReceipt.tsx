@@ -27,7 +27,7 @@ export const RoomReceipt = forwardRef<HTMLDivElement, { booking: any }>(
         {/* Hotel Header */}
         <div style={{ textAlign: "center", borderBottom: "3px solid #C9A84C",
           paddingBottom: "6mm", marginBottom: "5mm" }}>
-          <div style={{ fontSize: "28px", marginBottom: "3mm" }}>👑</div>
+          <img src="/images/logo.png" alt="Logo" style={{ height: "45px", marginBottom: "3mm", objectFit: "contain" }} />
           <h1 style={{ fontSize: "16pt", fontWeight: "bold", color: "#1A2B1A",
             margin: 0, letterSpacing: "1px" }}>
             ILÉ ÌTURAÒGÚNBÁDÉWÀ
