@@ -206,7 +206,7 @@ export default function WalkInRoomPage() {
         <h1 className="font-playfair text-2xl text-cream mt-1">Book a Room</h1>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit as any)} className="space-y-5">
 
         {/* Room selection */}
         <div className="p-5 rounded-2xl border border-gold-primary/20 bg-forest/40">
