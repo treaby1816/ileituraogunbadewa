@@ -19,40 +19,37 @@ export async function GET(request: Request) {
 
     const supabase = await createServiceClient();
     
-    // 2. Fetch data for reports
+    // 2. Dates
     const now = new Date();
-    const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000).toISOString();
-    const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString();
-    const oneMonthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    const todayStr = now.toISOString().split("T")[0];
+    
+    const oneWeekAgoDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const oneWeekAgoStr = oneWeekAgoDate.toISOString().split("T")[0];
+    
+    const oneMonthAgoDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+    const oneMonthAgoStr = oneMonthAgoDate.toISOString().split("T")[0];
 
-    const { data: dailyBookings } = await supabase.from("bookings").select("*").gt("created_at", oneDayAgo);
-    const { data: weeklyBookings } = await supabase.from("bookings").select("*").gt("created_at", oneWeekAgo);
-    const { data: monthlyBookings } = await supabase.from("bookings").select("*").gt("created_at", oneMonthAgo);
-    const { data: inquiries } = await supabase.from("inquiries").select("*").gt("created_at", oneDayAgo);
+    // Fetch Transactions
+    const { data: txs } = await supabase.from("transactions").select("*").gte("transaction_date", oneMonthAgoStr);
+    
+    // Fetch Bookings count for today
+    const { data: newRooms } = await supabase.from("bookings").select("id").eq("status", "confirmed").gte("created_at", todayStr + "T00:00:00");
+    const { data: newHalls } = await supabase.from("hall_bookings").select("id").eq("status", "confirmed").gte("created_at", todayStr + "T00:00:00");
+    const todayBookingsCount = (newRooms?.length || 0) + (newHalls?.length || 0);
 
-    // Fetch Expenses
-    const { data: dailyExpenses } = await supabase.from("expenses").select("*").gt("date", oneDayAgo.split('T')[0]);
-    const { data: weeklyExpenses } = await supabase.from("expenses").select("*").gt("date", oneWeekAgo.split('T')[0]);
-    const { data: monthlyExpenses } = await supabase.from("expenses").select("*").gt("date", oneMonthAgo.split('T')[0]);
+    const { data: inquiries } = await supabase.from("inquiries").select("id").gte("created_at", todayStr + "T00:00:00");
 
     // 3. Calculate Financials
-    const prices: Record<string, number> = { standard: 15000, deluxe: 22000, suite: 35000, hall: 500000 };
-    
-    const calculateRevenue = (bookings: any[] | null) => {
-      return bookings?.reduce((acc, b) => acc + (prices[b.room_type?.toLowerCase()] || 0), 0) || 0;
+    const calculateTotals = (transactions: any[] | null, startDate: string) => {
+      const filtered = transactions?.filter(t => t.transaction_date >= startDate) || [];
+      const income = filtered.filter(t => t.type === 'income').reduce((acc, t) => acc + Number(t.amount), 0);
+      const expense = filtered.filter(t => t.type === 'expense').reduce((acc, t) => acc + Number(t.amount), 0);
+      return { income, expense, profit: income - expense };
     };
 
-    const sumExpenses = (expenses: any[] | null) => {
-      return expenses?.reduce((acc, e) => acc + Number(e.amount), 0) || 0;
-    };
-
-    const dailyRev = calculateRevenue(dailyBookings);
-    const weeklyRev = calculateRevenue(weeklyBookings);
-    const monthlyRev = calculateRevenue(monthlyBookings);
-
-    const dailyExp = sumExpenses(dailyExpenses);
-    const weeklyExp = sumExpenses(weeklyExpenses);
-    const monthlyExp = sumExpenses(monthlyExpenses);
+    const daily = calculateTotals(txs, todayStr);
+    const weekly = calculateTotals(txs, oneWeekAgoStr);
+    const monthly = calculateTotals(txs, oneMonthAgoStr);
 
     const formatNaira = (amount: number) => new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(amount);
 
@@ -65,12 +62,12 @@ export async function GET(request: Request) {
         </div>
 
         <div style="background: #F8F4E8; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-          <h2 style="font-size: 18px; border-bottom: 1px solid #C9A84C30; padding-bottom: 10px; margin-top: 0;">Daily Performance (Last 24h)</h2>
+          <h2 style="font-size: 18px; border-bottom: 1px solid #C9A84C30; padding-bottom: 10px; margin-top: 0;">Daily Performance (Today)</h2>
           <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 5px 0;">New Bookings:</td><td style="text-align: right; font-weight: bold;">${dailyBookings?.length || 0}</td></tr>
-            <tr><td style="padding: 5px 0;">Daily Revenue:</td><td style="text-align: right; font-weight: bold; color: #166534;">${formatNaira(dailyRev)}</td></tr>
-            <tr><td style="padding: 5px 0;">Daily Expenses:</td><td style="text-align: right; font-weight: bold; color: #991b1b;">${formatNaira(dailyExp)}</td></tr>
-            <tr style="border-top: 1px solid #C9A84C30;"><td style="padding: 10px 0; font-size: 16px;"><strong>Net Profit:</strong></td><td style="text-align: right; font-size: 16px; font-weight: bold;">${formatNaira(dailyRev - dailyExp)}</td></tr>
+            <tr><td style="padding: 5px 0;">New Bookings (Rooms & Halls):</td><td style="text-align: right; font-weight: bold;">${todayBookingsCount}</td></tr>
+            <tr><td style="padding: 5px 0;">Daily Revenue Collected:</td><td style="text-align: right; font-weight: bold; color: #166534;">${formatNaira(daily.income)}</td></tr>
+            <tr><td style="padding: 5px 0;">Daily Expenses:</td><td style="text-align: right; font-weight: bold; color: #991b1b;">${formatNaira(daily.expense)}</td></tr>
+            <tr style="border-top: 1px solid #C9A84C30;"><td style="padding: 10px 0; font-size: 16px;"><strong>Net Profit:</strong></td><td style="text-align: right; font-size: 16px; font-weight: bold;">${formatNaira(daily.profit)}</td></tr>
           </table>
           <p style="font-size: 12px; color: #666; margin-top: 10px;">New Inquiries: ${inquiries?.length || 0}</p>
         </div>
@@ -78,13 +75,13 @@ export async function GET(request: Request) {
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
           <div style="background: #f4f4f4; padding: 15px; border-radius: 8px;">
             <p style="font-size: 11px; color: #666; text-transform: uppercase; margin: 0;">Weekly Net Profit</p>
-            <p style="font-size: 20px; font-weight: bold; margin: 5px 0; color: #0D1A0D;">${formatNaira(weeklyRev - weeklyExp)}</p>
-            <p style="font-size: 10px; margin: 0; color: #888;">Rev: ${formatNaira(weeklyRev)} | Exp: ${formatNaira(weeklyExp)}</p>
+            <p style="font-size: 20px; font-weight: bold; margin: 5px 0; color: #0D1A0D;">${formatNaira(weekly.profit)}</p>
+            <p style="font-size: 10px; margin: 0; color: #888;">Rev: ${formatNaira(weekly.income)} | Exp: ${formatNaira(weekly.expense)}</p>
           </div>
           <div style="background: #f4f4f4; padding: 15px; border-radius: 8px;">
             <p style="font-size: 11px; color: #666; text-transform: uppercase; margin: 0;">Monthly Net Profit</p>
-            <p style="font-size: 20px; font-weight: bold; margin: 5px 0; color: #0D1A0D;">${formatNaira(monthlyRev - monthlyExp)}</p>
-            <p style="font-size: 10px; margin: 0; color: #888;">Rev: ${formatNaira(monthlyRev)} | Exp: ${formatNaira(monthlyExp)}</p>
+            <p style="font-size: 20px; font-weight: bold; margin: 5px 0; color: #0D1A0D;">${formatNaira(monthly.profit)}</p>
+            <p style="font-size: 10px; margin: 0; color: #888;">Rev: ${formatNaira(monthly.income)} | Exp: ${formatNaira(monthly.expense)}</p>
           </div>
         </div>
 
