@@ -52,7 +52,7 @@ export default function WalkInRoomPage() {
 
   const nights = watchCheckIn && watchCheckOut
     ? calcNights(watchCheckIn, watchCheckOut) : 0;
-  const totalCost = selectedRoom ? selectedRoom.price_per_night * nights : 0;
+  const totalCost = selectedRoom ? selectedRoom.price * nights : 0;
   const balance   = totalCost - (watchPaid || 0);
 
   const [loadingRooms, setLoadingRooms] = useState(true);
@@ -212,26 +212,38 @@ export default function WalkInRoomPage() {
         <div className="p-5 rounded-2xl border border-gold-primary/20 bg-forest/40">
           <label className="block font-cinzel text-[10px] tracking-[0.15em]
                             text-gold-primary uppercase mb-3">Select Room</label>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <select
+            {...register("room_id")}
+            onChange={(e) => {
+              const room = rooms.find((r: any) => r.id === e.target.value);
+              setSelectedRoom(room || null);
+            }}
+            disabled={loadingRooms}
+            className="w-full bg-white/5 border border-gold-primary/20 rounded-xl
+                       px-4 py-3 text-cream text-sm outline-none focus:border-gold-primary/60
+                       transition-colors disabled:opacity-50"
+          >
+            <option value="" style={{ background: "#0D1A0D" }}>
+              {loadingRooms ? "Loading available rooms..." : "— Select a Room —"}
+            </option>
             {rooms.map((room: any) => (
-              <button
-                type="button"
-                key={room.id}
-                onClick={() => setSelectedRoom(room)}
-                className={`p-4 rounded-xl border text-left transition-all
-                  ${watchRoomId === room.id || selectedRoom?.id === room.id
-                    ? "border-gold-primary bg-gold-primary/15"
-                    : "border-cream/10 hover:border-gold-primary/40"}`}
-              >
-                <p className="text-cream font-medium text-sm">{room.name}</p>
-                <p className="text-gold-primary font-bold text-base mt-1">
-                  {formatNaira(room.price_per_night)}<span className="text-cream/40 text-xs">/night</span>
-                </p>
-                <p className="text-cream/50 text-xs mt-1">Max {room.max_guests} guests</p>
-                <input type="radio" value={room.id} {...register("room_id")} className="hidden" />
-              </button>
+              <option key={room.id} value={room.id} style={{ background: "#0D1A0D" }}>
+                {room.name} ({room.type}) — {formatNaira(room.price)}/night — Max {room.max_guests} guests
+              </option>
             ))}
-          </div>
+          </select>
+
+          {/* Show selected room details */}
+          {selectedRoom && (
+            <div className="mt-3 p-3 rounded-xl bg-gold-primary/10 border border-gold-primary/25 flex justify-between items-center">
+              <div>
+                <p className="text-cream font-medium text-sm">{selectedRoom.name}</p>
+                <p className="text-cream/50 text-xs mt-0.5">{selectedRoom.type} · Max {selectedRoom.max_guests} guests</p>
+              </div>
+              <p className="text-gold-primary font-bold text-lg">{formatNaira(selectedRoom.price)}<span className="text-cream/40 text-xs">/night</span></p>
+            </div>
+          )}
+
           {errors.room_id && <p className="text-red-400 text-xs mt-2">{errors.room_id.message}</p>}
         </div>
 
