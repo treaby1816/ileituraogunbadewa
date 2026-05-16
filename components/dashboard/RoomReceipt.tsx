@@ -30,7 +30,7 @@ export const RoomReceipt = forwardRef<HTMLDivElement, { booking: any }>(
           <img src="/images/logo.png" alt="Logo" style={{ height: "45px", marginBottom: "3mm", objectFit: "contain" }} />
           <h1 style={{ fontSize: "16pt", fontWeight: "bold", color: "#1A2B1A",
             margin: 0, letterSpacing: "1px" }}>
-            ILÉ ÌTURAÒGÚNBÁDÉWÀ
+            ILÉ ÌTURA ÒGÚNBÁDÉWÀ
           </h1>
           <p style={{ fontSize: "8pt", color: "#555", margin: "2mm 0 0",
             fontStyle: "italic" }}>
@@ -176,7 +176,7 @@ export const RoomReceipt = forwardRef<HTMLDivElement, { booking: any }>(
         <div style={{ borderTop: "2px solid #C9A84C", paddingTop: "4mm",
           textAlign: "center", marginTop: "5mm" }}>
           <p style={{ fontSize: "7.5pt", color: "#555", marginBottom: "2mm" }}>
-            Thank you for choosing Ilé ÌturaÒgúnbádéwà!
+            Thank you for choosing Ilé Ìtura Ògúnbádéwà!
           </p>
           <p style={{ fontSize: "7pt", color: "#888", fontStyle: "italic", margin: 0 }}>
             "…Embrace Comfort, Enjoy Luxury"
