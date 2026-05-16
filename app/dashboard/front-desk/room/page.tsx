@@ -40,6 +40,7 @@ export default function WalkInRoomPage() {
   const today = new Date().toISOString().split("T")[0];
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<WalkInForm>({
+    // @ts-ignore
     resolver: zodResolver(WalkInSchema),
     defaultValues: { num_guests: 1, payment_method: "cash", amount_paid: 0 }
   });

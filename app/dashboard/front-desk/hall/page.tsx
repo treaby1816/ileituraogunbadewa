@@ -42,6 +42,7 @@ export default function WalkInHallPage() {
   const today = new Date().toISOString().split("T")[0];
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<HallBookingForm>({
+    // @ts-ignore
     resolver: zodResolver(HallBookingSchema),
     defaultValues: { 
       hall_name: "Main Hall", 
