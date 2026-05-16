@@ -108,7 +108,6 @@ export default function WalkInRoomPage() {
           num_guests:     data.num_guests,
           status:         "confirmed",
           payment_status,
-          deposit_paid:   data.amount_paid > 0,
           amount_paid:    data.amount_paid,
           payment_method: data.payment_method,
           booking_source: "walk_in",
