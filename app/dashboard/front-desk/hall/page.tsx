@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 // @ts-ignore
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -80,19 +81,25 @@ export default function WalkInHallPage() {
     const payment_status = data.amount_paid >= data.total_amount ? "fully_paid" : 
                            data.amount_paid > 0 ? "deposit_paid" : "unpaid";
 
-    const { data: result, error } = await supabase
-      .from("hall_bookings")
-      .insert({
-        ...formattedData,
-        payment_status,
-        status: "confirmed",
-      })
-      .select("booking_ref, receipt_number")
-      .single();
+    try {
+      // 1. Create Hall Booking
+      const { data: result, error } = await supabase
+        .from("hall_bookings")
+        .insert({
+          ...formattedData,
+          payment_status,
+          status: "confirmed",
+        })
+        .select("booking_ref, receipt_number")
+        .single();
 
-    if (!error && result) {
-      // Save to receipts archive
-      await supabase.from("receipts").insert({
+      if (error || !result) {
+        toast.error("Failed to create hall booking");
+        throw error;
+      }
+
+      // 2. Create Receipt Record
+      const { error: receiptError } = await supabase.from("receipts").insert({
         receipt_number: result.receipt_number,
         receipt_type:   "hall_booking",
         booking_ref:    result.booking_ref,
@@ -103,9 +110,14 @@ export default function WalkInHallPage() {
         receipt_data:   { ...data, balance_due: balanceDue },
       });
 
-      // Log income in transactions
+      if (receiptError) {
+        toast.error("Booking saved, but receipt record failed. See console.");
+        console.error("Receipt error:", receiptError);
+      }
+
+      // 3. Log Income Transaction
       if (data.amount_paid > 0) {
-        await supabase.from("transactions").insert({
+        const { error: txError } = await supabase.from("transactions").insert({
           type:             "income",
           category:         "hall_booking",
           description:      `Walk-in hall booking — ${result.booking_ref} — ${data.client_name}`,
@@ -114,14 +126,22 @@ export default function WalkInHallPage() {
           recorded_by:      data.booked_by,
           transaction_date: today,
         });
+        
+        if (txError) {
+          toast.error("Booking saved, but failed to log transaction record.");
+          console.error("Transaction error:", txError);
+        }
       }
 
+      toast.success("Hall booking confirmed successfully!");
       setBooking({ ...data, ...result, balance_due: balanceDue });
       setStep("receipt");
-    } else {
-        console.error("Booking failed:", error);
+    } catch (err) {
+      console.error("Critical booking error:", err);
+      toast.error("A critical error occurred while saving the booking.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   // ── RECEIPT SCREEN ──────────────────────────────────────────────────────────

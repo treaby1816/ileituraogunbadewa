@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { toast } from "sonner";
 import { createBrowserClient } from "@/lib/supabase-browser";
 import { formatNaira } from "@/lib/utils";
 import { useReactToPrint } from "react-to-print";
@@ -23,13 +24,21 @@ export default function ReceiptsArchivePage() {
 
   const fetchReceipts = async () => {
     setLoading(true);
-    const { data } = await supabase
-      .from("receipts")
-      .select("*")
-      .order("created_at", { ascending: false });
-    
-    setReceipts(data ?? []);
-    setLoading(false);
+    try {
+      const { data, error } = await supabase
+        .from("receipts")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(500);
+      
+      if (error) throw error;
+      setReceipts(data ?? []);
+    } catch (err: any) {
+      toast.error("Failed to fetch receipts list");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handlePrint = useReactToPrint({
@@ -54,8 +63,16 @@ export default function ReceiptsArchivePage() {
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this receipt record? This action cannot be undone.")) return;
     
-    await supabase.from("receipts").delete().eq("id", id);
-    setReceipts(receipts.filter(r => r.id !== id));
+    try {
+      const { error } = await supabase.from("receipts").delete().eq("id", id);
+      if (error) throw error;
+      
+      setReceipts(receipts.filter(r => r.id !== id));
+      toast.success("Receipt record deleted successfully");
+    } catch (err: any) {
+      toast.error("Failed to delete receipt");
+      console.error(err);
+    }
   };
 
   const exportCSV = () => {

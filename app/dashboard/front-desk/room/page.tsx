@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
+import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 // @ts-ignore
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -53,10 +54,21 @@ export default function WalkInRoomPage() {
   const totalCost = selectedRoom ? selectedRoom.price_per_night * nights : 0;
   const balance   = totalCost - (watchPaid || 0);
 
+  const [loadingRooms, setLoadingRooms] = useState(true);
+
   // Fetch available rooms on mount
   useEffect(() => {
     supabase.from("rooms").select("*").eq("available", true)
-      .then(({ data }: { data: any }) => setRooms(data ?? [] as any));
+      .then(({ data, error }: { data: any, error: any }) => {
+        if (error) {
+          toast.error("Failed to fetch rooms");
+          console.error(error);
+        } else {
+          setRooms(data ?? [] as any);
+        }
+      })
+      .catch((err: any) => toast.error("Error loading rooms"))
+      .finally(() => setLoadingRooms(false));
   }, [supabase]);
 
   const handlePrint = useReactToPrint({
@@ -72,30 +84,46 @@ export default function WalkInRoomPage() {
 
   const onSubmit = async (data: WalkInForm) => {
     setLoading(true);
-    const { data: result, error } = await supabase
-      .from("bookings")
-      .insert({
-        room_id:        data.room_id,
-        guest_name:     data.guest_name,
-        guest_phone:    data.guest_phone,
-        check_in:       data.check_in,
-        check_out:      data.check_out,
-        num_guests:     data.num_guests,
-        status:         "confirmed",
-        payment_status: data.amount_paid >= totalCost ? "fully_paid" : "deposit_paid",
-        deposit_paid:   data.amount_paid > 0,
-        amount_paid:    data.amount_paid,
-        payment_method: data.payment_method,
-        booking_source: "walk_in",
-        booked_by:      data.booked_by,
-        notes:          data.notes,
-      })
-      .select("booking_ref, receipt_number")
-      .single();
+    
+    try {
+      const room = rooms.find((r: any) => r.id === data.room_id);
+      if (!room) {
+        toast.error("Selected room not found");
+        setLoading(false);
+        return;
+      }
 
-    if (!error && result) {
-      // Save to receipts archive
-      await supabase.from("receipts").insert({
+      const payment_status = data.amount_paid >= totalCost ? "fully_paid" : "deposit_paid";
+
+      // 1. Create Booking
+      const { data: result, error } = await supabase
+        .from("bookings")
+        .insert({
+          room_id:        data.room_id,
+          guest_name:     data.guest_name,
+          guest_phone:    data.guest_phone,
+          check_in:       data.check_in,
+          check_out:      data.check_out,
+          num_guests:     data.num_guests,
+          status:         "confirmed",
+          payment_status,
+          deposit_paid:   data.amount_paid > 0,
+          amount_paid:    data.amount_paid,
+          payment_method: data.payment_method,
+          booking_source: "walk_in",
+          booked_by:      data.booked_by,
+          notes:          data.notes,
+        })
+        .select("booking_ref, receipt_number")
+        .single();
+
+      if (error || !result) {
+        toast.error("Failed to create booking");
+        throw error;
+      }
+
+      // 2. Create Receipt
+      const { error: receiptError } = await supabase.from("receipts").insert({
         receipt_number: result.receipt_number,
         receipt_type:   "room_booking",
         booking_ref:    result.booking_ref,
@@ -106,9 +134,14 @@ export default function WalkInRoomPage() {
         receipt_data:   { ...data, totalCost, balance, room: selectedRoom },
       });
 
-      // Log income in transactions
+      if (receiptError) {
+        toast.error("Booking saved, but receipt failed. See logs.");
+        console.error(receiptError);
+      }
+
+      // 3. Log income
       if (data.amount_paid > 0) {
-        await supabase.from("transactions").insert({
+        const { error: txError } = await supabase.from("transactions").insert({
           type:             "income",
           category:         "room_booking",
           description:      `Walk-in room booking — ${result.booking_ref} — ${data.guest_name}`,
@@ -117,12 +150,20 @@ export default function WalkInRoomPage() {
           recorded_by:      data.booked_by,
           transaction_date: today,
         });
+        if (txError) {
+          toast.error("Booking saved, but failed to log transaction.");
+          console.error(txError);
+        }
       }
 
+      toast.success("Room booked successfully!");
       setBooking({ ...data, ...result, totalCost, balance, room: selectedRoom });
       setStep("receipt");
+    } catch (error) {
+      console.error("Booking transaction failed:", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   // ── RECEIPT SCREEN ──────────────────────────────────────────────────────────

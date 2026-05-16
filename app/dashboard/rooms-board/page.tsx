@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { createBrowserClient } from "@/lib/supabase-browser";
+import { toast } from "sonner";
 
 export default function RoomsBoardPage() {
   const [rooms, setRooms] = useState<any[]>([]);
@@ -15,13 +16,20 @@ export default function RoomsBoardPage() {
 
   const fetchRooms = async () => {
     setLoading(true);
-    const { data } = await supabase
-      .from("room_status_today")
-      .select("*")
-      .order("room_name", { ascending: true });
-    
-    setRooms(data ?? []);
-    setLoading(false);
+    try {
+      const { data, error } = await supabase
+        .from("room_status_today")
+        .select("*")
+        .order("room_name", { ascending: true });
+      
+      if (error) throw error;
+      setRooms(data ?? []);
+    } catch (err: any) {
+      toast.error("Failed to refresh room board");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const STATUS_COLORS: Record<string, { bg: string, border: string, text: string, label: string, icon: string }> = {

@@ -6,32 +6,57 @@ import { formatNaira } from "@/lib/utils";
 import { timeAgo } from "@/lib/utils";
 
 export default function FrontDeskPage() {
-  const [roomStatus, setRoomStatus] = useState([]);
-  const [todayBookings, setTodayBookings] = useState({ checkins: [], checkouts: [] });
-  const [shiftLog, setShiftLog] = useState([]);
+  const [roomStatus, setRoomStatus] = useState<any[]>([]);
+  const [todayBookings, setTodayBookings] = useState<{ checkins: any[], checkouts: any[] }>({ checkins: [], checkouts: [] });
+  const [shiftLog, setShiftLog] = useState<any[]>([]);
   const supabase = createBrowserClient();
   const today = new Date().toISOString().split("T")[0];
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    // Fetch room status board
-    supabase.from("room_status_today").select("*")
-      .then(({ data }: { data: any }) => setRoomStatus(data ?? [] as any));
+    let isMounted = true;
 
-    // Today's check-ins
-    supabase.from("bookings").select("*, room:rooms(name,type)")
-      .eq("check_in", today).eq("status", "confirmed")
-      .then(({ data }: { data: any }) => setTodayBookings(prev => ({ ...prev, checkins: data ?? [] as any})));
+    async function fetchDashboardData() {
+      setIsLoading(true);
+      try {
+        const [roomRes, checkinsRes, checkoutsRes, receiptsRes] = await Promise.allSettled([
+          supabase.from("room_status_today").select("*"),
+          supabase.from("bookings").select("*, room:rooms(name,type)").eq("check_in", today).eq("status", "confirmed"),
+          supabase.from("bookings").select("*, room:rooms(name,type)").eq("check_out", today).eq("status", "confirmed"),
+          supabase.from("receipts").select("*").gte("created_at", today + "T00:00:00").order("created_at", { ascending: false })
+        ]);
 
-    // Today's check-outs
-    supabase.from("bookings").select("*, room:rooms(name,type)")
-      .eq("check_out", today).eq("status", "confirmed")
-      .then(({ data }: { data: any }) => setTodayBookings(prev => ({ ...prev, checkouts: data ?? [] as any})));
+        if (!isMounted) return;
 
-    // Today's shift transactions (receipts issued today)
-    supabase.from("receipts").select("*")
-      .gte("created_at", today + "T00:00:00")
-      .order("created_at", { ascending: false })
-      .then(({ data }: { data: any }) => setShiftLog(data ?? [] as any));
+        if (roomRes.status === "fulfilled" && !roomRes.value.error) {
+          setRoomStatus(roomRes.value.data ?? [] as any);
+        } else {
+          console.error("Failed to fetch room status:", roomRes);
+        }
+
+        const newBookingsState = { checkins: [] as any[], checkouts: [] as any[] };
+        if (checkinsRes.status === "fulfilled" && !checkinsRes.value.error) {
+          newBookingsState.checkins = checkinsRes.value.data ?? [];
+        }
+        if (checkoutsRes.status === "fulfilled" && !checkoutsRes.value.error) {
+          newBookingsState.checkouts = checkoutsRes.value.data ?? [];
+        }
+        setTodayBookings(newBookingsState);
+
+        if (receiptsRes.status === "fulfilled" && !receiptsRes.value.error) {
+          setShiftLog(receiptsRes.value.data ?? [] as any);
+        }
+      } catch (err) {
+        console.error("Dashboard fetch error:", err);
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    }
+
+    fetchDashboardData();
+
+    return () => { isMounted = false; };
   }, [today, supabase]);
 
   const STATUS_COLORS: Record<string, { bg: string, border: string, text: string, label: string }> = {
@@ -65,8 +90,15 @@ export default function FrontDeskPage() {
         </div>
       </div>
 
-      {/* Quick Action Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      {isLoading ? (
+        <div className="py-20 flex flex-col items-center justify-center space-y-4">
+          <div className="w-8 h-8 rounded-full border-2 border-gold-primary border-t-transparent animate-spin"></div>
+          <p className="text-cream/60 text-sm animate-pulse font-cinzel">Syncing Front Desk...</p>
+        </div>
+      ) : (
+        <>
+          {/* Quick Action Cards */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {[
           { href: "/dashboard/front-desk/room", icon: "🛏️", label: "Book a Room",      sub: "Walk-in guest",    color: "gold"  },
           { href: "/dashboard/front-desk/hall", icon: "🏛️", label: "Book Event Hall",  sub: "Event client",     color: "blue"  },
@@ -213,6 +245,8 @@ export default function FrontDeskPage() {
           </div>
         </div>
       </div>
+      </>
+      )}
     </div>
   );
 }
