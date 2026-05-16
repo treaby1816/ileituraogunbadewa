@@ -321,7 +321,7 @@ export default function WalkInRoomPage() {
           {nights > 0 && selectedRoom && (
             <div className="mt-4 p-4 rounded-xl bg-gold-primary/10 border border-gold-primary/25">
               <div className="flex justify-between text-sm">
-                <span className="text-cream/60">{formatNaira(selectedRoom.price_per_night)} × {nights} night{nights > 1 ? "s" : ""}</span>
+                <span className="text-cream/60">{formatNaira(selectedRoom.price)} × {nights} night{nights > 1 ? "s" : ""}</span>
                 <span className="text-gold-primary font-bold text-base">{formatNaira(totalCost)}</span>
               </div>
             </div>

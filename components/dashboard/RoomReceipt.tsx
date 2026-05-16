@@ -135,7 +135,7 @@ export const RoomReceipt = forwardRef<HTMLDivElement, { booking: any }>(
           <tbody>
             <tr>
               <td style={{ padding: "1.5mm 0", color: "#555" }}>
-                {formatNaira(booking.room?.price_per_night)} × {nights} night{nights > 1 ? "s" : ""}
+                {formatNaira(booking.room?.price)} × {nights} night{nights > 1 ? "s" : ""}
               </td>
               <td style={{ padding: "1.5mm 0", textAlign: "right", fontWeight: "bold" }}>
                 {formatNaira(booking.totalCost)}
