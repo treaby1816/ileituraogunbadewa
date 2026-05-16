@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createBrowserClient } from "@/lib/supabase-browser";
-import { formatNaira, calcNights } from "@/lib/utils";
+import { formatNaira, calcNights, generateRef } from "@/lib/utils";
 import { RoomReceipt } from "@/components/dashboard/RoomReceipt";
 import { useReactToPrint } from "react-to-print";
 
@@ -95,11 +95,15 @@ export default function WalkInRoomPage() {
       }
 
       const payment_status = data.amount_paid >= totalCost ? "fully_paid" : "deposit_paid";
+      const booking_ref = generateRef();
+      const receipt_number = "RCT-" + Math.random().toString(36).slice(2, 10).toUpperCase();
 
       // 1. Create Booking
       const { data: result, error } = await supabase
         .from("bookings")
         .insert({
+          booking_ref,
+          receipt_number,
           room_id:        data.room_id,
           guest_name:     data.guest_name,
           guest_phone:    data.guest_phone,

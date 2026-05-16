@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createBrowserClient } from "@/lib/supabase-browser";
-import { formatNaira } from "@/lib/utils";
+import { formatNaira, generateRef } from "@/lib/utils";
 import { HallReceipt } from "@/components/dashboard/HallReceipt";
 import { useReactToPrint } from "react-to-print";
 
@@ -82,12 +82,17 @@ export default function WalkInHallPage() {
     const payment_status = data.amount_paid >= data.total_amount ? "fully_paid" : 
                            data.amount_paid > 0 ? "deposit_paid" : "unpaid";
 
+    const booking_ref = generateRef();
+    const receipt_number = "RCT-" + Math.random().toString(36).slice(2, 10).toUpperCase();
+
     try {
       // 1. Create Hall Booking
       const { data: result, error } = await supabase
         .from("hall_bookings")
         .insert({
           ...formattedData,
+          booking_ref,
+          receipt_number,
           payment_status,
           status: "confirmed",
         })
