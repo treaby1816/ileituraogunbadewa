@@ -105,6 +105,7 @@ export default function WalkInRoomPage() {
           booking_ref,
           receipt_number,
           room_id:        data.room_id,
+          room_type:      (room as any).type,
           guest_name:     data.guest_name,
           guest_phone:    data.guest_phone,
           check_in:       data.check_in,
@@ -116,7 +117,7 @@ export default function WalkInRoomPage() {
           payment_method: data.payment_method,
           booking_source: "walk_in",
           booked_by:      data.booked_by,
-          notes:          data.notes,
+          notes:          data.notes || "",
         })
         .select("booking_ref, receipt_number")
         .single();
