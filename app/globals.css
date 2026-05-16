@@ -1,8 +1,7 @@
 @import "tailwindcss";
 
-/* ─── Dynamic CSS Variables ────────────────────────────────────────────────── */
+/* ─── Dark Theme (Default) ─────────────────────────────────────────────────── */
 :root {
-  /* Dark mode defaults */
   --theme-forest: #1A2B1A;
   --theme-forest-dark: #0D1A0D;
   --theme-forest-black: #070E07;
@@ -13,11 +12,21 @@
   --theme-charcoal: #A0A0A0;
 }
 
-
+/* ─── Light Theme ──────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --theme-forest: #FDFBF5;
+  --theme-forest-dark: #F5F0E3;
+  --theme-forest-black: #FFFDF7;
+  --theme-cream: #1A2B1A;
+  --theme-cream-light: #0D1A0D;
+  --theme-cream-muted: #1A2B1A99;
+  --theme-cream-faint: #1A2B1A4D;
+  --theme-charcoal: #5A5A5A;
+}
 
 /* ─── Brand Design Tokens (Tailwind v4 @theme) ─────────────────────────────── */
 @theme inline {
-  /* Static Colors */
+  /* Static Colors — Gold stays consistent across both themes */
   --color-gold-primary: #C9A84C;
   --color-gold-deep: #A07830;
   --color-gold-light: #E8D08A;
@@ -55,7 +64,7 @@ body {
   color: var(--color-cream);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 ::selection {
@@ -63,13 +72,16 @@ body {
   color: var(--color-cream);
 }
 
-/* ─── Scrollbar ─────────────────────────────────────────────────────────────── */
+/* ─── Scrollbar (Dark) ──────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #070E07; }
 ::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.25); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,0.5); }
 
-[data-theme="light"] ::-webkit-scrollbar-track { background: #f0f0f0; }
+/* ─── Scrollbar (Light) ─────────────────────────────────────────────────────── */
+[data-theme="light"] ::-webkit-scrollbar-track { background: #f0ead8; }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(160,120,48,0.25); }
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: rgba(160,120,48,0.5); }
 
 /* ─── Date Input Styling ────────────────────────────────────────────────────── */
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -81,6 +93,32 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 
 [data-theme="light"] input[type="date"]::-webkit-calendar-picker-indicator {
   filter: none;
+}
+
+/* ─── Light theme overrides for semi-transparent backgrounds ────────────────── */
+[data-theme="light"] .bg-white\/5 {
+  background-color: rgba(26, 43, 26, 0.05);
+}
+
+[data-theme="light"] .border-gold-primary\/20 {
+  border-color: rgba(160, 120, 48, 0.25);
+}
+
+[data-theme="light"] .bg-forest-dark\/95 {
+  background-color: rgba(245, 240, 227, 0.97);
+}
+
+[data-theme="light"] .shadow-black\/30 {
+  --tw-shadow-color: rgba(0,0,0,0.08);
+}
+
+/* ─── Smooth transitions for themed elements ────────────────────────────────── */
+header, footer, nav, main, section, aside, div {
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.3s ease;
+}
+
+a, button, p, span, h1, h2, h3, h4, h5, h6, label {
+  transition: color 0.3s ease;
 }
 
 /* ─── Keyframes ─────────────────────────────────────────────────────────────── */

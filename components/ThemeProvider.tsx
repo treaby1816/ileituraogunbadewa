@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 
-type Theme = "dark";
+type Theme = "dark" | "light";
 
 interface ThemeContextType {
   theme: Theme;
@@ -16,12 +16,39 @@ export function useTheme() {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setTheme] = useState<Theme>("dark");
+  const [mounted, setMounted] = useState(false);
+
+  // Load saved preference on mount
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", "dark");
+    const saved = localStorage.getItem("iio-theme") as Theme | null;
+    if (saved === "light" || saved === "dark") {
+      setTheme(saved);
+      document.documentElement.setAttribute("data-theme", saved);
+    } else {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+    setMounted(true);
   }, []);
 
+  const toggleTheme = () => {
+    const next: Theme = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("iio-theme", next);
+  };
+
+  // Prevent flash of wrong theme
+  if (!mounted) {
+    return (
+      <ThemeContext.Provider value={{ theme: "dark", toggleTheme }}>
+        {children}
+      </ThemeContext.Provider>
+    );
+  }
+
   return (
-    <ThemeContext.Provider value={{ theme: "dark", toggleTheme: () => {} }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
