@@ -17,31 +17,31 @@ const OPTIONS = [
     title: "Executive Suites",
     description: "Premium comfort for your stay",
     image: "/images/room-bedroom.jpg",
-    icon: <Bed size={24} className="text-white" />
+    icon: <Bed size={24} />
   },
   {
     title: "Bar & Lounge",
     description: "Curated drinks & warm ambiance",
     image: "/images/hero-4.jpg",
-    icon: <Beer size={24} className="text-white" />
+    icon: <Beer size={24} />
   },
   {
     title: "Event Hall",
     description: "Grand spaces for celebrations",
     image: "/images/hall-1.jpg",
-    icon: <PartyPopper size={24} className="text-white" />
+    icon: <PartyPopper size={24} />
   },
   {
     title: "Serene Grounds",
     description: "Tranquil outdoor environments",
     image: "/images/compound.jpg",
-    icon: <Trees size={24} className="text-white" />
+    icon: <Trees size={24} />
   },
   {
     title: "Recreation Yard",
     description: "Fun & games for everyone",
     image: "/images/recreation.jpg",
-    icon: <Gamepad2 size={24} className="text-white" />
+    icon: <Gamepad2 size={24} />
   }
 ];
 
@@ -91,7 +91,7 @@ export const InteractiveSelector = () => {
   }, []);
 
   return (
-    <div className="relative flex flex-col items-center justify-center bg-forest-black font-sans text-white py-12"> 
+    <div className="relative flex flex-col items-center justify-center bg-forest-black font-sans text-cream py-12"> 
       {/* Header Section */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
@@ -128,7 +128,7 @@ export const InteractiveSelector = () => {
               minWidth: '60px',
               borderWidth: '2px',
               borderStyle: 'solid',
-              borderColor: activeIndex === index ? '#fff' : '#292929',
+              borderColor: activeIndex === index ? 'var(--theme-cream)' : 'var(--theme-cream-faint)',
               cursor: 'pointer',
               boxShadow: activeIndex === index 
                 ? '0 20px 60px rgba(0,0,0,0.50)' 
@@ -152,10 +152,10 @@ export const InteractiveSelector = () => {
             
             {/* Label with icon and info (User snippet style) */}
             <div className="absolute left-0 right-0 bottom-5 flex items-center justify-start h-12 z-10 pointer-events-none px-4 gap-3 w-full">
-              <div className="min-w-[44px] max-w-[44px] h-[44px] flex items-center justify-center rounded-full bg-forest-dark/85 backdrop-blur-md shadow-lg border-2 border-[#444] flex-shrink-0 transition-all duration-200">
-                {React.cloneElement(option.icon as React.ReactElement<any>, { className: "text-white w-6 h-6" })}
+              <div className="min-w-[44px] max-w-[44px] h-[44px] flex items-center justify-center rounded-full bg-forest-dark/85 backdrop-blur-md shadow-lg border-2 border-gold-primary/30 flex-shrink-0 transition-all duration-200">
+                {React.cloneElement(option.icon as React.ReactElement<any>, { className: "text-gold-primary w-6 h-6" })}
               </div>
-              <div className="text-white whitespace-nowrap relative overflow-hidden">
+              <div className="text-cream whitespace-nowrap relative overflow-hidden">
                 <div 
                   className="font-playfair font-bold text-lg transition-all duration-700 ease-in-out"
                   style={{
@@ -166,7 +166,7 @@ export const InteractiveSelector = () => {
                   {option.title}
                 </div>
                 <div 
-                  className="text-base text-gray-300 transition-all duration-700 ease-in-out"
+                  className="text-base text-cream-muted transition-all duration-700 ease-in-out"
                   style={{
                     opacity: activeIndex === index ? 1 : 0,
                     transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)'
