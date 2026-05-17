@@ -10,6 +10,7 @@
   --theme-cream-muted: #F8F4E899;
   --theme-cream-faint: #F8F4E84D;
   --theme-charcoal: #A0A0A0;
+  --theme-gold-primary: #C9A84C;
 }
 
 /* ─── Light Theme — High Contrast, Crisp Text ─────────────────────────────── */
@@ -22,11 +23,19 @@
   --theme-cream-muted: #3A5A3A;
   --theme-cream-faint: #5A7A5A;
   --theme-charcoal: #4A4A4A;
+  --theme-gold-primary: #9E7022; /* Darker, high-contrast gold for light mode text */
+}
+
+/* Ensure uppercase gold text stands out with extra weight in light mode */
+[data-theme="light"] .text-gold-primary.uppercase,
+[data-theme="light"] .text-gold-deep.uppercase {
+  font-weight: 800;
+  letter-spacing: 0.25em;
 }
 
 /* ─── Brand Design Tokens (Tailwind v4 @theme) ─────────────────────────────── */
 @theme inline {
-  --color-gold-primary: #C9A84C;
+  --color-gold-primary: var(--theme-gold-primary);
   --color-gold-deep: #A07830;
   --color-gold-light: #E8D08A;
 

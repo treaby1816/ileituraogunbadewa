@@ -115,7 +115,7 @@ export default function RoomsPage() {
                     className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
                     style={{ backgroundImage: `url(${room.image})` }}
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-forest-dark/90 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent" />
                   <div className="absolute top-4 right-4 bg-forest-dark/80 backdrop-blur-sm border border-gold-primary/25 rounded-xl px-3 py-1.5">
                     <span className="font-playfair text-gold-primary text-lg font-semibold">{formatNaira(room.price)}</span>
                     <span className="text-cream-faint text-[11px]"> /night</span>

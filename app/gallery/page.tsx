@@ -87,7 +87,7 @@ export default function GalleryPage() {
               <div className="absolute inset-0 bg-forest-black/0 group-hover:bg-forest-black/40 transition-colors flex items-center justify-center">
                 <span className="text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity">🔍</span>
               </div>
-              <div className="absolute bottom-0 inset-x-0 p-3 bg-linear-to-t from-forest-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="absolute bottom-0 inset-x-0 p-3 bg-linear-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                 <p className="text-cream text-[12px]">{img.caption}</p>
               </div>
             </motion.div>
