@@ -44,7 +44,7 @@ export function ExpenseList({ initialExpenses }: ExpenseListProps) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-left text-[13px] text-cream-muted">
-        <thead className="bg-white/5 text-gold-primary font-cinzel text-[10px] tracking-widest uppercase">
+        <thead className="bg-white/5 text-gold-primary font-cinzel text-[11px] font-bold tracking-[0.1em] uppercase">
           <tr>
             <th className="px-6 py-4 font-medium">Date</th>
             <th className="px-6 py-4 font-medium">Description</th>

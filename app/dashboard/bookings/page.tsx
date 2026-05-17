@@ -26,7 +26,7 @@ export default async function BookingsPage() {
       <div className="bg-forest-dark border border-gold-primary/10 rounded-2xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-cream-muted">
-            <thead className="bg-white/5 text-gold-primary font-cinzel text-[10px] tracking-widest uppercase">
+            <thead className="bg-white/5 text-gold-primary font-cinzel text-[11px] font-bold tracking-[0.1em] uppercase">
               <tr>
                 <th className="px-6 py-4 font-medium">Ref</th>
                 <th className="px-6 py-4 font-medium">Guest</th>
