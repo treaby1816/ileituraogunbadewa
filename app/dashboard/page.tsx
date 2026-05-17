@@ -1,7 +1,7 @@
 import { createServiceClient } from "@/lib/supabase-server";
 import { RevenueChart } from "@/components/dashboard/RevenueChart";
 import { formatNaira } from "@/lib/utils";
-import { CalendarCheck, DollarSign, MessageSquare } from "lucide-react";
+import { CalendarCheck, Wallet, Receipt, Banknote, MessageSquare } from "lucide-react";
 
 async function getDashboardData() {
   try {
@@ -66,9 +66,9 @@ export default async function DashboardOverview() {
   const { bookings, inquiries, totalBookings, totalInquiries, totalRevenue, totalExpenses, netProfit } = await getDashboardData();
 
   const STATS = [
-    { label: "Total Revenue", value: formatNaira(totalRevenue), icon: DollarSign, color: "text-green-400" },
-    { label: "Total Expenses", value: formatNaira(totalExpenses), icon: DollarSign, color: "text-red-400" },
-    { label: "Net Profit", value: formatNaira(netProfit), icon: DollarSign, color: "text-gold-primary" },
+    { label: "Total Revenue", value: formatNaira(totalRevenue), icon: Wallet, color: "text-green-400" },
+    { label: "Total Expenses", value: formatNaira(totalExpenses), icon: Receipt, color: "text-red-400" },
+    { label: "Net Profit", value: formatNaira(netProfit), icon: Banknote, color: "text-gold-primary" },
     { label: "Total Bookings", value: totalBookings.toString(), icon: CalendarCheck, color: "text-cream" },
   ];
 
