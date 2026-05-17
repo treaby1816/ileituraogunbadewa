@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
+import { useTheme } from "@/components/ThemeProvider";
 import { 
   LayoutDashboard, 
   CalendarCheck, 
@@ -12,6 +13,8 @@ import {
   Menu,
   Receipt,
   ConciergeBell,
+  Sun,
+  Moon
 } from "lucide-react";
 
 const NAV_ITEMS = [
@@ -22,11 +25,14 @@ const NAV_ITEMS = [
   { href: "/dashboard/inquiries", label: "Inquiries", icon: MessageSquare },
 ];
 
-
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => setMounted(true), []);
 
   // If we are on the login page, don't show the dashboard sidebar
   if (pathname === "/dashboard/login") {
@@ -76,6 +82,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </nav>
 
       <div className="p-4 mt-auto space-y-2">
+        {mounted && (
+          <button 
+            onClick={toggleTheme}
+            className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-cream-muted hover:bg-white/5 hover:text-cream transition-colors border border-transparent"
+          >
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            <span className="font-dm-sans text-[14px] font-medium">{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
+          </button>
+        )}
         <Link 
           href="/"
           className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-cream-muted hover:bg-white/5 hover:text-cream transition-colors border border-transparent"
@@ -121,12 +136,22 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </div>
             <span className="font-playfair text-cream text-[15px]">Admin Portal</span>
           </div>
-          <button 
-            onClick={() => setMobileMenuOpen(true)}
-            className="w-10 h-10 flex items-center justify-center text-gold-primary border border-gold-primary/20 rounded-lg hover:bg-gold-primary/10"
-          >
-            <Menu size={20} />
-          </button>
+          <div className="flex items-center gap-2">
+            {mounted && (
+              <button
+                onClick={toggleTheme}
+                className="w-10 h-10 flex items-center justify-center text-gold-primary border border-gold-primary/20 rounded-lg hover:bg-gold-primary/10"
+              >
+                {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+            )}
+            <button 
+              onClick={() => setMobileMenuOpen(true)}
+              className="w-10 h-10 flex items-center justify-center text-gold-primary border border-gold-primary/20 rounded-lg hover:bg-gold-primary/10"
+            >
+              <Menu size={20} />
+            </button>
+          </div>
         </header>
 
         <div className="flex-1 p-4 md:p-8 overflow-y-auto">
