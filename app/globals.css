@@ -28,8 +28,10 @@
 
 /* Ensure all gold text stands out with extra weight in light mode */
 [data-theme="light"] .text-gold-primary,
-[data-theme="light"] .text-gold-deep {
+[data-theme="light"] .text-gold-deep,
+[data-theme="light"] [class*="text-gold-primary/"] {
   font-weight: 700;
+  color: var(--theme-gold-primary) !important;
 }
 
 /* ─── Brand Design Tokens (Tailwind v4 @theme) ─────────────────────────────── */
@@ -106,14 +108,19 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
    ════════════════════════════════════════════════════════════════════════════ */
 
 /* --- Opacity text classes: make them solid in light mode --- */
+[data-theme="light"] .text-cream\/80,
+[data-theme="light"] .text-cream\/60,
+[data-theme="light"] .text-cream\/40,
 [data-theme="light"] [class*="text-cream/"] {
   color: #1A2A1A !important;
 }
 
+[data-theme="light"] .text-cream-muted,
 [data-theme="light"] [class*="text-cream-muted"] {
   color: #253A25 !important;
 }
 
+[data-theme="light"] .text-cream-faint,
 [data-theme="light"] [class*="text-cream-faint"] {
   color: #3A4F3A !important;
 }
