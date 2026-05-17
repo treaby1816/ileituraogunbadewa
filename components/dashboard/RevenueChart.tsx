@@ -46,24 +46,24 @@ export function RevenueChart({ bookings }: { bookings: any[] }) {
               <stop offset="95%" stopColor="#C9A84C" stopOpacity={0}/>
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--theme-cream-faint)" vertical={false} />
           <XAxis 
             dataKey="date" 
-            stroke="#ffffff40" 
+            stroke="var(--theme-charcoal)" 
             fontSize={12} 
             tickLine={false} 
             axisLine={false}
           />
           <YAxis 
-            stroke="#ffffff40" 
+            stroke="var(--theme-charcoal)" 
             fontSize={12} 
             tickLine={false} 
             axisLine={false}
             tickFormatter={(value) => `₦${(value / 1000)}k`}
           />
           <Tooltip 
-            contentStyle={{ backgroundColor: "#0D1A0D", borderColor: "#C9A84C30", borderRadius: "12px", color: "#FDFBF7" }}
-            itemStyle={{ color: "#C9A84C" }}
+            contentStyle={{ backgroundColor: "var(--theme-forest-dark)", borderColor: "var(--theme-gold-primary)", borderRadius: "12px", color: "var(--theme-cream)" }}
+            itemStyle={{ color: "var(--theme-gold-primary)" }}
           />
           <Area 
             type="monotone" 

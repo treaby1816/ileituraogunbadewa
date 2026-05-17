@@ -26,11 +26,10 @@
   --theme-gold-primary: #9E7022; /* Darker, high-contrast gold for light mode text */
 }
 
-/* Ensure uppercase gold text stands out with extra weight in light mode */
-[data-theme="light"] .text-gold-primary.uppercase,
-[data-theme="light"] .text-gold-deep.uppercase {
-  font-weight: 800;
-  letter-spacing: 0.25em;
+/* Ensure all gold text stands out with extra weight in light mode */
+[data-theme="light"] .text-gold-primary,
+[data-theme="light"] .text-gold-deep {
+  font-weight: 700;
 }
 
 /* ─── Brand Design Tokens (Tailwind v4 @theme) ─────────────────────────────── */
@@ -108,15 +107,15 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 
 /* --- Opacity text classes: make them solid in light mode --- */
 [data-theme="light"] [class*="text-cream/"] {
-  color: #2A4A2A !important;
+  color: #1A2A1A !important;
 }
 
 [data-theme="light"] [class*="text-cream-muted"] {
-  color: #3A5A3A !important;
+  color: #253A25 !important;
 }
 
 [data-theme="light"] [class*="text-cream-faint"] {
-  color: #5A7A5A !important;
+  color: #3A4F3A !important;
 }
 
 /* --- Backgrounds: warm ivory tones for cards --- */
