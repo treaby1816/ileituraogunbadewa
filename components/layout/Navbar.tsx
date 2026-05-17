@@ -72,7 +72,7 @@ export function Navbar() {
               <Link
                 key={href}
                 href={href}
-                className={`px-4 py-2 rounded-lg font-cinzel text-[11px] tracking-[0.08em] uppercase transition-all duration-200 ${
+                className={`px-4 py-2 rounded-lg font-cinzel text-[11px] font-bold tracking-[0.08em] uppercase transition-all duration-200 ${
                   pathname === href
                     ? "text-gold-primary bg-gold-primary/10"
                     : "text-cream-muted hover:text-cream hover:bg-white/5"

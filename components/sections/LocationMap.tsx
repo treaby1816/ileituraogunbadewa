@@ -32,7 +32,7 @@ export function LocationMap() {
                 <div className="flex gap-4">
                   <span className="text-gold-primary text-xl mt-0.5">📍</span>
                   <div>
-                    <p className="font-cinzel text-[9px] tracking-[0.12em] text-gold-primary/60 uppercase mb-1">Address</p>
+                    <p className="font-cinzel text-[10px] font-bold tracking-[0.12em] text-gold-primary uppercase mb-1">Address</p>
                     <p className="text-cream-muted leading-relaxed">
                       Saheed Anibaba Street,<br />
                       Off Obafemi Awolowo Way<br />
@@ -44,7 +44,7 @@ export function LocationMap() {
                 <div className="flex gap-4">
                   <span className="text-gold-primary text-xl">📞</span>
                   <div>
-                    <p className="font-cinzel text-[9px] tracking-[0.12em] text-gold-primary/60 uppercase mb-1">Phone</p>
+                    <p className="font-cinzel text-[10px] font-bold tracking-[0.12em] text-gold-primary uppercase mb-1">Phone</p>
                     <a href="tel:08129041015" className="block text-cream-muted hover:text-gold-primary transition-colors">08129041015</a>
                     <a href="tel:08060721283" className="block text-cream-muted hover:text-gold-primary transition-colors">08060721283</a>
                   </div>
@@ -52,7 +52,7 @@ export function LocationMap() {
                 <div className="flex gap-4">
                   <span className="text-xl">💬</span>
                   <div>
-                    <p className="font-cinzel text-[9px] tracking-[0.12em] text-gold-primary/60 uppercase mb-1">WhatsApp</p>
+                    <p className="font-cinzel text-[10px] font-bold tracking-[0.12em] text-gold-primary uppercase mb-1">WhatsApp</p>
                     <a href="https://wa.me/2348129041015" target="_blank" rel="noreferrer" className="text-green-400 hover:text-green-300 transition-colors">
                       +234 812 904 1015
                     </a>

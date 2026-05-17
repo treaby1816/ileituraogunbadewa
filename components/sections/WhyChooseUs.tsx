@@ -40,7 +40,7 @@ export function WhyChooseUs() {
               <div className="w-14 h-14 rounded-sm border border-gold-primary/20 bg-white/5 flex items-center justify-center text-2xl mb-4 group-hover:border-gold-primary/50 group-hover:bg-gold-primary/10 transition-all duration-300">
                 {feature.icon}
               </div>
-              <h3 className="text-cream text-[11px] font-cinzel tracking-widest leading-relaxed whitespace-pre-line">
+              <h3 className="text-cream text-[11px] font-bold font-cinzel tracking-widest leading-relaxed whitespace-pre-line">
                 {feature.title}
               </h3>
             </motion.div>
