@@ -1,7 +1,7 @@
 import { createServiceClient } from "@/lib/supabase-server";
 import { RevenueChart } from "@/components/dashboard/RevenueChart";
 import { formatNaira } from "@/lib/utils";
-import { CalendarCheck, Wallet, Receipt, Banknote, MessageSquare } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 
 async function getDashboardData() {
   try {
@@ -66,10 +66,10 @@ export default async function DashboardOverview() {
   const { bookings, inquiries, totalBookings, totalInquiries, totalRevenue, totalExpenses, netProfit } = await getDashboardData();
 
   const STATS = [
-    { label: "Total Revenue", value: formatNaira(totalRevenue), icon: Wallet, color: "text-green-400" },
-    { label: "Total Expenses", value: formatNaira(totalExpenses), icon: Receipt, color: "text-red-400" },
-    { label: "Net Profit", value: formatNaira(netProfit), icon: Banknote, color: "text-gold-primary" },
-    { label: "Total Bookings", value: totalBookings.toString(), icon: CalendarCheck, color: "text-cream" },
+    { label: "Total Revenue", value: formatNaira(totalRevenue), color: "text-green-400" },
+    { label: "Total Expenses", value: formatNaira(totalExpenses), color: "text-red-400" },
+    { label: "Net Profit", value: formatNaira(netProfit), color: "text-gold-primary" },
+    { label: "Total Bookings", value: totalBookings.toString(), color: "text-cream" },
   ];
 
 
@@ -83,12 +83,8 @@ export default async function DashboardOverview() {
       {/* Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {STATS.map((s, i) => {
-          const Icon = s.icon;
           return (
             <div key={i} className="bg-forest-dark border border-gold-primary/10 rounded-2xl p-6 relative overflow-hidden hover:-translate-y-1 hover:border-gold-primary/25 hover:shadow-[0_16px_40px_rgba(201,168,76,0.08)] transition-all duration-300 group">
-              <div className="absolute -top-4 -right-4 text-gold-primary/5 group-hover:text-gold-primary/10 transition-colors duration-300">
-                <Icon size={120} />
-              </div>
               <div className="relative z-10">
                 <p className="font-cinzel text-[11px] tracking-widest text-gold-primary uppercase mb-2">{s.label}</p>
                 <p className={`font-playfair text-3xl text-cream ${s.color}`}>{s.value}</p>
